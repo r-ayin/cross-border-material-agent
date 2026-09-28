@@ -30,14 +30,14 @@
 
 <table>
 <tr>
-<td align="center" width="33%"><img src="frontend/assets/main_image.png" alt="Main image" width="100%"><br><sub><b>Main image</b> · pure white background · 2048×2048</sub></td>
-<td align="center" width="33%"><img src="frontend/assets/detail_image_1.png" alt="Overall" width="100%"><br><sub><b>Overall</b> · selling points</sub></td>
-<td align="center" width="33%"><img src="frontend/assets/detail_image_2.png" alt="Craft" width="100%"><br><sub><b>Craft</b> · waistband detail</sub></td>
+<td align="center" width="33%"><img src="frontend/assets/run-20260922/main_image.png" alt="Main image" width="100%"><br><sub><b>Main image</b> · pure white background · 2048×2048</sub></td>
+<td align="center" width="33%"><img src="frontend/assets/run-20260922/detail_image_1.png" alt="Styling" width="100%"><br><sub><b>Styling</b> · outfit with accessories</sub></td>
+<td align="center" width="33%"><img src="frontend/assets/run-20260922/detail_image_2.png" alt="Side view" width="100%"><br><sub><b>Side view</b> · waistband pleats</sub></td>
 </tr>
 <tr>
-<td align="center" width="33%"><img src="frontend/assets/detail_image_3.png" alt="Drape" width="100%"><br><sub><b>Drape</b> · fabric texture</sub></td>
-<td align="center" width="33%"><img src="frontend/assets/detail_image_4.png" alt="Lifestyle" width="100%"><br><sub><b>Lifestyle</b> · real-life scene</sub></td>
-<td align="center" width="33%"><img src="frontend/assets/detail_image_5.png" alt="Overview" width="100%"><br><sub><b>Overview</b> · complete, uncropped</sub></td>
+<td align="center" width="33%"><img src="frontend/assets/run-20260922/detail_image_3.png" alt="Drape" width="100%"><br><sub><b>Drape</b> · fabric texture</sub></td>
+<td align="center" width="33%"><img src="frontend/assets/run-20260922/detail_image_4.png" alt="Still life" width="100%"><br><sub><b>Still life</b> · staged display scene</sub></td>
+<td align="center" width="33%"><img src="frontend/assets/run-20260922/detail_image_5.png" alt="Overall" width="100%"><br><sub><b>Overall</b> · complete, uncropped</sub></td>
 </tr>
 </table>
 
@@ -53,7 +53,7 @@ The product video and the character try-on short can be viewed in the [Material 
 |:---:|:---:|---|---|
 | 1–3 | Listings | `product_description_en.md` / `_ko.md` / `_pt.md` | EN / KO / BR-PT · six sections: selling points, specs, size chart, source, and more |
 | 4 | Main image | `main_image.png` | Pure white background · 2048×2048 · complete product |
-| 5–9 | Detail images | `detail_image_1.png` – `detail_image_5.png` | Overall / craft / drape / lifestyle / overview — one job each, no overlap |
+| 5–9 | Detail images | `detail_image_1.png` – `detail_image_5.png` | Styling / side view / drape / still life / overall — one job each, no overlap |
 | 10 | Product video | `product_video.mp4` | Vertical clip under 30 seconds · under 200MB |
 | 11 | Strategy doc | `strategy_document.md` | Selling points, image assignments, video storyboard, placement advice |
 

@@ -30,14 +30,14 @@
 
 <table>
 <tr>
-<td align="center" width="33%"><img src="frontend/assets/main_image.png" alt="商品主图" width="100%"><br><sub><b>商品主图</b> · 纯白底 · 2048×2048</sub></td>
-<td align="center" width="33%"><img src="frontend/assets/detail_image_1.png" alt="整体展示" width="100%"><br><sub><b>整体展示</b> · 卖点呈现</sub></td>
-<td align="center" width="33%"><img src="frontend/assets/detail_image_2.png" alt="工艺展示" width="100%"><br><sub><b>工艺展示</b> · 腰头细节</sub></td>
+<td align="center" width="33%"><img src="frontend/assets/run-20260922/main_image.png" alt="商品主图" width="100%"><br><sub><b>商品主图</b> · 纯白底 · 2048×2048</sub></td>
+<td align="center" width="33%"><img src="frontend/assets/run-20260922/detail_image_1.png" alt="穿搭展示" width="100%"><br><sub><b>穿搭展示</b> · 上装与配饰搭配</sub></td>
+<td align="center" width="33%"><img src="frontend/assets/run-20260922/detail_image_2.png" alt="侧面展示" width="100%"><br><sub><b>侧面展示</b> · 腰头百褶细节</sub></td>
 </tr>
 <tr>
-<td align="center" width="33%"><img src="frontend/assets/detail_image_3.png" alt="垂坠展示" width="100%"><br><sub><b>垂坠展示</b> · 面料质感</sub></td>
-<td align="center" width="33%"><img src="frontend/assets/detail_image_4.png" alt="场景展示" width="100%"><br><sub><b>场景展示</b> · 真实生活场景</sub></td>
-<td align="center" width="33%"><img src="frontend/assets/detail_image_5.png" alt="全貌展示" width="100%"><br><sub><b>全貌展示</b> · 完整不裁切</sub></td>
+<td align="center" width="33%"><img src="frontend/assets/run-20260922/detail_image_3.png" alt="垂坠展示" width="100%"><br><sub><b>垂坠展示</b> · 面料质感</sub></td>
+<td align="center" width="33%"><img src="frontend/assets/run-20260922/detail_image_4.png" alt="静物展示" width="100%"><br><sub><b>静物展示</b> · 展台场景摆拍</sub></td>
+<td align="center" width="33%"><img src="frontend/assets/run-20260922/detail_image_5.png" alt="整体展示" width="100%"><br><sub><b>整体展示</b> · 完整不裁切</sub></td>
 </tr>
 </table>
 
@@ -53,7 +53,7 @@
 |:---:|:---:|---|---|
 | 1–3 | 商品文案 | `product_description_en.md` / `_ko.md` / `_pt.md` | 英 / 韩 / 巴葡 · 卖点、参数、尺码、来源六大板块 |
 | 4 | 商品主图 | `main_image.png` | 纯白底 · 2048×2048 · 商品完整清晰 |
-| 5–9 | 详情图 | `detail_image_1.png` – `detail_image_5.png` | 整体 / 工艺 / 垂坠 / 场景 / 全貌，各司其职不重复 |
+| 5–9 | 详情图 | `detail_image_1.png` – `detail_image_5.png` | 穿搭 / 侧面 / 垂坠 / 静物 / 整体，各司其职不重复 |
 | 10 | 商品视频 | `product_video.mp4` | 30 秒内竖屏成片 · 小于 200MB |
 | 11 | 策略文档 | `strategy_document.md` | 选品卖点、图片分工、视频分镜、投放建议 |
 
