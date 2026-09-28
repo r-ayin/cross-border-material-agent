@@ -7,5 +7,6 @@ TREE=$(git rev-parse 'main^{tree}')
 MSG=$(git log -1 --format=%s main)
 SHA=$(git commit-tree "$TREE" -m "$MSG")
 git update-ref refs/heads/origin-main "$SHA"
-git push --force origin origin-main:main
-echo "origin synced: $SHA (tree == main tree: $(git rev-parse 'main^{tree}' | cut -c1-7))"
+# origin main 被服务端 push rule 禁止历史重写；干净历史走 clean-squashed 分支（增量/强推该分支）
+git push --force origin origin-main:refs/heads/clean-squashed
+echo "origin clean-squashed synced: $SHA (tree == main tree: $(git rev-parse 'main^{tree}' | cut -c1-7))"
