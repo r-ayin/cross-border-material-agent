@@ -1,0 +1,154 @@
+{
+  "audit": "A2-security-boundary",
+  "repo": "/home/ubuntu/coding/cross-border-material-agent",
+  "commit": "20ed2f445736ba00e04c6e142a2d6a1b9e155ede",
+  "commit_time": "2026-09-28 13:07:14 +0800",
+  "auditor_stance": "只读对抗审计（安全与边界合规），未修改仓库任何文件",
+  "audited_at": "2026-09-28T13:12+08:00",
+  "redaction_note": "本文件中所有 OSSAccessKeyId 均以 [AK:aib-2076]/[AK:dashscope-24h] 代号指代（完整值见证据文件对应行号），遵守凭证零明文红线",
+  "summary": {
+    "blocker": 0,
+    "high": 0,
+    "medium": 1,
+    "low": 4,
+    "verdict": "整体凭证/授权/边界纪律良好：无真实 API key 入库、build/ 隔离彻底且 git 历史从未提交状态文件、7 份 execution-release 授权字段全部合规、投递带幂等键+--yes、SOP 网络条款与 AGENTS.md 无冲突、无 >100MB 跟踪文件。主要残留风险=赛事官方数据集自带的 2076 年长效 OSS 签名 URL 随仓库推送 GitHub（medium，属组织方公开分发内容、不含 SecretKey）。"
+  },
+  "findings": [
+    {
+      "id": "A2-F1",
+      "severity": "medium",
+      "dimension": "secret扫描/公网泄露",
+      "title": "跟踪文件含长效 OSS 预签名 URL（Expires≈2076-07-17），随仓库推送 GitHub",
+      "evidence": [
+        "git grep -l 'OSSAccessKeyId' 命中 15 个跟踪文件：data/Task_Data/Data_for_Users(2)/product_info/*.json（11 个）、frontend/assets/product_description_{en,ko,pt}.md、tests/test_runtime_quality.py（后者为脱敏测试夹具，见 A2-P6）",
+        "示例 data/Task_Data/Data_for_Users(2)/product_info/product_3887087154767.json:264 'https://aib-innovation-oss.oss-accelerate.aliyuncs.com/...?Expires=3362177743&OSSAccessKeyId=[AK:aib-2076]&Signature=...'；python3 换算 Expires=3362177743 → 2076-07-17 02:15:43 UTC（近乎永久有效）",
+        "data/Task_Data.zip（跟踪，260,722B）内含 11 个带签名 URL 的 product_info JSON（zipfile 扫描输出 'signed-url jsons in zip: 11'）",
+        "git remote -v：github https://github.com/r-ayin/cross-border-material-agent.git + origin code.alibaba-inc.com:8443/qunbu/...；git log origin/main -1 = 20ed2f4（HEAD 已推送两端）"
+      ],
+      "analysis": "签名 URL 仅含 AccessKeyId+Signature（预签名机制不暴露 SecretKey），且源自赛事组织方公开分发的数据集（docs/task-meta.json:1 DataFileUrl=https://q.alyasset.com/assets/common/file/Task_Data.zip，任何人可下载同一份数据），增量泄露有限；但 2076 年到期意味着仓库任何读权限持有者获得素材近乎永久的下载权，且 [AK:aib-2076] 被 git 历史持久索引。GitHub 仓库若为 public 则等同公开张贴。",
+      "recommendation": "确认 GitHub 仓库可见性；若 public 且组织方数据许可允许，现状可接受（数据本已公开分发），建议在 README/docs 标注「product_info 内含组织方长效签名 URL，属官方数据集原样内容」；继续保持本项目自产 dashscope 签名 URL 不进跟踪文件的纪律（现状合规，见 A2-P1）。"
+    },
+    {
+      "id": "A2-F2",
+      "severity": "low",
+      "dimension": "投递安全/授权纪律",
+      "title": "SOP 将「confirmation_required → 补 --yes」固化为默认处置，授权等同假设未逐次限定",
+      "evidence": [
+        "docs/pipeline-sop.md:36 '| 钉钉发送 confirmation_required | 补 --yes（用户指令即授权） |'",
+        "docs/pipeline-sop.md:26 '4. dws 发送必须 --yes（非交互）+ 幂等键；发后查 send-status 回执。'",
+        "scripts/video_pipeline.py:125 dws chat +messages-send --as user --user <DINGTALK_SELF_USER> ... --idempotency-key {key} --yes（key='pipeline-'+run，收件人硬编码为用户本人）"
+      ],
+      "analysis": "全局纪律要求外发/不可逆操作单独确认；SOP 用「用户指令即授权」概括。缓解因素充分：收件人固定为用户本人、幂等键防重放、每次运行 release 留痕用户授权原文，实际风险低。",
+      "recommendation": "SOP 该条补限定：--yes 仅适用于收件人=用户本人且当次运行已有 user_authorization 留痕的投递；对外部收件人一律回到逐次确认。"
+    },
+    {
+      "id": "A2-F3",
+      "severity": "low",
+      "dimension": "投递安全/文档缺口",
+      "title": "ECS 公网代理 token 门控（/root/pitch-pub-token）机制在仓库与 SOP 中零记载",
+      "evidence": [
+        "grep -rn 'pitch-pub-token|ECS|公网' scripts/ docs/pipeline-sop.md → 仅 scripts/lk888_media.py:5 'ssh -L via ecs-jump -> api.lk888.ai:443'（SSH 跳板描述，非公网代理端点）",
+        "全仓（排除 .git/build）公网 IP URL 扫描：grep -rnIE 'https?://([0-9]{1,3}\\.){3}[0-9]{1,3}' 过滤 127.0.0.1/192.168/localhost 后 0 命中",
+        "scripts/video_pipeline.py cmd_deliver：投递仅三通道 dingtalk(dws)/web(frontend/assets 需另行 commit+push)/mac(/mnt/mac→scp 兜底)，不经 ECS 公网代理"
+      ],
+      "analysis": "本仓库交付链不使用 ECS 公网代理，故不存在 token 门控缺失的违规；仓库内亦无公网 URL/IP 泄露。但若记忆/SOP 所述 /root/pitch-pub-token 机制用于仓库外同源交付（如 pitch-deliveries 公网取件），其门控描述未沉淀进本 SOP，属文档缺口而非安全缺陷。",
+      "recommendation": "如 ECS 公网代理仍在交付链使用，在 SOP 投递节补一行记载 token 门控与「公网 URL 不入库」规则；否则注明已废弃。"
+    },
+    {
+      "id": "A2-F4",
+      "severity": "low",
+      "dimension": "git卫生",
+      "title": "download_bundle.zip 仅按单一路径 ignore，非通配模式",
+      "evidence": [
+        ".gitignore:8 'frontend/assets/run-20260922/download_bundle.zip'（唯一 zip 条目）",
+        "现存两份 bundle 均未跟踪：frontend/assets/run-20260922/download_bundle.zip（68,390,531B，被 :8 覆盖）与 build/lk888-run-20260922/download_bundle.zip（68,390,531B，被 build/ 覆盖）",
+        "git ls-files | grep -i 'zip|bundle' → 仅 data/Task_Data.zip（260,722B）"
+      ],
+      "analysis": "当前无泄露；但未来 run（如 run-20260928）在 frontend/assets/ 下生成 bundle 时不会被自动 ignore，68MB 二进制有误提交风险。",
+      "recommendation": ".gitignore 改为通配 'download_bundle.zip' 或 'frontend/assets/**/download_bundle.zip'。"
+    },
+    {
+      "id": "A2-F5",
+      "severity": "low",
+      "dimension": "git卫生/审计可追溯",
+      "title": "v6key release 引用的研究依据 route-R4-realvideo.md 未提交",
+      "evidence": [
+        "git status --short → '?? research/character-scene-v2-20260928/route-R4-realvideo.md'（未跟踪）",
+        "build/tokenplan-v6key-20260928/execution-release.json scope='v6 keyframe-only comparison run (anti-staged aesthetic per R4)'（引用 R4 为决策依据）",
+        "HEAD 提交 20ed2f4 仅含 docs/pipeline-sop.md、docs/prompt-templates-v5.json、scripts/vendor/generate_once.py、scripts/video_pipeline.py 四个文本文件（git show --stat，424 insertions）"
+      ],
+      "analysis": "审计链要求 release 的 spec/research 依据可追溯；R4 文档留在工作树外，clone 仓库无法复核 v6key 决策依据（同目录 R1~R3 均已跟踪）。另 .claude/persistent-branches.txt（88B）未跟踪，经查无敏感内容。",
+      "recommendation": "补提交 route-R4-realvideo.md，与已跟踪的 route-R1~R3 对齐。"
+    }
+  ],
+  "passes": [
+    {
+      "id": "A2-P1",
+      "dimension": "secret扫描/build隔离",
+      "claim": "build/ 隔离彻底：gitignore 覆盖、零跟踪、git 历史从未提交；execution-release.json 全部无签名 URL；private-task-state.json 的 dashscope 签名 URL 为短时效（~24h）且仅存于被 ignore 的 build/",
+      "evidence": [
+        "git check-ignore -v build/tokenplan-v7video-20260928/execution-release.json → '.gitignore:5:build/'",
+        "git ls-files build/ | wc -l → 0",
+        "git log --all --oneline -- 'build/*' '*private-task-state*' '*execution-release*' → 空输出（历史从未提交）",
+        "grep -l 'OSSAccessKeyId|Signature=' build/*/execution-release.json → 0 命中（7 份 release 文件全部干净）",
+        "grep -c 'OSSAccessKeyId' build/*/private-task-state.json → 7 个 state 文件各 1-2 处（全部在 ignore 区）；示例 build/tokenplan-v7video-20260928/private-task-state.json:25 [AK:dashscope-24h] Expires=1790656628 → 2026-09-29 04:37:08 UTC（短时效，次日过期）"
+      ]
+    },
+    {
+      "id": "A2-P2",
+      "dimension": "secret扫描/凭证字面量",
+      "claim": "全仓无真实凭证字面量：无 sk- 实值、Bearer 仅为代码运行时拼接、密钥源全在仓库外、vendor 目录干净",
+      "evidence": [
+        "git grep -nE 'sk-[A-Za-z0-9]{16,}' → 0 命中（唯一 sk- 字样为 generate_once.py:25 脱敏正则本身）",
+        "README.md:150 'export DASHSCOPE_API_KEY=\"<your-dashscope-key>\"'（占位符，非实值）",
+        "scripts/vendor/generate_once.py:20 ENV_FILE 指向仓库外 /home/ubuntu/coding/跨境比赛项目/session-archive-backup/scripts/ds-test.env；:59 headers={'Authorization': 'Bearer ' + key}（运行时拼接）",
+        "scripts/lk888_media.py:44 KEY_FILE=~/.dsh/credentials/lk888.key（仓库外，env 可覆写）；scripts/run_v110_assets.py 同一 KEY_FILE，文件权限 0600",
+        "scripts/vendor/ 仅 generate_once.py 一个文件，无凭证；防护完备：:24-26 safe() 脱敏 sk- 与 URL query、:45-47 NoRedirect 拒绝重定向保护 Authorization 头、:50-55 write_json 0600 权限"
+      ]
+    },
+    {
+      "id": "A2-P3",
+      "dimension": "授权纪律",
+      "claim": "7/7 份 execution-release.json 授权合规：user_authorization 均含时间戳+用户原话；max_generation_posts 全=2；automatic_resubmission 全=false；automatic_model_fallback/new_music_generation/purchase_or_upgrade_authorized 全=false；image/video_authorized 与授权文本一致",
+      "evidence": [
+        "逐文件 python3 json 摘要（7 个 build/tokenplan-* 目录全查），例：dance '2026-09-25 22:01 用户明确指令：「用token plan生成一次看看，然后把视频发我钉钉」。授权范围=1次图像+1次视频，共2次生成POST'；v7video '2026-09-28 12:53 用户指令：可以，生成一版看看。授权范围=仅1次视频POST（首帧复用已审查v7）'；dance2/v7video image_authorized=false+image_reuse（sha256 复用留痕）；v6key/v7key video_authorized=false",
+        "代码侧强制：generate_once.py:132-133 校验 provider_host+max_generation_posts==2 否则拒绝运行；:138-139 stage 已尝试即拒绝重复 POST；:140-141 posts>=2 硬上限；:143 image_authorized is not True 拒绝；:152-153 video 需 video_authorized==True 且 keyframe_review=='accepted'",
+        "sha 锁一致：video_pipeline.py:11 AUDITED_SHA=631936...b01ed；实测 sha256sum scripts/vendor/generate_once.py 与 build/tokenplan-v7video-20260928/generate_once.py 均等于该值，不匹配即 die 拒跑（video_pipeline.py cmd_init）",
+        "备注（不构成缺陷）：v6key/v7key 授权文本为『仅1次图像POST』而 max_generation_posts=2 为固定模板值，多出 1 次余量被 generate_once.py:138 stage-already-attempted 门禁与 video_authorized=false 双重封死，无实际越权空间"
+      ]
+    },
+    {
+      "id": "A2-P4",
+      "dimension": "投递安全",
+      "claim": "dws 发送带幂等键+--yes；POST 不重放；仓库文件无公网 URL/IP 泄露",
+      "evidence": [
+        "scripts/video_pipeline.py:125 '--idempotency-key pipeline-<run> --yes --format json'；SOP:15 '钉钉幂等键=pipeline-<run>'",
+        "scripts/lk888_media.py:88 'attempts = 1 if data is not None else 4  # never replay a POST; retry idempotent GETs'",
+        "公网 IP 正则扫描（排除 .git/build，过滤 127.0.0.1/192.168/localhost/0.0.0.0）→ 0 命中；frontend/docs/README 全部外部 URL 为组织方官网（qianwenai.com/qwencloud.com/aliyun.com/alicdn.com/alyasset.com）与 help.aliyun.com、shopify.com 文档引用",
+        "frontend/workbench.html:352-361 'token' 仅为 UI 请求序号变量（const token=++state.request），fetch 用 credentials:'omit'，无凭证无远端 API"
+      ]
+    },
+    {
+      "id": "A2-P5",
+      "dimension": "网络兜底纪律一致性",
+      "claim": "SOP 的 cgroup/stale mount/SSL EOF 条款与 AGENTS.md 全局纪律逐条一致，无冲突",
+      "evidence": [
+        "docs/pipeline-sop.md:23 '常驻进程（静态服务/隧道）必须 systemd 或 cron 上下文拉起；agent 工具上下文起的会被 cgroup 收尾杀掉' ≡ AGENTS.md『从 agent 工具上下文启动的常驻进程会被工具调用收尾按 cgroup 杀掉（nohup/setsid 均实测阵亡），必须由 cron 上下文拉起才持久』",
+        "docs/pipeline-sop.md:25 '/mnt/mac stale 时（命令 hang/D 状态）立即改 scp $MAC_SSH_TARGET，不重试挂载操作' ≡ AGENTS.md『/mnt/mac 只走文件、不能执行命令；跑命令走 SSH』；video_pipeline.py cmd_deliver 实现同序：timeout 120 cp /mnt/mac → 失败 ssh mkdir + scp 兜底",
+        "docs/pipeline-sop.md:33 'SSL 握手超时或 EOF → 先分段诊断（curl -w / ip -6 route），确认链路在则续跑一次；不盲重试' + :13 'poll 遇一过性 SSL EOF 允许续跑一次（无新 POST）' ≡ AGENTS.md『超时即诊断』『三振出局』『不盲目升级重试策略』——续跑为幂等 poll/GET、不产生新 POST、限一次，属按错误类别细化的特例，与全局纪律明文兼容",
+        "docs/pipeline-sop.md:37 'GitHub 推送 http.https://github.com/.proxy=socks5h://127.0.0.1:1090 已持久化' ≡ AGENTS.md :1090 SOCKS 动态隧道纪律"
+      ]
+    },
+    {
+      "id": "A2-P6",
+      "dimension": "git卫生",
+      "claim": "无超大二进制入库：无 >100MB 文件；HEAD 提交仅文本；tests 中签名 URL 字样为脱敏防护测试夹具",
+      "evidence": [
+        "find . -path ./.git -prune -o -type f -size +100M -print → 空；最大跟踪文件 frontend/assets/run-20260922/product_video_30s.mp4 = 18,284,913B（<100MB，GitHub 单文件限制内；run-* 下 mp4 共 8 个 13-18MB）",
+        "git show --stat HEAD → 仅 4 个文本文件（+424/-2 行），无二进制",
+        "tests/test_runtime_quality.py:179 夹具 'HTTPS://example.invalid/a?Signature=dummy&OSSAccessKeyId=dummy'（无效域+dummy 值）+ :181/:216-217 assertNotIn 断言脱敏生效——是防护测试而非泄露",
+        ".gitignore 覆盖逐项确认（git check-ignore -v）：__pycache__/（:1）、build/（:5）、*.log（:7）、frontend/assets/run-20260922/download_bundle.zip（:8）全部命中；*.pyc/.DS_Store/__MACOSX 亦在列"
+      ]
+    }
+  ]
+}

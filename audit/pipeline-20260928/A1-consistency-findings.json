@@ -1,0 +1,194 @@
+{
+  "audit": "A1-流程一致性",
+  "repo": "/home/ubuntu/coding/cross-border-material-agent",
+  "git_head": "20ed2f445736ba00e04c6e142a2d6a1b9e155ede (2026-09-28 13:07:14 +0800) feat(pipeline): generalized 15s video pipeline (video_pipeline.py + SOP) + templates v5.1 keyframe prompts",
+  "audited_at": "2026-09-28T13:10+08:00",
+  "scope": [
+    "scripts/video_pipeline.py (155行)",
+    "scripts/vendor/generate_once.py (225行, sha256=6319361572dcdd8ee7eb5ca02a669fc8580716c6ea8f699f496c77aa6e8b01ed)",
+    "docs/pipeline-sop.md (37行)",
+    "docs/prompt-templates-v5.json (121行, version 5.1-product-spec)"
+  ],
+  "executor_model_summary": {
+    "stages": "generate_once.py argparse choices=['image','video','poll','download'] (generate_once.py:124)；--output/--release 必填 (:125-126)",
+    "exit_codes": {
+      "0": "成功（image/video 提交成功、poll 拿到 ready_to_download、download 完成——含'无可下载物'的静默通过）",
+      "1": "任何未捕获异常（main 级 try/except，generate_once.py:221-225）：stage 重提、posts 超限、release 不匹配、门禁未过、poll 无 task_id、SSL/URLError 等",
+      "2": "image/video 提交被拒或结果未知（HTTP>=400 或 status∈{rejected,unknown_outcome}，generate_once.py:182-183）",
+      "3": "poll 失败三态：HTTP>=400 poll_failed(:197-199)、task FAILED/CANCELED/UNKNOWN(:203-205)、18min deadline 到期(:208-209)"
+    },
+    "quota_gates": [
+      "release.provider_host==HOST 且 max_generation_posts==2 否则拒跑（generate_once.py:132-133）",
+      "state[stage] 已存在 → 'stage already attempted; do not resubmit even after failure'（:137-139，image/video 一次性）",
+      "state.posts>=2 → 'generation request ceiling reached'（:140-141，posts 在提交前自增 :162，网络断连也算额度）",
+      "image 门禁：release.image_authorized is True（:143-144）",
+      "video 门禁：video_authorized is True 且 keyframe_review=='accepted'（:152-153），且 image 记录 artifact_url 存在且 status=='downloaded'（:154-156）",
+      "poll 兼容 image/video 双 stage：有 video.task_id 则 poll video 否则 poll image（:185）；deadline 18min、间隔 8s（:190,:207）",
+      "download 前置：仅处理 status=='ready_to_download' 且有 artifact_url 的记录（:213），image→character_keyframe.png(15MB cap)、video→product_video_raw.mp4(200MB cap)（:211）；download 不检查 keyframe_review，image 下载可发生在 approve 前（管线 cmd_image 即如此使用）"
+    ]
+  },
+  "findings": [
+    {
+      "id": "A1-HIGH-01",
+      "severity": "high",
+      "title": "cmd_poll 的 rc==1 '一过性SSL续跑一次'是死代码，SOP 承诺的自动续跑永不发生",
+      "detail": "video_pipeline.py:97-102 中 cmd_poll 先 rc=gen(a,'poll')，再 if rc==1 续跑一次。但 gen()（video_pipeline.py:32）对 returncode∉{0,2,3} 一律 die（PIPELINE_ERROR + sys.exit(2)）。generate_once.py 的 poll 阶段遇 SSL EOF/URLError 属未捕获异常，经 main 级 except 以退出码 1 结束（generate_once.py:221-225），因此 gen() 在 rc==1 时当场 die，cmd_poll 第 99 行的 if rc==1 分支不可达。实际行为：poll 遇一过性 SSL 错误 → 打印 'PIPELINE_ERROR: stage poll rc=1' 直接退出，与 SOP:13 'poll 遇一过性 SSL EOF 允许续跑一次（无新 POST）'及代码注释（video_pipeline.py:99）承诺矛盾。",
+      "evidence": [
+        "video_pipeline.py:32 `if r.returncode not in (0, 2, 3): die(f'stage {stage} rc={r.returncode}')`",
+        "video_pipeline.py:99-101 `if rc == 1:  # 一过性 SSL EOF 已知模式：允许续跑一次（无新 POST）\\n print('poll 中断(已知一过性SSL模式)，续跑一次')\\n rc = gen(a, 'poll')`",
+        "generate_once.py:221-225 `sys.exit(main())` / `except Exception as exc: ... sys.exit(1)`",
+        "docs/pipeline-sop.md:13 'poll 遇一过性 SSL EOF 允许续跑一次（无新 POST）'"
+      ],
+      "mitigation": "poll 阶段无一次性门禁（generate_once.py:137-139 只锁 image/video），操作者可手工重跑 `video_pipeline.py poll --run X` 恢复；但自动续跑承诺失效，且 PIPELINE_ERROR 文案误导为硬失败。",
+      "fix_suggestion": "gen() 放行 rc=1 交由调用方处理，或 cmd_poll 改用 subprocess 直调捕获 rc==1 后重试一次。"
+    },
+    {
+      "id": "A1-MED-01",
+      "severity": "medium",
+      "title": "sha 锁定仅在 init 校验一次，后续各阶段运行的是 run 目录副本且不再复核",
+      "detail": "cmd_init 复制 vendor 到 run 目录后校验 sha（video_pipeline.py:47-49），但 gen()（video_pipeline.py:30）以 `cd {d} && python3 generate_once.py ...` 运行的是 run 目录内副本，image/video/poll/download 任何阶段都不再验证副本 sha。init 之后副本被改动（人为/误操作/其它进程）不会被发现，SOP:9 'generate_once.py sha 必须=631936… 否则拒绝' 实际只覆盖 init 时刻。",
+      "evidence": [
+        "video_pipeline.py:47-49 `shutil.copy(VENDOR, d / 'generate_once.py')` … `if got != AUDITED_SHA: die(...)`",
+        "video_pipeline.py:30 `r = sh(f'cd {d} && python3 generate_once.py {stage} --output . --release execution-release.json', timeout=1500)`（无 sha 复核）",
+        "docs/pipeline-sop.md:9 'generate_once.py sha 必须=631936… 否则拒绝'"
+      ],
+      "fix_suggestion": "gen() 每次执行前对 run 目录副本重算 sha256 并与 AUDITED_SHA 比对。"
+    },
+    {
+      "id": "A1-MED-02",
+      "severity": "medium",
+      "title": "SOP 纪律#4 '发后查 send-status 回执'未在 deliver 实现",
+      "detail": "SOP:26 要求 dws 发送后查 send-status 回执。cmd_deliver 的钉钉分支（video_pipeline.py:123-126）只执行 dws chat +messages-send 并打印 stdout 前 200 字符，没有任何 send-status 查询步骤；--yes 与幂等键（pipeline-<run>，video_pipeline.py:124）已实现，回执核查缺失。",
+      "evidence": [
+        "video_pipeline.py:125-126 `r = sh(f\"cd {d} && dws chat +messages-send ... --idempotency-key {key} --yes --format json\")` / `print('DINGTALK:', r.stdout.strip()[:200])`",
+        "docs/pipeline-sop.md:26 'dws 发送必须 --yes（非交互）+ 幂等键；发后查 send-status 回执'"
+      ],
+      "fix_suggestion": "deliver 后追加 dws send-status 查询并打印回执，或把该步骤明确标注为人工动作。"
+    },
+    {
+      "id": "A1-LOW-01",
+      "severity": "low",
+      "title": "SOP qa 写 '361帧'，脚本阈值为 nb_frames>=360",
+      "detail": "docs/pipeline-sop.md:14 写 'ffprobe 规格（15s/361帧/1080×1920）'；video_pipeline.py:113 实际判定 `int(vs.get('nb_frames',0)) >= 360` 且 `duration >= 15`。15s×24fps=360 帧，SOP 的 361 疑为笔误；两者数字不一致（方向安全：脚本更宽松 1 帧）。",
+      "evidence": [
+        "video_pipeline.py:113 `ok = vs['width'] == 1080 and vs['height'] == 1920 and int(vs.get('nb_frames', 0)) >= 360 and float(m['format']['duration']) >= 15`",
+        "docs/pipeline-sop.md:14 'ffprobe 规格（15s/361帧/1080×1920）'"
+      ],
+      "fix_suggestion": "SOP 改为 '≥360帧' 与脚本对齐。"
+    },
+    {
+      "id": "A1-LOW-02",
+      "severity": "low",
+      "title": "SOP 的 '--template T01..T03' 写法与实际 tier id 不符；错误模板名触发裸 StopIteration traceback",
+      "detail": "实际 tier id 为 'T01-fullbody-groove'/'T02-walk-interactive'/'T03-inplace-fallback'（docs/prompt-templates-v5.json:87,93,99）。SOP:9 写作 '--template T01..T03'，若操作者照抄传 'T01'，video_pipeline.py:37 `next(t for t in tpl['tiers'] if t['id'] == a.template)` 无 default，抛 StopIteration 裸 traceback 而非友好报错。",
+      "evidence": [
+        "video_pipeline.py:37 `tier = next(t for t in tpl['tiers'] if t['id'] == a.template)`",
+        "程序化验证输出：tier ids = 'T01-fullbody-groove','T02-walk-interactive','T03-inplace-fallback'",
+        "docs/pipeline-sop.md:9 'init --template T01..T03 --scene bedroom/cafe/street'"
+      ],
+      "fix_suggestion": "SOP 写全 id 或脚本支持前缀匹配；next() 加 default 并 die 友好提示。"
+    },
+    {
+      "id": "A1-LOW-03",
+      "severity": "low",
+      "title": "cmd_image 在自动 download 后不校验 PNG 是否真实落盘，GATE 提示可能指向不存在的文件",
+      "detail": "generate_once.py download 阶段对无可下载物（status 非 ready_to_download）静默跳过并返回 0（generate_once.py:210-217）；cmd_image（video_pipeline.py:69-76）image 成功后直接 gen download 并打印 'GATE: 目检 .../character_keyframe.png'，未检查文件存在。若 image 响应异常（如返回 task_id 走异步 accepted 路径，generate_once.py:175-176）或下载失败被吞，操作者会对着不存在的文件目检。download 失败 rc=1 时 gen 会 die，此路径有保护；主要风险是 rc=0 静默空下载。",
+      "evidence": [
+        "video_pipeline.py:72-74 `gen(a, 'download')` … `print('GATE: 目检 ' + str(d / 'character_keyframe.png'))`（无 exists 检查）",
+        "generate_once.py:211-216 仅当 `record.get('status')=='ready_to_download'` 才下载，循环结束 return 0"
+      ],
+      "fix_suggestion": "cmd_image 打印 GATE 前断言 (d/'character_keyframe.png').exists()，否则 die 并提示先跑 poll/download。"
+    },
+    {
+      "id": "A1-LOW-04",
+      "severity": "low",
+      "title": "cmd_approve 不校验首帧文件存在与 sha 一致性，keyframe_review_record.sha256 可写入 null",
+      "detail": "cmd_approve（video_pipeline.py:78-89）从 state 的 image.artifact 读 sha256/bytes 写入 release 审查记录，但不验证 character_keyframe.png 在磁盘上存在、也不重算 sha 与记录比对；若 download 未完成，art={} → sha256/bytes 均为 null，仍置 keyframe_review='accepted'。后续 vendor video 门禁只查 state（generate_once.py:154-156），可正常出视频，但 release 审查记录（SOP:12 '目检记录写入 release（sha/时间/结论）'）失去审计价值。",
+      "evidence": [
+        "video_pipeline.py:83-87 `art = (st.get('image') or {}).get('artifact') or {}` … `'sha256': art.get('sha256'), 'bytes': art.get('bytes')`（无 exists/重算校验）",
+        "docs/pipeline-sop.md:12 '目检记录写入 release（sha/时间/结论）'"
+      ],
+      "fix_suggestion": "approve 前校验文件存在且 sha256(file)==art['sha256']，否则拒绝放行。"
+    },
+    {
+      "id": "A1-LOW-05",
+      "severity": "low",
+      "title": "SOP 目检门禁含 '商品保真'，cmd_image 打印的清单缺该项",
+      "detail": "docs/pipeline-sop.md:11 门禁为 '验收七项…+ 鞋入画 + 无相机器材穿帮 + 饰品≤2 + 商品保真'；video_pipeline.py:75 打印 '验收七项…; 另查: 鞋入画/无相机器材穿帮/饰品<=2件'，无 '商品保真'。目检为人工门禁，脚本清单是操作者实际依据，缺项易被漏检。",
+      "evidence": [
+        "video_pipeline.py:75 `print('验收七项: 手机直出感/动作中/背景使用痕迹/普通窗光/偏心或裁切/匀净微光泽肌/保留一个不完美; 另查: 鞋入画/无相机器材穿帮/饰品<=2件')`",
+        "docs/pipeline-sop.md:11 '…+ 鞋入画 + 无相机器材穿帮 + 饰品≤2 + 商品保真；≥6/7 才放行'"
+      ],
+      "fix_suggestion": "两处清单对齐（脚本补 '商品保真' 或 SOP 删去）。"
+    },
+    {
+      "id": "A1-INFO-01",
+      "severity": "low",
+      "title": "'通用化管线'的商品维度实际固定：PRODUCT_FILE 硬编码单一商品",
+      "detail": "generate_once.py:21 将 PRODUCT_FILE 硬编码为 data/Task_Data/Data_for_Users(2)/product_info/product_8822221153828.json，image 阶段恒取该商品 productImage.images 前 2 张作参考图（generate_once.py:145-146，实测该文件存在、images 共 5 张）。video_pipeline.py:2 与 SOP:1 宣称'通用化'，实际仅 template/scene 维度可变，商品不可参数化——跨商品使用需改 vendor 脚本并重新审计 sha。属文档表述与实现边界不一致，非缺陷。",
+      "evidence": [
+        "generate_once.py:21 `PRODUCT_FILE = Path('/home/ubuntu/coding/cross-border-material-agent/data/Task_Data/Data_for_Users(2)/product_info/product_8822221153828.json')`",
+        "generate_once.py:145-146 `product = json.loads(PRODUCT_FILE.read_text())['ret']['result']['result']` / `refs = product['productImage']['images'][:2]`",
+        "命令输出：PRODUCT_FILE exists: True / product images count: 5"
+      ],
+      "fix_suggestion": "SOP 明示'当前锁定商品 8822221153828；换商品需重审 vendor'。"
+    }
+  ],
+  "passed_checks": [
+    {
+      "item": "sha 锁定值三方一致",
+      "evidence": "实测 sha256(scripts/vendor/generate_once.py)=6319361572dcdd8ee7eb5ca02a669fc8580716c6ea8f699f496c77aa6e8b01ed == video_pipeline.py:11 AUDITED_SHA == docs/pipeline-sop.md:9 '631936…' 前缀"
+    },
+    {
+      "item": "init release 字段覆盖 generate_once 全部读取点",
+      "evidence": "provider_host(video_pipeline.py:53↔generate_once.py:132)、max_generation_posts=2(:53↔:132)、image_authorized=True(:54↔:143)、video_authorized=True(:54↔:152)、keyframe_review='pending'→approve置'accepted'(:54,:84↔:152)、keyframe_prompt_en(:63↔:148)、video_prompt_en(:63↔:158) 全部满足；provider_host 字面值 'token-plan.cn-beijing.maas.aliyuncs.com' 与 HOST(generate_once.py:18) 一致"
+    },
+    {
+      "item": "SCENE_CONSISTENCY 替换对三条 tier video_prompt_en 全部真实命中（程序化逐条验证）",
+      "evidence": "验证脚本输出：T01/T02/T03 均 contains bedroom => True 且 count=1，不含 cafe/street 句；scene=street 与 scene=cafe 替换后 changed=True、目标句 in result=True、bedroom 句残留=False；scene=bedroom 时 changed=False（无需替换）。video_pipeline.py:41-42 逻辑与 SOP:19 '把其他场景的一致性句替换为目标场景句' 一致。注：cafe 目标实际不可达（keyframe_prompts.cafe=null → init die，video_pipeline.py:38-39，与 SOP:18 'cafe 未定版会拒绝' 一致）"
+    },
+    {
+      "item": "配额/状态机与 SOP 纪律一致",
+      "evidence": "posts>=2 硬上限(generate_once.py:140-141，SOP:27 'max_generation_posts=2 硬上限')；stage 不重提(:137-139，SOP:10,13 '失败不重提')；keyframe_review=='accepted' 门禁(:152-153，SOP:12 '未 approve 禁止 video'，且 video_pipeline.py:93 有镜像前置检查)；video 需 image status=='downloaded'(:154-156)"
+    },
+    {
+      "item": "gen() 退出码包装与 vendor 语义兼容（除 A1-HIGH-01 外）",
+      "evidence": "vendor 退出码域 {0,1,2,3}；gen 放行 {0,2,3}、rc=1(异常)统一 die(video_pipeline.py:32)；cmd_image/cmd_video 对 rc!=0（含 2=rejected/unknown_outcome）die 不重提(video_pipeline.py:70-71,94-95)，与 SOP:10,13 一致；poll rc=3 三态 die 'poll 失败'(video_pipeline.py:102) 且 poll 可手工重跑（无一次性门禁）"
+    },
+    {
+      "item": "poll 语义兼容：gen timeout 1500s > poll deadline 1080s(18min)+余量",
+      "evidence": "video_pipeline.py:30 timeout=1500；generate_once.py:190 deadline=18*60"
+    },
+    {
+      "item": "download 前置条件与阶段顺序一致",
+      "evidence": "cmd_image 提交成功后立即 gen download（image 为同步调用 asynchronous=False，generate_once.py:167，成功即 ready_to_download :172-174）；video 走 video→poll(置 ready_to_download :200-202)→download，与 SOP:13 'video → poll → download' 一致；download 阶段可重复执行（不占 posts、不受 stage 门禁），支持 SOP:33 失败剧本'续跑'"
+    },
+    {
+      "item": "签名 URL 不进 stdout/提交物（SOP 纪律#2）",
+      "evidence": "generate_once stdout 仅输出 response_summary（message 经 safe() 脱敏，generate_once.py:24-26,114-119,180-181,199,202,205,216），artifact_url 只写入 0600 权限的 private-task-state.json（:50-55 write_json os.open 0o600）；video_pipeline gen 只透传 stdout(:31)"
+    },
+    {
+      "item": "授权留痕与 run 目录唯一",
+      "evidence": "init --authorize 必填(video_pipeline.py:146)并原文写入 release.user_authorization(:52)，SOP:27；run 目录已存在即 die(:44-45)，SOP:9"
+    },
+    {
+      "item": "deliver 三通道与 SOP:15 一致",
+      "evidence": "钉钉幂等键 'pipeline-'+run(video_pipeline.py:124)；web=frontend/assets/run-<日期>(:128)；mac 先 /mnt/mac timeout 120 cp、失败兜底 scp $MAC_SSH_TARGET(:134-141)，与 SOP:15 及 SOP:25 stale 改 scp 纪律一致"
+    },
+    {
+      "item": "qa 抽帧与目检清单（8 项）一致",
+      "evidence": "video_pipeline.py:115-116 抽帧 t∈(2,6,10,14) 输出 qa/f2,f6,f10,f14；:118 打印八项 '三拍齐/裙摆因果链/手指/脚底/脸漂移/裙褶闪烁/背景扭曲/结尾定格' 与 SOP:14 完全对应"
+    },
+    {
+      "item": "外部依赖文件存在性",
+      "evidence": "PRODUCT_FILE 存在（images=5，前2为 https URL）；ENV_FILE /home/ubuntu/coding/跨境比赛项目/session-archive-backup/scripts/ds-test.env 存在（仅验证存在性，未读取内容）"
+    }
+  ],
+  "severity_counts": {
+    "blocker": 0,
+    "high": 1,
+    "medium": 2,
+    "low": 6
+  },
+  "notes": "只读审计，除本 findings 文件外未写入仓库任何文件。A1-INFO-01 归入 low 计数。gen() 以 shell=True 拼接 run 目录路径（video_pipeline.py:30）且 init 未校验 --run 字符集，存在命令注入面——属安全维度，已移交安全审计线，不在本报告重复定级。"
+}

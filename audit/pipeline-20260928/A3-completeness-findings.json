@@ -1,0 +1,160 @@
+{
+  "audit": "A3-completeness",
+  "dimension": "完整性（用户指令覆盖度）",
+  "user_instruction": "v7 很完美，全部替换；流程通用化；子agent对抗审计确保不遗漏",
+  "repo": "/home/ubuntu/coding/cross-border-material-agent",
+  "commit": "20ed2f4 feat(pipeline): generalized 15s video pipeline (video_pipeline.py + SOP) + templates v5.1 keyframe prompts; sync theme-pitch run-20260928 assets",
+  "audited_at": "2026-09-28T13:11+08:00",
+  "auditor": "只读对抗审计子agent（A3 完整性）",
+  "summary": {
+    "blocker": 0,
+    "high": 1,
+    "medium": 2,
+    "low": 3,
+    "pass": 12
+  },
+  "checks": [
+    {
+      "item": "1a 主视频槽指向 v7",
+      "result": "PASS",
+      "evidence": "frontend/workbench.html:317 {id:'video',name:'商品成片·15s主版(T01 v7 精致真实感)',src:'assets/run-20260928/product_video_v7_T01_bedroom.mp4'}"
+    },
+    {
+      "item": "1b 关键帧槽指向 v7",
+      "result": "PASS",
+      "evidence": "workbench.html:317 {id:'keyframe_dance',name:'人物关键帧(首帧规范v7)',src:'assets/run-20260928/character_keyframe_v7_refined.png'}"
+    },
+    {
+      "item": "1c 归档保留旧版(run-20260925 tier1 / 30s)",
+      "result": "PASS",
+      "evidence": "workbench.html:317 video_v5_0925→assets/run-20260925/product_video_dance15_tier1.mp4；video_legacy30→ROOT('assets/run-20260922/'，:314)+product_video_30s.mp4；两文件实测存在（ffprobe 15.16s/1080×1920、30.08s/1080×1080）"
+    },
+    {
+      "item": "1d meta 字符串与真实规格一致",
+      "result": "FAIL",
+      "severity": "medium",
+      "evidence": "workbench.html:346 video_legacy30 显示'30 秒 · 1080 × 1920'，实测 run-20260922/product_video_30s.mp4 为 1080×1080（ffprobe: 1080,1080 30.083333）。v7 主视频'15 秒 · 1080 × 1920'实测 15.16s/1080×1920 一致；keyframe_dance 'PNG · 1080 × 1920'实测(1080,1920)一致；其余图'PNG · 2048 × 2048'实测 main/detail 均 2048×2048 一致",
+      "finding_id": "F1"
+    },
+    {
+      "item": "1e path() 字幕重定向仅限 video_legacy30",
+      "result": "PASS",
+      "evidence": "workbench.html:325 function path(f){return f.kind==='video'&&state.version==='subbed'&&f.id==='video_legacy30'?ROOT+'product_video_30s_subbed.mp4':f.src;}；subbed 文件存在于 run-20260922/"
+    },
+    {
+      "item": "1f stepImage 遍历 img 列表",
+      "result": "PASS",
+      "evidence": "workbench.html:373 stepImage 用 files.filter(f=>f.kind==='img') 环形遍历；:379-380 绑定按钮与键盘"
+    },
+    {
+      "item": "1g theme-pitch 三副本与 frontend 一致",
+      "result": "PASS",
+      "evidence": "diff -q 跨境比赛项目/theme-pitch/{workbench.html,b-liquid-glass.html} vs frontend/workbench.html 均 exit=0；diff -rq theme-pitch/assets/run-20260928 vs frontend/assets/run-20260928 exit=0；workbench-classic.html 副本 diff exit=0。注：theme-pitch 位于 /home/ubuntu/coding/跨境比赛项目/（审计仓库外）"
+    },
+    {
+      "item": "1h 公网直链资产存在",
+      "result": "FAIL",
+      "severity": "high",
+      "evidence": "本地 frontend/assets/run-20260928/ 5 文件齐全且已 git 追踪、已推送（git log github/main..main 为空）；但公网 HTTP 全 404：https://r-ayin.github.io/cross-border-material-agent/{,/frontend/workbench.html,/assets/run-20260928/product_video_v7_T01_bedroom.mp4} 均 404（无 gh-pages 分支迹象），raw.githubusercontent.com/.../main/frontend/workbench.html 亦 404（私有仓库特征）→ 不存在可用公网直链；SOP:16 声称 web 投递=frontend/assets/run-<日期>/ 但未说明公网入口",
+      "finding_id": "F2"
+    },
+    {
+      "item": "2a video_pipeline.py 覆盖全阶段",
+      "result": "PASS",
+      "evidence": "--help 列出 {init,image,video,poll,download,qa,approve,deliver} 8 阶段；cmd_init/cmd_image/cmd_approve/cmd_video/cmd_poll/cmd_download/cmd_qa/cmd_deliver 均定义（scripts/video_pipeline.py:35-141）；init --help 正常（--template/--scene{bedroom,cafe,street}/--authorize/--run），未真跑 init"
+    },
+    {
+      "item": "2b SOP 含阶段表/门禁/失败剧本",
+      "result": "PASS",
+      "evidence": "docs/pipeline-sop.md（37行）：'## 阶段与门禁'表覆盖 init→deliver 8 行+目检门禁行；'## 运维纪律（血泪条款）'6条；'## 失败剧本'表5行（SSL超时/目检不过/QA不符/confirmation_required/GitHub推送）"
+    },
+    {
+      "item": "2c v5 模板含 keyframe_prompts",
+      "result": "PASS",
+      "evidence": "docs/prompt-templates-v5.json keyframe_prompts: bedroom/street 非空（'Casual phone snapshot...'），cafe=null；video_pipeline.py:38-39 init 对 null 场景 die('scene cafe 无已定版首帧 prompt')；SOP:18 注明'cafe 未定版会拒绝'"
+    },
+    {
+      "item": "2d cafe=null 在 JSON 内有说明",
+      "result": "PARTIAL",
+      "severity": "low",
+      "evidence": "JSON 内无任何 note/cafe 说明字段（python 检查 note keys=[]，scene_presets.cafe 亦为 null）；说明仅存在于 SOP:18 与代码拒绝逻辑",
+      "finding_id": "F3"
+    },
+    {
+      "item": "3a v4 模板仍存在且无引用",
+      "result": "FAIL",
+      "severity": "low",
+      "evidence": "docs/prompt-templates-v4.json 存在且 git 追踪；全仓 grep 'prompt-templates-v4' 命中 0（docs/scripts/frontend/README/agent/tools/tests）；文件内无 deprecated/status 标记（version='4.0-product-spec', deprecated=None）→ 孤儿文件，建议加废弃标记或删除",
+      "finding_id": "F4"
+    },
+    {
+      "item": "3b spec 无 v4 文件名/半成品词残留",
+      "result": "PARTIAL",
+      "severity": "low",
+      "evidence": "docs/video-motion-prompt-spec.md 无 'prompt-templates-v4' 文件名引用；:200 残留内容级提及'运动文本继承 v4 不变'；'网感'0命中、'女神'0命中、'裙摆流'0命中；'档位'6命中（:58/:66/:74/:97/:106/:128）但为 spec 自身 T01-T03 档位命名体系，非半成品词",
+      "finding_id": "F5"
+    },
+    {
+      "item": "3c research 目录引用齐全",
+      "result": "PARTIAL",
+      "severity": "medium",
+      "evidence": "spec:3 引用 research/dance-feel-20260925/route-{A,B,C,D}.md——目录存在但实际为 route-A.md/route-B-part1~3.md/route-C.md/route-D.md（route-B.md 不存在，通配写法轻微失真）；spec:203 引用 research/character-scene-v2-20260928/*——4 文件存在，但 route-R4-realvideo.md 未提交（git status ??），远端缺失",
+      "finding_id": "F6"
+    },
+    {
+      "item": "4a workbench.html JS 可解析",
+      "result": "PASS",
+      "evidence": "python 提取 2 个 <script> 块至 /tmp/audit_wb/s{0,1}.js，node --check 均 OK"
+    },
+    {
+      "item": "4b 条目 id 唯一",
+      "result": "PASS",
+      "evidence": "files 数组 id 提取：main_image/detail_image_(1-5模板拼接)/video/copy_(en,ko,pt模板拼接)/strategy/keyframe_dance/video_t2/video_v5_0925/video_legacy30，重复检测结果 dup=[]"
+    }
+  ],
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "medium",
+      "title": "video_legacy30 meta 分辨率标注错误",
+      "detail": "workbench.html:346 标注'30 秒 · 1080 × 1920'，实际 product_video_30s.mp4 为 1080×1080（ffprobe 实证）。属旧归档条目展示信息失真，不影响 v7 主槽。",
+      "fix": "把 video_legacy30 分支的 meta 改为'30 秒 · 1080 × 1080'"
+    },
+    {
+      "id": "F2",
+      "severity": "high",
+      "title": "公网直链不可用（GitHub Pages/raw 全 404）",
+      "detail": "run-20260928 资产已提交并推送 github/main，但 r-ayin.github.io 各路径与 raw.githubusercontent.com 均 404（仓库私有或 Pages 未启用）。若'全部替换'的验收包含公网可访问直链，此项未达成；若仅要求仓库内资产就位，则已达成。",
+      "fix": "确认仓库可见性/Pages 配置，或在 SOP 中明确公网入口的实际形态（如另有部署通道）"
+    },
+    {
+      "id": "F3",
+      "severity": "low",
+      "title": "cafe=null 的解释不在 JSON 内",
+      "detail": "prompt-templates-v5.json 无 note 字段说明 cafe 为何为 null，解释仅在 SOP:18 与 init 拒绝逻辑中。",
+      "fix": "在 keyframe_prompts 旁增加 keyframe_prompts_note 字段"
+    },
+    {
+      "id": "F4",
+      "severity": "low",
+      "title": "prompt-templates-v4.json 孤儿文件未标废弃",
+      "detail": "存在且被 git 追踪，全仓 0 引用，文件内无 deprecated 标记。",
+      "fix": "加 deprecated 标记（如 \"deprecated\": true, \"superseded_by\": \"prompt-templates-v5.json\"）或删除"
+    },
+    {
+      "id": "F5",
+      "severity": "low",
+      "title": "spec 残留内容级 v4 提及",
+      "detail": "video-motion-prompt-spec.md:200 '运动文本继承 v4 不变'——语义上指向已被 v5 取代的 v4 模板内容；无 v4 文件名引用；网感/女神/裙摆流 0 残留。",
+      "fix": "改为'继承 v5 tiers 运动文本不变'或注明 v4 已废弃"
+    },
+    {
+      "id": "F6",
+      "severity": "medium",
+      "title": "research 引用不完整：R4 底稿未提交 + route-B 通配失真",
+      "detail": "git status 显示 research/character-scene-v2-20260928/route-R4-realvideo.md 未追踪（远端缺失，spec:203 引用落空）；spec:3 的 route-{A,B,C,D}.md 写法与实际 route-B-part1~3.md 不符。",
+      "fix": "提交 route-R4-realvideo.md；spec 引用改为实际文件名列表"
+    }
+  ],
+  "verdict": "用户指令三要素覆盖度：①'v7 全部替换'——仓库内替换完整（主槽/关键帧/副本/归档/CLI 全 PASS），仅 legacy30 meta 分辨率失真（F1, medium）与公网直链不可用（F2, high，取决于验收口径）；②'流程通用化'——video_pipeline.py 8 阶段 + SOP 门禁/失败剧本 + v5 keyframe_prompts 全部落地（PASS）；③'不遗漏'——遗留清理有 4 处 low/medium 尾巴（F3-F6）。无 blocker。"
+}

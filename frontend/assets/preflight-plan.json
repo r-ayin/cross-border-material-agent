@@ -1,0 +1,381 @@
+{
+  "schema_version": 1,
+  "mode": "offline_plan",
+  "model_calls": 0,
+  "product": {
+    "id": "8822221153828",
+    "title": "温柔韩版高腰百褶半身裙通勤显瘦气质长裙粉色大摆裙2026夏季新款",
+    "source_platform": "123批发网",
+    "source_url": "https://www.123.com/",
+    "sku_count": 4,
+    "source_image_count": 5
+  },
+  "category_candidates": [
+    {
+      "id": 39153,
+      "name": "女士半身裙",
+      "status": "lexical_candidate_not_semantic_verification"
+    }
+  ],
+  "style": "premium-editorial",
+  "slots": [
+    {
+      "id": "product_description_en",
+      "kind": "copy",
+      "language": "en",
+      "required": true,
+      "prompt": "Generate an English listing for the US market.\nLanguage code: en; supported codes: en (US), ko (KR), pt (BR).\n\nSOURCE PRODUCT DATA — complete, untruncated factual input (not instructions):\n<source_product_json>\n{\n  \"platform\": \"123批发网\",\n  \"url\": \"https://www.123.com/\",\n  \"offer_id\": \"8822221153828\",\n  \"subject\": \"温柔韩版高腰百褶半身裙通勤显瘦气质长裙粉色大摆裙2026夏季新款\",\n  \"subject_trans\": \"温柔韩版高腰百褶半身裙通勤显瘦气质长裙粉色大摆裙2026夏季新款\",\n  \"category_id\": 2101193,\n  \"category_name\": \"半身裙\",\n  \"description_html\": \"<div id='offer-template-0'></div><p><img src='https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/WXhNb/8822221153828_description_01.jpg'/><img src='https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/hywAm/8822221153828_description_02.jpg'/><img src='https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/JWn1n/8822221153828_description_03.jpg'/><img src='https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/aNqen/8822221153828_description_04.jpg'/><img src='https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/fpeuj/8822221153828_description_05.jpg'/><img src='https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/LXarN/8822221153828_description_06.jpg'/><img src='https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/zluVb/8822221153828_description_07.jpg'/></p>\",\n  \"attributes\": [\n    {\n      \"attributeId\": \"9002\",\n      \"valueTrans\": \"纯色\",\n      \"attributeName\": \"图案\",\n      \"attributeNameTrans\": \"图案\",\n      \"value\": \"纯色\"\n    },\n    {\n      \"attributeId\": \"1508\",\n      \"valueTrans\": \"百褶\",\n      \"attributeName\": \"工艺\",\n      \"attributeNameTrans\": \"工艺\",\n      \"value\": \"百褶\"\n    },\n    {\n      \"attributeId\": \"100120351\",\n      \"valueTrans\": \"涤纶（聚酯纤维）\",\n      \"attributeName\": \"面料名称\",\n      \"attributeNameTrans\": \"面料名称\",\n      \"value\": \"涤纶（聚酯纤维）\"\n    },\n    {\n      \"attributeId\": \"714518418\",\n      \"valueTrans\": \"其他/other\",\n      \"attributeName\": \"主面料成分2\",\n      \"attributeNameTrans\": \"主面料成分2\",\n      \"value\": \"其他/other\"\n    },\n    {\n      \"attributeId\": \"26606\",\n      \"valueTrans\": \"2026年夏季\",\n      \"attributeName\": \"上市年份/季节\",\n      \"attributeNameTrans\": \"上市年份/季节\",\n      \"value\": \"2026年夏季\"\n    },\n    {\n      \"attributeId\": \"9813\",\n      \"valueTrans\": \"BM146-2633#\",\n      \"attributeName\": \"货号\",\n      \"attributeNameTrans\": \"货号\",\n      \"value\": \"BM146-2633#\"\n    },\n    {\n      \"attributeId\": \"6721\",\n      \"valueTrans\": \"无\",\n      \"attributeName\": \"品牌\",\n      \"attributeNameTrans\": \"品牌\",\n      \"value\": \"无\"\n    },\n    {\n      \"attributeId\": \"13324\",\n      \"valueTrans\": \"百褶裙\",\n      \"attributeName\": \"裙型\",\n      \"attributeNameTrans\": \"裙型\",\n      \"value\": \"百褶裙\"\n    },\n    {\n      \"attributeId\": \"20608\",\n      \"valueTrans\": \"长裙\",\n      \"attributeName\": \"裙长\",\n      \"attributeNameTrans\": \"裙长\",\n      \"value\": \"长裙\"\n    },\n    {\n      \"attributeId\": \"8146\",\n      \"valueTrans\": \"百褶\",\n      \"attributeName\": \"流行元素\",\n      \"attributeNameTrans\": \"流行元素\",\n      \"value\": \"百褶\"\n    },\n    {\n      \"attributeId\": \"6312\",\n      \"valueTrans\": \"粉色半身裙\",\n      \"attributeName\": \"颜色\",\n      \"attributeNameTrans\": \"颜色\",\n      \"value\": \"粉色半身裙\"\n    },\n    {\n      \"attributeId\": \"540\",\n      \"valueTrans\": \"S\",\n      \"attributeName\": \"尺码\",\n      \"attributeNameTrans\": \"尺码\",\n      \"value\": \"S\"\n    },\n    {\n      \"attributeId\": \"540\",\n      \"valueTrans\": \"M\",\n      \"attributeName\": \"尺码\",\n      \"attributeNameTrans\": \"尺码\",\n      \"value\": \"M\"\n    },\n    {\n      \"attributeId\": \"540\",\n      \"valueTrans\": \"L\",\n      \"attributeName\": \"尺码\",\n      \"attributeNameTrans\": \"尺码\",\n      \"value\": \"L\"\n    },\n    {\n      \"attributeId\": \"540\",\n      \"valueTrans\": \"XL\",\n      \"attributeName\": \"尺码\",\n      \"attributeNameTrans\": \"尺码\",\n      \"value\": \"XL\"\n    },\n    {\n      \"attributeId\": \"2438986\",\n      \"valueTrans\": \"日韩休闲\",\n      \"attributeName\": \"风格类型\",\n      \"attributeNameTrans\": \"风格类型\",\n      \"value\": \"日韩休闲\"\n    },\n    {\n      \"attributeId\": \"410\",\n      \"valueTrans\": \"休闲风\",\n      \"attributeName\": \"风格\",\n      \"attributeNameTrans\": \"风格\",\n      \"value\": \"休闲风\"\n    },\n    {\n      \"attributeId\": \"6971\",\n      \"valueTrans\": \"半身裙\",\n      \"attributeName\": \"裙类别\",\n      \"attributeNameTrans\": \"裙类别\",\n      \"value\": \"半身裙\"\n    },\n    {\n      \"attributeId\": \"60911336\",\n      \"valueTrans\": \"休闲\",\n      \"attributeName\": \"适用场景\",\n      \"attributeNameTrans\": \"适用场景\",\n      \"value\": \"休闲\"\n    },\n    {\n      \"attributeId\": \"24528736\",\n      \"valueTrans\": \"无弹\",\n      \"attributeName\": \"弹力\",\n      \"attributeNameTrans\": \"弹力\",\n      \"value\": \"无弹\"\n    },\n    {\n      \"attributeId\": \"192572361\",\n      \"valueTrans\": \"否\",\n      \"attributeName\": \"是否跨境货源\",\n      \"attributeNameTrans\": \"是否跨境货源\",\n      \"value\": \"否\"\n    },\n    {\n      \"attributeId\": \"257816201\",\n      \"valueTrans\": \"有领标\",\n      \"attributeName\": \"领标\",\n      \"attributeNameTrans\": \"领标\",\n      \"value\": \"有领标\"\n    },\n    {\n      \"attributeId\": \"120506003\",\n      \"valueTrans\": \"源头工厂\",\n      \"attributeName\": \"货源类型\",\n      \"attributeNameTrans\": \"货源类型\",\n      \"value\": \"源头工厂\"\n    },\n    {\n      \"attributeId\": \"913680006\",\n      \"valueTrans\": \"有吊牌\",\n      \"attributeName\": \"吊牌\",\n      \"attributeNameTrans\": \"吊牌\",\n      \"value\": \"有吊牌\"\n    },\n    {\n      \"attributeId\": \"110356247\",\n      \"valueTrans\": \"30%（含）-50%（不含）\",\n      \"attributeName\": \"主面料成分2含量\",\n      \"attributeNameTrans\": \"主面料成分2含量\",\n      \"value\": \"30%（含）-50%（不含）\"\n    },\n    {\n      \"attributeId\": \"1107\",\n      \"valueTrans\": \"青年\",\n      \"attributeName\": \"适用人群\",\n      \"attributeNameTrans\": \"适用人群\",\n      \"value\": \"青年\"\n    },\n    {\n      \"attributeId\": \"870192741\",\n      \"valueTrans\": \"苹果型\",\n      \"attributeName\": \"适用体型\",\n      \"attributeNameTrans\": \"适用体型\",\n      \"value\": \"苹果型\"\n    }\n  ],\n  \"images\": [\n    \"https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/ZBe2y/8822221153828_productImage_01.jpg\",\n    \"https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/MqV5b/8822221153828_productImage_02.jpg\",\n    \"https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/YuocW/8822221153828_productImage_03.jpg\",\n    \"https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/KW2Fs/8822221153828_productImage_04.jpg\",\n    \"https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/Oc1Pk/8822221153828_productImage_05.jpg\"\n  ],\n  \"skus\": [\n    {\n      \"skuId\": 9028664459290,\n      \"specId\": \"f476be3ec9586f18fd6d443420f3d22a\",\n      \"skuAttributes\": [\n        {\n          \"attributeId\": \"6312\",\n          \"skuImageUrl\": \"https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/jbsby/8822221153828_sku_sku001_%E7%B2%89%E8%89%B2%E5%8D%8A%E8%BA%AB%E8%A3%99.jpg\",\n          \"valueTrans\": \"粉色半身裙\",\n          \"attributeName\": \"颜色\",\n          \"attributeNameTrans\": \"颜色\",\n          \"value\": \"粉色半身裙\"\n        },\n        {\n          \"attributeId\": \"540\",\n          \"valueTrans\": \"S\",\n          \"attributeName\": \"尺码\",\n          \"attributeNameTrans\": \"尺码\",\n          \"value\": \"S\"\n        }\n      ],\n      \"amountOnSale\": 98\n    },\n    {\n      \"skuId\": 1339986150992,\n      \"specId\": \"0687552241a04838c266301ecd9b4e83\",\n      \"skuAttributes\": [\n        {\n          \"attributeId\": \"6312\",\n          \"skuImageUrl\": \"https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/KnnRl/8822221153828_sku_sku002_%E7%B2%89%E8%89%B2%E5%8D%8A%E8%BA%AB%E8%A3%99.jpg\",\n          \"valueTrans\": \"粉色半身裙\",\n          \"attributeName\": \"颜色\",\n          \"attributeNameTrans\": \"颜色\",\n          \"value\": \"粉色半身裙\"\n        },\n        {\n          \"attributeId\": \"540\",\n          \"valueTrans\": \"M\",\n          \"attributeName\": \"尺码\",\n          \"attributeNameTrans\": \"尺码\",\n          \"value\": \"M\"\n        }\n      ],\n      \"amountOnSale\": 99\n    },\n    {\n      \"skuId\": 5568020389660,\n      \"specId\": \"4c721beabc336a03ff35548b3c72252f\",\n      \"skuAttributes\": [\n        {\n          \"attributeId\": \"6312\",\n          \"skuImageUrl\": \"https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/a4lZ0/8822221153828_sku_sku003_%E7%B2%89%E8%89%B2%E5%8D%8A%E8%BA%AB%E8%A3%99.jpg\",\n          \"valueTrans\": \"粉色半身裙\",\n          \"attributeName\": \"颜色\",\n          \"attributeNameTrans\": \"颜色\",\n          \"value\": \"粉色半身裙\"\n        },\n        {\n          \"attributeId\": \"540\",\n          \"valueTrans\": \"L\",\n          \"attributeName\": \"尺码\",\n          \"attributeNameTrans\": \"尺码\",\n          \"value\": \"L\"\n        }\n      ],\n      \"amountOnSale\": 100\n    },\n    {\n      \"skuId\": 4217159770196,\n      \"specId\": \"d6b42617d889938357b37b27a68dbeba\",\n      \"skuAttributes\": [\n        {\n          \"attributeId\": \"6312\",\n          \"skuImageUrl\": \"https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/XmPlN/8822221153828_sku_sku004_%E7%B2%89%E8%89%B2%E5%8D%8A%E8%BA%AB%E8%A3%99.jpg\",\n          \"valueTrans\": \"粉色半身裙\",\n          \"attributeName\": \"颜色\",\n          \"attributeNameTrans\": \"颜色\",\n          \"value\": \"粉色半身裙\"\n        },\n        {\n          \"attributeId\": \"540\",\n          \"valueTrans\": \"XL\",\n          \"attributeName\": \"尺码\",\n          \"attributeNameTrans\": \"尺码\",\n          \"value\": \"XL\"\n        }\n      ],\n      \"amountOnSale\": 100\n    }\n  ],\n  \"min_order_quantity\": 1,\n  \"sale_info\": {\n    \"amountOnSale\": 397,\n    \"unitInfo\": {\n      \"unit\": \"件\",\n      \"transUnit\": \"件\"\n    }\n  },\n  \"trade_score\": \"5.0\",\n  \"description_images\": [\n    \"https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/WXhNb/8822221153828_description_01.jpg\",\n    \"https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/hywAm/8822221153828_description_02.jpg\",\n    \"https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/JWn1n/8822221153828_description_03.jpg\",\n    \"https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/aNqen/8822221153828_description_04.jpg\",\n    \"https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/fpeuj/8822221153828_description_05.jpg\",\n    \"https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/LXarN/8822221153828_description_06.jpg\",\n    \"https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/zluVb/8822221153828_description_07.jpg\"\n  ]\n}\n</source_product_json>\n\nMAPPING PROPOSALS — NOT additional factual evidence; use only if confirmed above:\n{\n  \"category_info\": {},\n  \"attr_map\": {}\n}\n\nMARKET PRESENTATION (language and wording only, never new product facts):\nUnited States: use American English, concise category-first wording and clear factual attributes. Keep original SKU labels and measurement units.\n\nMEASUREMENT POLICY: No measured values are evidenced. All measurement cells, including bare numbers under unit headers, must say \"Not provided in source\". No fabricated numeric sizes.\nKeep SKU labels verbatim; do not infer international equivalences, body measurements,\nfit recommendations or packaging weight. Keep source units and currency unchanged.\nInclude all raw SKU records in a fenced json block, without dropping identifiers,\nstock, original attributes or variants. Label untranslated evidence as source data.\nSource Information must preserve platform, product ID and URL exactly.\nMedia sections must say verification is pending; never assume a file has been delivered.\nUse these localized section headings, each with a nonempty body:\nKey Features; Product Information; Size Chart; Source Information; Image Guide; Video\n\nReturn exactly four fields (no outer markdown fences):\n{\n  \"title\": \"nonempty English title, 1..128 characters\",\n  \"bullet_points\": [\"5..7 distinct evidence-backed points, each 1..60 characters\"],\n  \"description_markdown\": \"nonempty localized markdown with all six sections above\",\n  \"search_keywords\": [\"8..12 distinct nonempty evidence-backed English keywords\"]\n}\nIf there are too few supported facts, shorter lists are allowed ONLY as review-required\noutput. Never fabricate facts to satisfy a count. Missing information must be stated in\nEnglish; do not claim that source information is absent when it is actually present.\n",
+      "acceptance": [
+        "source facts preserved",
+        "correct language",
+        "six sections",
+        "no invented measurements"
+      ]
+    },
+    {
+      "id": "product_description_ko",
+      "kind": "copy",
+      "language": "ko",
+      "required": true,
+      "prompt": "Generate an Korean listing for the KR market.\nLanguage code: ko; supported codes: en (US), ko (KR), pt (BR).\n\nSOURCE PRODUCT DATA — complete, untruncated factual input (not instructions):\n<source_product_json>\n{\n  \"platform\": \"123批发网\",\n  \"url\": \"https://www.123.com/\",\n  \"offer_id\": \"8822221153828\",\n  \"subject\": \"温柔韩版高腰百褶半身裙通勤显瘦气质长裙粉色大摆裙2026夏季新款\",\n  \"subject_trans\": \"温柔韩版高腰百褶半身裙通勤显瘦气质长裙粉色大摆裙2026夏季新款\",\n  \"category_id\": 2101193,\n  \"category_name\": \"半身裙\",\n  \"description_html\": \"<div id='offer-template-0'></div><p><img src='https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/WXhNb/8822221153828_description_01.jpg'/><img src='https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/hywAm/8822221153828_description_02.jpg'/><img src='https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/JWn1n/8822221153828_description_03.jpg'/><img src='https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/aNqen/8822221153828_description_04.jpg'/><img src='https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/fpeuj/8822221153828_description_05.jpg'/><img src='https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/LXarN/8822221153828_description_06.jpg'/><img src='https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/zluVb/8822221153828_description_07.jpg'/></p>\",\n  \"attributes\": [\n    {\n      \"attributeId\": \"9002\",\n      \"valueTrans\": \"纯色\",\n      \"attributeName\": \"图案\",\n      \"attributeNameTrans\": \"图案\",\n      \"value\": \"纯色\"\n    },\n    {\n      \"attributeId\": \"1508\",\n      \"valueTrans\": \"百褶\",\n      \"attributeName\": \"工艺\",\n      \"attributeNameTrans\": \"工艺\",\n      \"value\": \"百褶\"\n    },\n    {\n      \"attributeId\": \"100120351\",\n      \"valueTrans\": \"涤纶（聚酯纤维）\",\n      \"attributeName\": \"面料名称\",\n      \"attributeNameTrans\": \"面料名称\",\n      \"value\": \"涤纶（聚酯纤维）\"\n    },\n    {\n      \"attributeId\": \"714518418\",\n      \"valueTrans\": \"其他/other\",\n      \"attributeName\": \"主面料成分2\",\n      \"attributeNameTrans\": \"主面料成分2\",\n      \"value\": \"其他/other\"\n    },\n    {\n      \"attributeId\": \"26606\",\n      \"valueTrans\": \"2026年夏季\",\n      \"attributeName\": \"上市年份/季节\",\n      \"attributeNameTrans\": \"上市年份/季节\",\n      \"value\": \"2026年夏季\"\n    },\n    {\n      \"attributeId\": \"9813\",\n      \"valueTrans\": \"BM146-2633#\",\n      \"attributeName\": \"货号\",\n      \"attributeNameTrans\": \"货号\",\n      \"value\": \"BM146-2633#\"\n    },\n    {\n      \"attributeId\": \"6721\",\n      \"valueTrans\": \"无\",\n      \"attributeName\": \"品牌\",\n      \"attributeNameTrans\": \"品牌\",\n      \"value\": \"无\"\n    },\n    {\n      \"attributeId\": \"13324\",\n      \"valueTrans\": \"百褶裙\",\n      \"attributeName\": \"裙型\",\n      \"attributeNameTrans\": \"裙型\",\n      \"value\": \"百褶裙\"\n    },\n    {\n      \"attributeId\": \"20608\",\n      \"valueTrans\": \"长裙\",\n      \"attributeName\": \"裙长\",\n      \"attributeNameTrans\": \"裙长\",\n      \"value\": \"长裙\"\n    },\n    {\n      \"attributeId\": \"8146\",\n      \"valueTrans\": \"百褶\",\n      \"attributeName\": \"流行元素\",\n      \"attributeNameTrans\": \"流行元素\",\n      \"value\": \"百褶\"\n    },\n    {\n      \"attributeId\": \"6312\",\n      \"valueTrans\": \"粉色半身裙\",\n      \"attributeName\": \"颜色\",\n      \"attributeNameTrans\": \"颜色\",\n      \"value\": \"粉色半身裙\"\n    },\n    {\n      \"attributeId\": \"540\",\n      \"valueTrans\": \"S\",\n      \"attributeName\": \"尺码\",\n      \"attributeNameTrans\": \"尺码\",\n      \"value\": \"S\"\n    },\n    {\n      \"attributeId\": \"540\",\n      \"valueTrans\": \"M\",\n      \"attributeName\": \"尺码\",\n      \"attributeNameTrans\": \"尺码\",\n      \"value\": \"M\"\n    },\n    {\n      \"attributeId\": \"540\",\n      \"valueTrans\": \"L\",\n      \"attributeName\": \"尺码\",\n      \"attributeNameTrans\": \"尺码\",\n      \"value\": \"L\"\n    },\n    {\n      \"attributeId\": \"540\",\n      \"valueTrans\": \"XL\",\n      \"attributeName\": \"尺码\",\n      \"attributeNameTrans\": \"尺码\",\n      \"value\": \"XL\"\n    },\n    {\n      \"attributeId\": \"2438986\",\n      \"valueTrans\": \"日韩休闲\",\n      \"attributeName\": \"风格类型\",\n      \"attributeNameTrans\": \"风格类型\",\n      \"value\": \"日韩休闲\"\n    },\n    {\n      \"attributeId\": \"410\",\n      \"valueTrans\": \"休闲风\",\n      \"attributeName\": \"风格\",\n      \"attributeNameTrans\": \"风格\",\n      \"value\": \"休闲风\"\n    },\n    {\n      \"attributeId\": \"6971\",\n      \"valueTrans\": \"半身裙\",\n      \"attributeName\": \"裙类别\",\n      \"attributeNameTrans\": \"裙类别\",\n      \"value\": \"半身裙\"\n    },\n    {\n      \"attributeId\": \"60911336\",\n      \"valueTrans\": \"休闲\",\n      \"attributeName\": \"适用场景\",\n      \"attributeNameTrans\": \"适用场景\",\n      \"value\": \"休闲\"\n    },\n    {\n      \"attributeId\": \"24528736\",\n      \"valueTrans\": \"无弹\",\n      \"attributeName\": \"弹力\",\n      \"attributeNameTrans\": \"弹力\",\n      \"value\": \"无弹\"\n    },\n    {\n      \"attributeId\": \"192572361\",\n      \"valueTrans\": \"否\",\n      \"attributeName\": \"是否跨境货源\",\n      \"attributeNameTrans\": \"是否跨境货源\",\n      \"value\": \"否\"\n    },\n    {\n      \"attributeId\": \"257816201\",\n      \"valueTrans\": \"有领标\",\n      \"attributeName\": \"领标\",\n      \"attributeNameTrans\": \"领标\",\n      \"value\": \"有领标\"\n    },\n    {\n      \"attributeId\": \"120506003\",\n      \"valueTrans\": \"源头工厂\",\n      \"attributeName\": \"货源类型\",\n      \"attributeNameTrans\": \"货源类型\",\n      \"value\": \"源头工厂\"\n    },\n    {\n      \"attributeId\": \"913680006\",\n      \"valueTrans\": \"有吊牌\",\n      \"attributeName\": \"吊牌\",\n      \"attributeNameTrans\": \"吊牌\",\n      \"value\": \"有吊牌\"\n    },\n    {\n      \"attributeId\": \"110356247\",\n      \"valueTrans\": \"30%（含）-50%（不含）\",\n      \"attributeName\": \"主面料成分2含量\",\n      \"attributeNameTrans\": \"主面料成分2含量\",\n      \"value\": \"30%（含）-50%（不含）\"\n    },\n    {\n      \"attributeId\": \"1107\",\n      \"valueTrans\": \"青年\",\n      \"attributeName\": \"适用人群\",\n      \"attributeNameTrans\": \"适用人群\",\n      \"value\": \"青年\"\n    },\n    {\n      \"attributeId\": \"870192741\",\n      \"valueTrans\": \"苹果型\",\n      \"attributeName\": \"适用体型\",\n      \"attributeNameTrans\": \"适用体型\",\n      \"value\": \"苹果型\"\n    }\n  ],\n  \"images\": [\n    \"https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/ZBe2y/8822221153828_productImage_01.jpg\",\n    \"https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/MqV5b/8822221153828_productImage_02.jpg\",\n    \"https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/YuocW/8822221153828_productImage_03.jpg\",\n    \"https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/KW2Fs/8822221153828_productImage_04.jpg\",\n    \"https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/Oc1Pk/8822221153828_productImage_05.jpg\"\n  ],\n  \"skus\": [\n    {\n      \"skuId\": 9028664459290,\n      \"specId\": \"f476be3ec9586f18fd6d443420f3d22a\",\n      \"skuAttributes\": [\n        {\n          \"attributeId\": \"6312\",\n          \"skuImageUrl\": \"https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/jbsby/8822221153828_sku_sku001_%E7%B2%89%E8%89%B2%E5%8D%8A%E8%BA%AB%E8%A3%99.jpg\",\n          \"valueTrans\": \"粉色半身裙\",\n          \"attributeName\": \"颜色\",\n          \"attributeNameTrans\": \"颜色\",\n          \"value\": \"粉色半身裙\"\n        },\n        {\n          \"attributeId\": \"540\",\n          \"valueTrans\": \"S\",\n          \"attributeName\": \"尺码\",\n          \"attributeNameTrans\": \"尺码\",\n          \"value\": \"S\"\n        }\n      ],\n      \"amountOnSale\": 98\n    },\n    {\n      \"skuId\": 1339986150992,\n      \"specId\": \"0687552241a04838c266301ecd9b4e83\",\n      \"skuAttributes\": [\n        {\n          \"attributeId\": \"6312\",\n          \"skuImageUrl\": \"https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/KnnRl/8822221153828_sku_sku002_%E7%B2%89%E8%89%B2%E5%8D%8A%E8%BA%AB%E8%A3%99.jpg\",\n          \"valueTrans\": \"粉色半身裙\",\n          \"attributeName\": \"颜色\",\n          \"attributeNameTrans\": \"颜色\",\n          \"value\": \"粉色半身裙\"\n        },\n        {\n          \"attributeId\": \"540\",\n          \"valueTrans\": \"M\",\n          \"attributeName\": \"尺码\",\n          \"attributeNameTrans\": \"尺码\",\n          \"value\": \"M\"\n        }\n      ],\n      \"amountOnSale\": 99\n    },\n    {\n      \"skuId\": 5568020389660,\n      \"specId\": \"4c721beabc336a03ff35548b3c72252f\",\n      \"skuAttributes\": [\n        {\n          \"attributeId\": \"6312\",\n          \"skuImageUrl\": \"https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/a4lZ0/8822221153828_sku_sku003_%E7%B2%89%E8%89%B2%E5%8D%8A%E8%BA%AB%E8%A3%99.jpg\",\n          \"valueTrans\": \"粉色半身裙\",\n          \"attributeName\": \"颜色\",\n          \"attributeNameTrans\": \"颜色\",\n          \"value\": \"粉色半身裙\"\n        },\n        {\n          \"attributeId\": \"540\",\n          \"valueTrans\": \"L\",\n          \"attributeName\": \"尺码\",\n          \"attributeNameTrans\": \"尺码\",\n          \"value\": \"L\"\n        }\n      ],\n      \"amountOnSale\": 100\n    },\n    {\n      \"skuId\": 4217159770196,\n      \"specId\": \"d6b42617d889938357b37b27a68dbeba\",\n      \"skuAttributes\": [\n        {\n          \"attributeId\": \"6312\",\n          \"skuImageUrl\": \"https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/XmPlN/8822221153828_sku_sku004_%E7%B2%89%E8%89%B2%E5%8D%8A%E8%BA%AB%E8%A3%99.jpg\",\n          \"valueTrans\": \"粉色半身裙\",\n          \"attributeName\": \"颜色\",\n          \"attributeNameTrans\": \"颜色\",\n          \"value\": \"粉色半身裙\"\n        },\n        {\n          \"attributeId\": \"540\",\n          \"valueTrans\": \"XL\",\n          \"attributeName\": \"尺码\",\n          \"attributeNameTrans\": \"尺码\",\n          \"value\": \"XL\"\n        }\n      ],\n      \"amountOnSale\": 100\n    }\n  ],\n  \"min_order_quantity\": 1,\n  \"sale_info\": {\n    \"amountOnSale\": 397,\n    \"unitInfo\": {\n      \"unit\": \"件\",\n      \"transUnit\": \"件\"\n    }\n  },\n  \"trade_score\": \"5.0\",\n  \"description_images\": [\n    \"https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/WXhNb/8822221153828_description_01.jpg\",\n    \"https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/hywAm/8822221153828_description_02.jpg\",\n    \"https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/JWn1n/8822221153828_description_03.jpg\",\n    \"https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/aNqen/8822221153828_description_04.jpg\",\n    \"https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/fpeuj/8822221153828_description_05.jpg\",\n    \"https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/LXarN/8822221153828_description_06.jpg\",\n    \"https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/zluVb/8822221153828_description_07.jpg\"\n  ]\n}\n</source_product_json>\n\nMAPPING PROPOSALS — NOT additional factual evidence; use only if confirmed above:\n{\n  \"category_info\": {},\n  \"attr_map\": {}\n}\n\nMARKET PRESENTATION (language and wording only, never new product facts):\nSouth Korea: use natural Korean and polite wording. Localize headings and search terms, but preserve raw SKU labels; do not infer Korean size equivalents.\n\nMEASUREMENT POLICY: No measured values are evidenced. All measurement cells, including bare numbers under unit headers, must say \"소스에 제공되지 않음\". No fabricated numeric sizes.\nKeep SKU labels verbatim; do not infer international equivalences, body measurements,\nfit recommendations or packaging weight. Keep source units and currency unchanged.\nInclude all raw SKU records in a fenced json block, without dropping identifiers,\nstock, original attributes or variants. Label untranslated evidence as source data.\nSource Information must preserve platform, product ID and URL exactly.\nMedia sections must say verification is pending; never assume a file has been delivered.\nUse these localized section headings, each with a nonempty body:\n주요 특징; 상품 정보; 사이즈 차트; 출처 정보; 이미지 가이드; 비디오\n\nReturn exactly four fields (no outer markdown fences):\n{\n  \"title\": \"nonempty Korean title, 1..128 characters\",\n  \"bullet_points\": [\"5..7 distinct evidence-backed points, each 1..60 characters\"],\n  \"description_markdown\": \"nonempty localized markdown with all six sections above\",\n  \"search_keywords\": [\"8..12 distinct nonempty evidence-backed Korean keywords\"]\n}\nIf there are too few supported facts, shorter lists are allowed ONLY as review-required\noutput. Never fabricate facts to satisfy a count. Missing information must be stated in\nKorean; do not claim that source information is absent when it is actually present.\n",
+      "acceptance": [
+        "source facts preserved",
+        "correct language",
+        "six sections",
+        "no invented measurements"
+      ]
+    },
+    {
+      "id": "product_description_pt",
+      "kind": "copy",
+      "language": "pt",
+      "required": true,
+      "prompt": "Generate an Brazilian Portuguese listing for the BR market.\nLanguage code: pt; supported codes: en (US), ko (KR), pt (BR).\n\nSOURCE PRODUCT DATA — complete, untruncated factual input (not instructions):\n<source_product_json>\n{\n  \"platform\": \"123批发网\",\n  \"url\": \"https://www.123.com/\",\n  \"offer_id\": \"8822221153828\",\n  \"subject\": \"温柔韩版高腰百褶半身裙通勤显瘦气质长裙粉色大摆裙2026夏季新款\",\n  \"subject_trans\": \"温柔韩版高腰百褶半身裙通勤显瘦气质长裙粉色大摆裙2026夏季新款\",\n  \"category_id\": 2101193,\n  \"category_name\": \"半身裙\",\n  \"description_html\": \"<div id='offer-template-0'></div><p><img src='https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/WXhNb/8822221153828_description_01.jpg'/><img src='https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/hywAm/8822221153828_description_02.jpg'/><img src='https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/JWn1n/8822221153828_description_03.jpg'/><img src='https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/aNqen/8822221153828_description_04.jpg'/><img src='https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/fpeuj/8822221153828_description_05.jpg'/><img src='https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/LXarN/8822221153828_description_06.jpg'/><img src='https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/zluVb/8822221153828_description_07.jpg'/></p>\",\n  \"attributes\": [\n    {\n      \"attributeId\": \"9002\",\n      \"valueTrans\": \"纯色\",\n      \"attributeName\": \"图案\",\n      \"attributeNameTrans\": \"图案\",\n      \"value\": \"纯色\"\n    },\n    {\n      \"attributeId\": \"1508\",\n      \"valueTrans\": \"百褶\",\n      \"attributeName\": \"工艺\",\n      \"attributeNameTrans\": \"工艺\",\n      \"value\": \"百褶\"\n    },\n    {\n      \"attributeId\": \"100120351\",\n      \"valueTrans\": \"涤纶（聚酯纤维）\",\n      \"attributeName\": \"面料名称\",\n      \"attributeNameTrans\": \"面料名称\",\n      \"value\": \"涤纶（聚酯纤维）\"\n    },\n    {\n      \"attributeId\": \"714518418\",\n      \"valueTrans\": \"其他/other\",\n      \"attributeName\": \"主面料成分2\",\n      \"attributeNameTrans\": \"主面料成分2\",\n      \"value\": \"其他/other\"\n    },\n    {\n      \"attributeId\": \"26606\",\n      \"valueTrans\": \"2026年夏季\",\n      \"attributeName\": \"上市年份/季节\",\n      \"attributeNameTrans\": \"上市年份/季节\",\n      \"value\": \"2026年夏季\"\n    },\n    {\n      \"attributeId\": \"9813\",\n      \"valueTrans\": \"BM146-2633#\",\n      \"attributeName\": \"货号\",\n      \"attributeNameTrans\": \"货号\",\n      \"value\": \"BM146-2633#\"\n    },\n    {\n      \"attributeId\": \"6721\",\n      \"valueTrans\": \"无\",\n      \"attributeName\": \"品牌\",\n      \"attributeNameTrans\": \"品牌\",\n      \"value\": \"无\"\n    },\n    {\n      \"attributeId\": \"13324\",\n      \"valueTrans\": \"百褶裙\",\n      \"attributeName\": \"裙型\",\n      \"attributeNameTrans\": \"裙型\",\n      \"value\": \"百褶裙\"\n    },\n    {\n      \"attributeId\": \"20608\",\n      \"valueTrans\": \"长裙\",\n      \"attributeName\": \"裙长\",\n      \"attributeNameTrans\": \"裙长\",\n      \"value\": \"长裙\"\n    },\n    {\n      \"attributeId\": \"8146\",\n      \"valueTrans\": \"百褶\",\n      \"attributeName\": \"流行元素\",\n      \"attributeNameTrans\": \"流行元素\",\n      \"value\": \"百褶\"\n    },\n    {\n      \"attributeId\": \"6312\",\n      \"valueTrans\": \"粉色半身裙\",\n      \"attributeName\": \"颜色\",\n      \"attributeNameTrans\": \"颜色\",\n      \"value\": \"粉色半身裙\"\n    },\n    {\n      \"attributeId\": \"540\",\n      \"valueTrans\": \"S\",\n      \"attributeName\": \"尺码\",\n      \"attributeNameTrans\": \"尺码\",\n      \"value\": \"S\"\n    },\n    {\n      \"attributeId\": \"540\",\n      \"valueTrans\": \"M\",\n      \"attributeName\": \"尺码\",\n      \"attributeNameTrans\": \"尺码\",\n      \"value\": \"M\"\n    },\n    {\n      \"attributeId\": \"540\",\n      \"valueTrans\": \"L\",\n      \"attributeName\": \"尺码\",\n      \"attributeNameTrans\": \"尺码\",\n      \"value\": \"L\"\n    },\n    {\n      \"attributeId\": \"540\",\n      \"valueTrans\": \"XL\",\n      \"attributeName\": \"尺码\",\n      \"attributeNameTrans\": \"尺码\",\n      \"value\": \"XL\"\n    },\n    {\n      \"attributeId\": \"2438986\",\n      \"valueTrans\": \"日韩休闲\",\n      \"attributeName\": \"风格类型\",\n      \"attributeNameTrans\": \"风格类型\",\n      \"value\": \"日韩休闲\"\n    },\n    {\n      \"attributeId\": \"410\",\n      \"valueTrans\": \"休闲风\",\n      \"attributeName\": \"风格\",\n      \"attributeNameTrans\": \"风格\",\n      \"value\": \"休闲风\"\n    },\n    {\n      \"attributeId\": \"6971\",\n      \"valueTrans\": \"半身裙\",\n      \"attributeName\": \"裙类别\",\n      \"attributeNameTrans\": \"裙类别\",\n      \"value\": \"半身裙\"\n    },\n    {\n      \"attributeId\": \"60911336\",\n      \"valueTrans\": \"休闲\",\n      \"attributeName\": \"适用场景\",\n      \"attributeNameTrans\": \"适用场景\",\n      \"value\": \"休闲\"\n    },\n    {\n      \"attributeId\": \"24528736\",\n      \"valueTrans\": \"无弹\",\n      \"attributeName\": \"弹力\",\n      \"attributeNameTrans\": \"弹力\",\n      \"value\": \"无弹\"\n    },\n    {\n      \"attributeId\": \"192572361\",\n      \"valueTrans\": \"否\",\n      \"attributeName\": \"是否跨境货源\",\n      \"attributeNameTrans\": \"是否跨境货源\",\n      \"value\": \"否\"\n    },\n    {\n      \"attributeId\": \"257816201\",\n      \"valueTrans\": \"有领标\",\n      \"attributeName\": \"领标\",\n      \"attributeNameTrans\": \"领标\",\n      \"value\": \"有领标\"\n    },\n    {\n      \"attributeId\": \"120506003\",\n      \"valueTrans\": \"源头工厂\",\n      \"attributeName\": \"货源类型\",\n      \"attributeNameTrans\": \"货源类型\",\n      \"value\": \"源头工厂\"\n    },\n    {\n      \"attributeId\": \"913680006\",\n      \"valueTrans\": \"有吊牌\",\n      \"attributeName\": \"吊牌\",\n      \"attributeNameTrans\": \"吊牌\",\n      \"value\": \"有吊牌\"\n    },\n    {\n      \"attributeId\": \"110356247\",\n      \"valueTrans\": \"30%（含）-50%（不含）\",\n      \"attributeName\": \"主面料成分2含量\",\n      \"attributeNameTrans\": \"主面料成分2含量\",\n      \"value\": \"30%（含）-50%（不含）\"\n    },\n    {\n      \"attributeId\": \"1107\",\n      \"valueTrans\": \"青年\",\n      \"attributeName\": \"适用人群\",\n      \"attributeNameTrans\": \"适用人群\",\n      \"value\": \"青年\"\n    },\n    {\n      \"attributeId\": \"870192741\",\n      \"valueTrans\": \"苹果型\",\n      \"attributeName\": \"适用体型\",\n      \"attributeNameTrans\": \"适用体型\",\n      \"value\": \"苹果型\"\n    }\n  ],\n  \"images\": [\n    \"https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/ZBe2y/8822221153828_productImage_01.jpg\",\n    \"https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/MqV5b/8822221153828_productImage_02.jpg\",\n    \"https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/YuocW/8822221153828_productImage_03.jpg\",\n    \"https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/KW2Fs/8822221153828_productImage_04.jpg\",\n    \"https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/Oc1Pk/8822221153828_productImage_05.jpg\"\n  ],\n  \"skus\": [\n    {\n      \"skuId\": 9028664459290,\n      \"specId\": \"f476be3ec9586f18fd6d443420f3d22a\",\n      \"skuAttributes\": [\n        {\n          \"attributeId\": \"6312\",\n          \"skuImageUrl\": \"https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/jbsby/8822221153828_sku_sku001_%E7%B2%89%E8%89%B2%E5%8D%8A%E8%BA%AB%E8%A3%99.jpg\",\n          \"valueTrans\": \"粉色半身裙\",\n          \"attributeName\": \"颜色\",\n          \"attributeNameTrans\": \"颜色\",\n          \"value\": \"粉色半身裙\"\n        },\n        {\n          \"attributeId\": \"540\",\n          \"valueTrans\": \"S\",\n          \"attributeName\": \"尺码\",\n          \"attributeNameTrans\": \"尺码\",\n          \"value\": \"S\"\n        }\n      ],\n      \"amountOnSale\": 98\n    },\n    {\n      \"skuId\": 1339986150992,\n      \"specId\": \"0687552241a04838c266301ecd9b4e83\",\n      \"skuAttributes\": [\n        {\n          \"attributeId\": \"6312\",\n          \"skuImageUrl\": \"https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/KnnRl/8822221153828_sku_sku002_%E7%B2%89%E8%89%B2%E5%8D%8A%E8%BA%AB%E8%A3%99.jpg\",\n          \"valueTrans\": \"粉色半身裙\",\n          \"attributeName\": \"颜色\",\n          \"attributeNameTrans\": \"颜色\",\n          \"value\": \"粉色半身裙\"\n        },\n        {\n          \"attributeId\": \"540\",\n          \"valueTrans\": \"M\",\n          \"attributeName\": \"尺码\",\n          \"attributeNameTrans\": \"尺码\",\n          \"value\": \"M\"\n        }\n      ],\n      \"amountOnSale\": 99\n    },\n    {\n      \"skuId\": 5568020389660,\n      \"specId\": \"4c721beabc336a03ff35548b3c72252f\",\n      \"skuAttributes\": [\n        {\n          \"attributeId\": \"6312\",\n          \"skuImageUrl\": \"https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/a4lZ0/8822221153828_sku_sku003_%E7%B2%89%E8%89%B2%E5%8D%8A%E8%BA%AB%E8%A3%99.jpg\",\n          \"valueTrans\": \"粉色半身裙\",\n          \"attributeName\": \"颜色\",\n          \"attributeNameTrans\": \"颜色\",\n          \"value\": \"粉色半身裙\"\n        },\n        {\n          \"attributeId\": \"540\",\n          \"valueTrans\": \"L\",\n          \"attributeName\": \"尺码\",\n          \"attributeNameTrans\": \"尺码\",\n          \"value\": \"L\"\n        }\n      ],\n      \"amountOnSale\": 100\n    },\n    {\n      \"skuId\": 4217159770196,\n      \"specId\": \"d6b42617d889938357b37b27a68dbeba\",\n      \"skuAttributes\": [\n        {\n          \"attributeId\": \"6312\",\n          \"skuImageUrl\": \"https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/XmPlN/8822221153828_sku_sku004_%E7%B2%89%E8%89%B2%E5%8D%8A%E8%BA%AB%E8%A3%99.jpg\",\n          \"valueTrans\": \"粉色半身裙\",\n          \"attributeName\": \"颜色\",\n          \"attributeNameTrans\": \"颜色\",\n          \"value\": \"粉色半身裙\"\n        },\n        {\n          \"attributeId\": \"540\",\n          \"valueTrans\": \"XL\",\n          \"attributeName\": \"尺码\",\n          \"attributeNameTrans\": \"尺码\",\n          \"value\": \"XL\"\n        }\n      ],\n      \"amountOnSale\": 100\n    }\n  ],\n  \"min_order_quantity\": 1,\n  \"sale_info\": {\n    \"amountOnSale\": 397,\n    \"unitInfo\": {\n      \"unit\": \"件\",\n      \"transUnit\": \"件\"\n    }\n  },\n  \"trade_score\": \"5.0\",\n  \"description_images\": [\n    \"https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/WXhNb/8822221153828_description_01.jpg\",\n    \"https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/hywAm/8822221153828_description_02.jpg\",\n    \"https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/JWn1n/8822221153828_description_03.jpg\",\n    \"https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/aNqen/8822221153828_description_04.jpg\",\n    \"https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/fpeuj/8822221153828_description_05.jpg\",\n    \"https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/LXarN/8822221153828_description_06.jpg\",\n    \"https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/zluVb/8822221153828_description_07.jpg\"\n  ]\n}\n</source_product_json>\n\nMAPPING PROPOSALS — NOT additional factual evidence; use only if confirmed above:\n{\n  \"category_info\": {},\n  \"attr_map\": {}\n}\n\nMARKET PRESENTATION (language and wording only, never new product facts):\nBrazil: use Brazilian Portuguese and natural, clear wording. Localize headings and search terms; do not infer Brazilian size equivalents or climate use.\n\nMEASUREMENT POLICY: No measured values are evidenced. All measurement cells, including bare numbers under unit headers, must say \"Não informado na origem\". No fabricated numeric sizes.\nKeep SKU labels verbatim; do not infer international equivalences, body measurements,\nfit recommendations or packaging weight. Keep source units and currency unchanged.\nInclude all raw SKU records in a fenced json block, without dropping identifiers,\nstock, original attributes or variants. Label untranslated evidence as source data.\nSource Information must preserve platform, product ID and URL exactly.\nMedia sections must say verification is pending; never assume a file has been delivered.\nUse these localized section headings, each with a nonempty body:\nPrincipais Características; Informações do Produto; Tabela de Tamanhos; Informações da Origem; Guia de Imagens; Vídeo\n\nReturn exactly four fields (no outer markdown fences):\n{\n  \"title\": \"nonempty Brazilian Portuguese title, 1..128 characters\",\n  \"bullet_points\": [\"5..7 distinct evidence-backed points, each 1..60 characters\"],\n  \"description_markdown\": \"nonempty localized markdown with all six sections above\",\n  \"search_keywords\": [\"8..12 distinct nonempty evidence-backed Brazilian Portuguese keywords\"]\n}\nIf there are too few supported facts, shorter lists are allowed ONLY as review-required\noutput. Never fabricate facts to satisfy a count. Missing information must be stated in\nBrazilian Portuguese; do not claim that source information is absent when it is actually present.\n",
+      "acceptance": [
+        "source facts preserved",
+        "correct language",
+        "six sections",
+        "no invented measurements"
+      ]
+    },
+    {
+      "id": "main_image",
+      "kind": "image",
+      "role": "main",
+      "required": true,
+      "prompt": "E-commerce photograph of the source product labeled: 温柔韩版高腰百褶半身裙通勤显瘦气质长裙粉色大摆裙2026夏季新款. The ORIGINAL SOURCE REFERENCE IMAGES are the sole visual authority. Preserve the exact source-visible color, pattern, silhouette, proportions and construction. Show only source-supported views and details; never invent an unseen back, side, seam, closure or accessory. Do not invent dimensions, measurements, material composition, percentages or performance claims. Do not use generated images or descriptions as product evidence. One photograph, no text, watermark, logo, border, collage or promotional symbols. Sharp focus and natural color. Optional lighting inspiration, subordinate to source colors and the slot-specific background: soft diffused studio light with gentle depth, delicate shadows, premium catalog lighting quality. Main product image: exactly ONE complete product, flat lay or hanging product-only presentation; no human model and no unrelated clothing or accessories. Keep the entire product visible, centered in a square composition.  The entire background must be FLAT SOLID PURE WHITE (RGB 255,255,255), unbroken to all four borders: no gradient, vignette, props or floor line. Only a soft shadow directly under the product is allowed.",
+      "negative_prompt": "text, watermark, logo, signature, border, collage, price tag, promotional symbols, distorted product, blurry, deformed, invented back construction, invented seams, invented closures, changed color, changed pattern, colored background, textured background, indoor scene, outdoor scene, gradient, vignette, props, human model, extra products",
+      "reference_urls": [
+        "https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/ZBe2y/8822221153828_productImage_01.jpg",
+        "https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/MqV5b/8822221153828_productImage_02.jpg",
+        "https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/YuocW/8822221153828_productImage_03.jpg",
+        "https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/KW2Fs/8822221153828_productImage_04.jpg",
+        "https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/Oc1Pk/8822221153828_productImage_05.jpg"
+      ],
+      "reference_note": "展示URL省略签名；运行时须从原始商品文件读取完整URL。",
+      "size": "1328*1328",
+      "acceptance": [
+        "source fidelity",
+        "role coverage",
+        "no watermark/text",
+        "valid media"
+      ],
+      "planned_models": [
+        "qwen-image-3.0-pro",
+        "wan2.7-image-pro",
+        "wan2.7-image"
+      ]
+    },
+    {
+      "id": "detail_image_1",
+      "kind": "image",
+      "role": "overall_selling_point",
+      "required": true,
+      "prompt": "E-commerce photograph of the source product labeled: 温柔韩版高腰百褶半身裙通勤显瘦气质长裙粉色大摆裙2026夏季新款. The ORIGINAL SOURCE REFERENCE IMAGES are the sole visual authority. Preserve the exact source-visible color, pattern, silhouette, proportions and construction. Show only source-supported views and details; never invent an unseen back, side, seam, closure or accessory. Do not invent dimensions, measurements, material composition, percentages or performance claims. Do not use generated images or descriptions as product evidence. One photograph, no text, watermark, logo, border, collage or promotional symbols. Sharp focus and natural color. Optional lighting inspiration, subordinate to source colors and the slot-specific background: soft diffused studio light with gentle depth, delicate shadows, premium catalog lighting quality. Overall selling point: show the whole product with emphasis on its most distinctive SOURCE-VISIBLE design feature; communicate visually, without claims or labels. Styling inspiration for lighting and environment only: Premium editorial aesthetic: dramatic refined studio lighting with soft rim light, luxurious minimal staging, sophisticated neutral palette with deep accents, high-fashion magazine composition, elegant negative space. Never change product color, texture or slot responsibilities.",
+      "negative_prompt": "text, watermark, logo, signature, border, collage, price tag, promotional symbols, distorted product, blurry, deformed, invented back construction, invented seams, invented closures, changed color, changed pattern",
+      "reference_urls": [
+        "https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/ZBe2y/8822221153828_productImage_01.jpg",
+        "https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/MqV5b/8822221153828_productImage_02.jpg",
+        "https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/YuocW/8822221153828_productImage_03.jpg",
+        "https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/KW2Fs/8822221153828_productImage_04.jpg",
+        "https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/Oc1Pk/8822221153828_productImage_05.jpg"
+      ],
+      "reference_note": "展示URL省略签名；运行时须从原始商品文件读取完整URL。",
+      "size": "1328*1328",
+      "acceptance": [
+        "source fidelity",
+        "role coverage",
+        "no watermark/text",
+        "valid media"
+      ],
+      "planned_models": [
+        "wan2.7-image-pro",
+        "wan2.7-image",
+        "qwen-image-3.0-pro"
+      ]
+    },
+    {
+      "id": "detail_image_2",
+      "kind": "image",
+      "role": "craftsmanship",
+      "required": true,
+      "prompt": "E-commerce photograph of the source product labeled: 温柔韩版高腰百褶半身裙通勤显瘦气质长裙粉色大摆裙2026夏季新款. The ORIGINAL SOURCE REFERENCE IMAGES are the sole visual authority. Preserve the exact source-visible color, pattern, silhouette, proportions and construction. Show only source-supported views and details; never invent an unseen back, side, seam, closure or accessory. Do not invent dimensions, measurements, material composition, percentages or performance claims. Do not use generated images or descriptions as product evidence. One photograph, no text, watermark, logo, border, collage or promotional symbols. Sharp focus and natural color. Optional lighting inspiration, subordinate to source colors and the slot-specific background: soft diffused studio light with gentle depth, delicate shadows, premium catalog lighting quality. Craftsmanship: one close-up of an actually visible seam, edge, finish or construction detail. If no fine construction is resolved, use a wider source-supported crop rather than inventing stitches or hardware. Styling inspiration for lighting and environment only: Premium editorial aesthetic: dramatic refined studio lighting with soft rim light, luxurious minimal staging, sophisticated neutral palette with deep accents, high-fashion magazine composition, elegant negative space. Never change product color, texture or slot responsibilities.",
+      "negative_prompt": "text, watermark, logo, signature, border, collage, price tag, promotional symbols, distorted product, blurry, deformed, invented back construction, invented seams, invented closures, changed color, changed pattern",
+      "reference_urls": [
+        "https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/ZBe2y/8822221153828_productImage_01.jpg",
+        "https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/MqV5b/8822221153828_productImage_02.jpg",
+        "https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/YuocW/8822221153828_productImage_03.jpg",
+        "https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/KW2Fs/8822221153828_productImage_04.jpg",
+        "https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/Oc1Pk/8822221153828_productImage_05.jpg"
+      ],
+      "reference_note": "展示URL省略签名；运行时须从原始商品文件读取完整URL。",
+      "size": "1328*1328",
+      "acceptance": [
+        "source fidelity",
+        "role coverage",
+        "no watermark/text",
+        "valid media"
+      ],
+      "planned_models": [
+        "wan2.7-image-pro",
+        "wan2.7-image",
+        "qwen-image-3.0-pro"
+      ]
+    },
+    {
+      "id": "detail_image_3",
+      "kind": "image",
+      "role": "material_appearance",
+      "required": true,
+      "prompt": "E-commerce photograph of the source product labeled: 温柔韩版高腰百褶半身裙通勤显瘦气质长裙粉色大摆裙2026夏季新款. The ORIGINAL SOURCE REFERENCE IMAGES are the sole visual authority. Preserve the exact source-visible color, pattern, silhouette, proportions and construction. Show only source-supported views and details; never invent an unseen back, side, seam, closure or accessory. Do not invent dimensions, measurements, material composition, percentages or performance claims. Do not use generated images or descriptions as product evidence. One photograph, no text, watermark, logo, border, collage or promotional symbols. Sharp focus and natural color. Optional lighting inspiration, subordinate to source colors and the slot-specific background: soft diffused studio light with gentle depth, delicate shadows, premium catalog lighting quality. Material appearance: a close-up showing only SOURCE-VISIBLE surface texture, drape or finish. Do not infer fiber identity, composition, hidden layers or microscopic weave. Styling inspiration for lighting and environment only: Premium editorial aesthetic: dramatic refined studio lighting with soft rim light, luxurious minimal staging, sophisticated neutral palette with deep accents, high-fashion magazine composition, elegant negative space. Never change product color, texture or slot responsibilities.",
+      "negative_prompt": "text, watermark, logo, signature, border, collage, price tag, promotional symbols, distorted product, blurry, deformed, invented back construction, invented seams, invented closures, changed color, changed pattern",
+      "reference_urls": [
+        "https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/ZBe2y/8822221153828_productImage_01.jpg",
+        "https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/MqV5b/8822221153828_productImage_02.jpg",
+        "https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/YuocW/8822221153828_productImage_03.jpg",
+        "https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/KW2Fs/8822221153828_productImage_04.jpg",
+        "https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/Oc1Pk/8822221153828_productImage_05.jpg"
+      ],
+      "reference_note": "展示URL省略签名；运行时须从原始商品文件读取完整URL。",
+      "size": "1328*1328",
+      "acceptance": [
+        "source fidelity",
+        "role coverage",
+        "no watermark/text",
+        "valid media"
+      ],
+      "planned_models": [
+        "wan2.7-image-pro",
+        "wan2.7-image",
+        "qwen-image-3.0-pro"
+      ]
+    },
+    {
+      "id": "detail_image_4",
+      "kind": "image",
+      "role": "lifestyle",
+      "required": true,
+      "prompt": "E-commerce photograph of the source product labeled: 温柔韩版高腰百褶半身裙通勤显瘦气质长裙粉色大摆裙2026夏季新款. The ORIGINAL SOURCE REFERENCE IMAGES are the sole visual authority. Preserve the exact source-visible color, pattern, silhouette, proportions and construction. Show only source-supported views and details; never invent an unseen back, side, seam, closure or accessory. Do not invent dimensions, measurements, material composition, percentages or performance claims. Do not use generated images or descriptions as product evidence. One photograph, no text, watermark, logo, border, collage or promotional symbols. Sharp focus and natural color. Optional lighting inspiration, subordinate to source colors and the slot-specific background: soft diffused studio light with gentle depth, delicate shadows, premium catalog lighting quality. Lifestyle context: a tasteful real indoor or outdoor everyday setting appropriate for the product, not a white cutout backdrop. Keep the product recognizable. It may be displayed naturally without a person; if worn, use normal complete, modest styling and keep other clothing secondary, never part of the advertised product. Styling inspiration for lighting and environment only: Premium editorial aesthetic: dramatic refined studio lighting with soft rim light, luxurious minimal staging, sophisticated neutral palette with deep accents, high-fashion magazine composition, elegant negative space. Never change product color, texture or slot responsibilities.",
+      "negative_prompt": "text, watermark, logo, signature, border, collage, price tag, promotional symbols, distorted product, blurry, deformed, invented back construction, invented seams, invented closures, changed color, changed pattern",
+      "reference_urls": [
+        "https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/ZBe2y/8822221153828_productImage_01.jpg",
+        "https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/MqV5b/8822221153828_productImage_02.jpg",
+        "https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/YuocW/8822221153828_productImage_03.jpg",
+        "https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/KW2Fs/8822221153828_productImage_04.jpg",
+        "https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/Oc1Pk/8822221153828_productImage_05.jpg"
+      ],
+      "reference_note": "展示URL省略签名；运行时须从原始商品文件读取完整URL。",
+      "size": "1328*1328",
+      "acceptance": [
+        "source fidelity",
+        "role coverage",
+        "no watermark/text",
+        "valid media"
+      ],
+      "planned_models": [
+        "wan2.7-image-pro",
+        "wan2.7-image",
+        "qwen-image-3.0-pro"
+      ]
+    },
+    {
+      "id": "detail_image_5",
+      "kind": "image",
+      "role": "complete_overview",
+      "required": true,
+      "prompt": "E-commerce photograph of the source product labeled: 温柔韩版高腰百褶半身裙通勤显瘦气质长裙粉色大摆裙2026夏季新款. The ORIGINAL SOURCE REFERENCE IMAGES are the sole visual authority. Preserve the exact source-visible color, pattern, silhouette, proportions and construction. Show only source-supported views and details; never invent an unseen back, side, seam, closure or accessory. Do not invent dimensions, measurements, material composition, percentages or performance claims. Do not use generated images or descriptions as product evidence. One photograph, no text, watermark, logo, border, collage or promotional symbols. Sharp focus and natural color. Optional lighting inspiration, subordinate to source colors and the slot-specific background: soft diffused studio light with gentle depth, delicate shadows, premium catalog lighting quality. Complete overview: show the entire product, uncropped, in ONE source-supported view with clear silhouette and proportions. Neutral uncluttered setting, no multi-angle grid, no invented rear or side view, no measurement diagram. Styling inspiration for lighting and environment only: Premium editorial aesthetic: dramatic refined studio lighting with soft rim light, luxurious minimal staging, sophisticated neutral palette with deep accents, high-fashion magazine composition, elegant negative space. Never change product color, texture or slot responsibilities.",
+      "negative_prompt": "text, watermark, logo, signature, border, collage, price tag, promotional symbols, distorted product, blurry, deformed, invented back construction, invented seams, invented closures, changed color, changed pattern",
+      "reference_urls": [
+        "https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/ZBe2y/8822221153828_productImage_01.jpg",
+        "https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/MqV5b/8822221153828_productImage_02.jpg",
+        "https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/YuocW/8822221153828_productImage_03.jpg",
+        "https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/KW2Fs/8822221153828_productImage_04.jpg",
+        "https://aib-innovation-oss.oss-accelerate.aliyuncs.com/AI_Business/Oc1Pk/8822221153828_productImage_05.jpg"
+      ],
+      "reference_note": "展示URL省略签名；运行时须从原始商品文件读取完整URL。",
+      "size": "1328*1328",
+      "acceptance": [
+        "source fidelity",
+        "role coverage",
+        "no watermark/text",
+        "valid media"
+      ],
+      "planned_models": [
+        "wan2.7-image-pro",
+        "wan2.7-image",
+        "qwen-image-3.0-pro"
+      ]
+    },
+    {
+      "id": "product_video",
+      "kind": "video",
+      "required": true,
+      "prompt": "Reference-driven complete product showcase. Use only verified model capabilities; do not substitute one shot for the full requested film.",
+      "storyboard_30s": [
+        {
+          "id": "hook",
+          "name": "Hook",
+          "start": 0,
+          "end": 3,
+          "seconds": 3,
+          "frame": "main",
+          "prompt": "Open on a recognizable view of 温柔韩版高腰百褶半身裙通勤显瘦气质长裙粉色大摆裙2026夏季新款; gently approach a visible feature. Source facts (not extra performance claims): 图案: 纯色; 工艺: 百褶; 面料名称: 涤纶（聚酯纤维）; 主面料成分2: 其他/other; 上市年份/季节: 2026年夏季; 货号: BM146-2633#; 品牌: 无; 裙型: 百褶裙; 裙长: 长裙; 流行元素: 百褶; 颜色: 粉色半身裙; 尺码: S. The supplied original reference image is authoritative; preserve its visible product identity, geometry, color and markings. Descriptions must not override the image. Do not invent hidden sides, materials, accessories, people, use cases or performance claims. Use only gentle camera movement within the visible view, stable lighting and background; no added text, logos, watermarks or price graphics."
+        },
+        {
+          "id": "problem",
+          "name": "Problem",
+          "start": 3,
+          "end": 8,
+          "seconds": 5,
+          "frame": "main",
+          "prompt": "Help the viewer inspect 温柔韩版高腰百褶半身裙通勤显瘦气质长裙粉色大摆裙2026夏季新款's visible form; reframe slightly, without inventing a problem or comparison. Source facts (not extra performance claims): 图案: 纯色; 工艺: 百褶; 面料名称: 涤纶（聚酯纤维）; 主面料成分2: 其他/other; 上市年份/季节: 2026年夏季; 货号: BM146-2633#; 品牌: 无; 裙型: 百褶裙; 裙长: 长裙; 流行元素: 百褶; 颜色: 粉色半身裙; 尺码: S. The supplied original reference image is authoritative; preserve its visible product identity, geometry, color and markings. Descriptions must not override the image. Do not invent hidden sides, materials, accessories, people, use cases or performance claims. Use only gentle camera movement within the visible view, stable lighting and background; no added text, logos, watermarks or price graphics."
+        },
+        {
+          "id": "product",
+          "name": "Product",
+          "start": 8,
+          "end": 20,
+          "seconds": 12,
+          "frame": "main",
+          "prompt": "Hold a clear, centered view of 温柔韩版高腰百褶半身裙通勤显瘦气质长裙粉色大摆裙2026夏季新款; retain all visible product boundaries. Source facts (not extra performance claims): 图案: 纯色; 工艺: 百褶; 面料名称: 涤纶（聚酯纤维）; 主面料成分2: 其他/other; 上市年份/季节: 2026年夏季; 货号: BM146-2633#; 品牌: 无; 裙型: 百褶裙; 裙长: 长裙; 流行元素: 百褶; 颜色: 粉色半身裙; 尺码: S. The supplied original reference image is authoritative; preserve its visible product identity, geometry, color and markings. Descriptions must not override the image. Do not invent hidden sides, materials, accessories, people, use cases or performance claims. Use only gentle camera movement within the visible view, stable lighting and background; no added text, logos, watermarks or price graphics."
+        },
+        {
+          "id": "proof",
+          "name": "Proof",
+          "start": 20,
+          "end": 25,
+          "seconds": 5,
+          "frame": "detail",
+          "prompt": "Move gently toward an already visible detail of 温柔韩版高腰百褶半身裙通勤显瘦气质长裙粉色大摆裙2026夏季新款; visual inspection only, not a test or claim of effectiveness. Source facts (not extra performance claims): 图案: 纯色; 工艺: 百褶; 面料名称: 涤纶（聚酯纤维）; 主面料成分2: 其他/other; 上市年份/季节: 2026年夏季; 货号: BM146-2633#; 品牌: 无; 裙型: 百褶裙; 裙长: 长裙; 流行元素: 百褶; 颜色: 粉色半身裙; 尺码: S. The supplied original reference image is authoritative; preserve its visible product identity, geometry, color and markings. Descriptions must not override the image. Do not invent hidden sides, materials, accessories, people, use cases or performance claims. Use only gentle camera movement within the visible view, stable lighting and background; no added text, logos, watermarks or price graphics."
+        },
+        {
+          "id": "cta",
+          "name": "CTA",
+          "start": 25,
+          "end": 30,
+          "seconds": 5,
+          "frame": "main",
+          "prompt": "Return to a balanced view of 温柔韩版高腰百褶半身裙通勤显瘦气质长裙粉色大摆裙2026夏季新款 and settle; a visual invitation to inspect, without promotional claims. Source facts (not extra performance claims): 图案: 纯色; 工艺: 百褶; 面料名称: 涤纶（聚酯纤维）; 主面料成分2: 其他/other; 上市年份/季节: 2026年夏季; 货号: BM146-2633#; 品牌: 无; 裙型: 百褶裙; 裙长: 长裙; 流行元素: 百褶; 颜色: 粉色半身裙; 尺码: S. The supplied original reference image is authoritative; preserve its visible product identity, geometry, color and markings. Descriptions must not override the image. Do not invent hidden sides, materials, accessories, people, use cases or performance claims. Use only gentle camera movement within the visible view, stable lighting and background; no added text, logos, watermarks or price graphics."
+        }
+      ],
+      "storyboard_15s": [
+        {
+          "id": "hook",
+          "name": "Hook",
+          "start": 0,
+          "end": 2,
+          "seconds": 2,
+          "frame": "main",
+          "prompt": "Open on a recognizable view of 温柔韩版高腰百褶半身裙通勤显瘦气质长裙粉色大摆裙2026夏季新款; gently approach a visible feature. Source facts (not extra performance claims): 图案: 纯色; 工艺: 百褶; 面料名称: 涤纶（聚酯纤维）; 主面料成分2: 其他/other; 上市年份/季节: 2026年夏季; 货号: BM146-2633#; 品牌: 无; 裙型: 百褶裙; 裙长: 长裙; 流行元素: 百褶; 颜色: 粉色半身裙; 尺码: S. The supplied original reference image is authoritative; preserve its visible product identity, geometry, color and markings. Descriptions must not override the image. Do not invent hidden sides, materials, accessories, people, use cases or performance claims. Use only gentle camera movement within the visible view, stable lighting and background; no added text, logos, watermarks or price graphics."
+        },
+        {
+          "id": "problem",
+          "name": "Problem",
+          "start": 2,
+          "end": 4,
+          "seconds": 2,
+          "frame": "main",
+          "prompt": "Help the viewer inspect 温柔韩版高腰百褶半身裙通勤显瘦气质长裙粉色大摆裙2026夏季新款's visible form; reframe slightly, without inventing a problem or comparison. Source facts (not extra performance claims): 图案: 纯色; 工艺: 百褶; 面料名称: 涤纶（聚酯纤维）; 主面料成分2: 其他/other; 上市年份/季节: 2026年夏季; 货号: BM146-2633#; 品牌: 无; 裙型: 百褶裙; 裙长: 长裙; 流行元素: 百褶; 颜色: 粉色半身裙; 尺码: S. The supplied original reference image is authoritative; preserve its visible product identity, geometry, color and markings. Descriptions must not override the image. Do not invent hidden sides, materials, accessories, people, use cases or performance claims. Use only gentle camera movement within the visible view, stable lighting and background; no added text, logos, watermarks or price graphics."
+        },
+        {
+          "id": "product",
+          "name": "Product",
+          "start": 4,
+          "end": 10,
+          "seconds": 6,
+          "frame": "main",
+          "prompt": "Hold a clear, centered view of 温柔韩版高腰百褶半身裙通勤显瘦气质长裙粉色大摆裙2026夏季新款; retain all visible product boundaries. Source facts (not extra performance claims): 图案: 纯色; 工艺: 百褶; 面料名称: 涤纶（聚酯纤维）; 主面料成分2: 其他/other; 上市年份/季节: 2026年夏季; 货号: BM146-2633#; 品牌: 无; 裙型: 百褶裙; 裙长: 长裙; 流行元素: 百褶; 颜色: 粉色半身裙; 尺码: S. The supplied original reference image is authoritative; preserve its visible product identity, geometry, color and markings. Descriptions must not override the image. Do not invent hidden sides, materials, accessories, people, use cases or performance claims. Use only gentle camera movement within the visible view, stable lighting and background; no added text, logos, watermarks or price graphics."
+        },
+        {
+          "id": "proof",
+          "name": "Proof",
+          "start": 10,
+          "end": 13,
+          "seconds": 3,
+          "frame": "detail",
+          "prompt": "Move gently toward an already visible detail of 温柔韩版高腰百褶半身裙通勤显瘦气质长裙粉色大摆裙2026夏季新款; visual inspection only, not a test or claim of effectiveness. Source facts (not extra performance claims): 图案: 纯色; 工艺: 百褶; 面料名称: 涤纶（聚酯纤维）; 主面料成分2: 其他/other; 上市年份/季节: 2026年夏季; 货号: BM146-2633#; 品牌: 无; 裙型: 百褶裙; 裙长: 长裙; 流行元素: 百褶; 颜色: 粉色半身裙; 尺码: S. The supplied original reference image is authoritative; preserve its visible product identity, geometry, color and markings. Descriptions must not override the image. Do not invent hidden sides, materials, accessories, people, use cases or performance claims. Use only gentle camera movement within the visible view, stable lighting and background; no added text, logos, watermarks or price graphics."
+        },
+        {
+          "id": "cta",
+          "name": "CTA",
+          "start": 13,
+          "end": 15,
+          "seconds": 2,
+          "frame": "main",
+          "prompt": "Return to a balanced view of 温柔韩版高腰百褶半身裙通勤显瘦气质长裙粉色大摆裙2026夏季新款 and settle; a visual invitation to inspect, without promotional claims. Source facts (not extra performance claims): 图案: 纯色; 工艺: 百褶; 面料名称: 涤纶（聚酯纤维）; 主面料成分2: 其他/other; 上市年份/季节: 2026年夏季; 货号: BM146-2633#; 品牌: 无; 裙型: 百褶裙; 裙长: 长裙; 流行元素: 百褶; 颜色: 粉色半身裙; 尺码: S. The supplied original reference image is authoritative; preserve its visible product identity, geometry, color and markings. Descriptions must not override the image. Do not invent hidden sides, materials, accessories, people, use cases or performance claims. Use only gentle camera movement within the visible view, stable lighting and background; no added text, logos, watermarks or price graphics."
+        }
+      ],
+      "capability_status": "awaiting low-cost provider documentation and sample verification",
+      "acceptance": [
+        "playback",
+        "actual duration",
+        "product consistency",
+        "full agreed storyboard",
+        "no watermark"
+      ],
+      "note": "15/30秒为创作方案，不是赛规最低时长；字幕/音轨/配乐须分别验收。"
+    },
+    {
+      "id": "strategy_document",
+      "kind": "strategy",
+      "required": true,
+      "prompt": "由实际运行记录生成策略说明；区分配置候选和实际调用、计划和交付、未知和通过。",
+      "generation": "deterministic_stdlib",
+      "model_calls": 0
+    }
+  ],
+  "checks": [
+    {
+      "id": "slot_count",
+      "passed": true,
+      "detail": "3文案+6图片+1视频+1策略"
+    },
+    {
+      "id": "references",
+      "passed": true,
+      "detail": "原始商品URL锁定，尚未读取图像"
+    },
+    {
+      "id": "sku_data",
+      "passed": true,
+      "detail": "保留来源SKU，不猜尺码"
+    },
+    {
+      "id": "generation",
+      "passed": false,
+      "detail": "计划不是生成产物；零调用"
+    }
+  ],
+  "next_steps": [
+    "核实低价服务协议和价格",
+    "少量参考图生图与视频样片",
+    "按同一验收表比较",
+    "冻结能力配置与提示词",
+    "授权后仅执行一次千问正式生成"
+  ],
+  "limitations": [
+    "官方67分细项回执未提供，不能推算新分数。",
+    "图片与视频真实效果必须通过样片检验。",
+    "第三方低价接口仅用于独立研发测试，不进入赛内白名单执行路径。"
+  ]
+}

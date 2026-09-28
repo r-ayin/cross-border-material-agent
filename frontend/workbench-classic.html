@@ -1,0 +1,431 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>一键出海 · 将感动带给全世界 — 封面 + 工作台</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --ink:#17123a; --dim:#5d5a7a; --violet:#7c3aed; --cyan:#06b6d4; --pink:#f472b6; --amber:#f59e0b;
+  --glass:rgba(255,255,255,.55); --glass-brd:rgba(255,255,255,.9);
+  --ok:#10b981; --warn:#f59e0b; --err:#ef4444;
+}
+html{scroll-behavior:smooth}
+body{font-family:"PingFang SC","Noto Sans SC",system-ui,sans-serif;background:#f4f2ff;color:var(--ink);overflow-x:hidden}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+.blob{position:fixed;border-radius:50%;filter:blur(100px);opacity:.5;z-index:0;pointer-events:none;will-change:transform}
+.b1{width:580px;height:580px;background:#a78bfa;top:-150px;left:-130px;animation:drift1 16s ease-in-out infinite alternate}
+.b2{width:540px;height:540px;background:#67e8f9;top:18%;right:-170px;animation:drift2 19s ease-in-out infinite alternate}
+.b3{width:640px;height:640px;background:#f9a8d4;bottom:-240px;left:20%;animation:drift3 23s ease-in-out infinite alternate}
+@keyframes drift1{to{transform:translate(130px,90px) scale(1.15)}}
+@keyframes drift2{to{transform:translate(-150px,70px) scale(.88)}}
+@keyframes drift3{to{transform:translate(100px,-120px) scale(1.12)}}
+.glass{background:var(--glass);backdrop-filter:blur(26px) saturate(1.5);-webkit-backdrop-filter:blur(26px) saturate(1.5);border:1px solid var(--glass-brd);border-radius:28px;box-shadow:0 30px 80px rgba(23,18,58,.14)}
+.wrap{position:relative;z-index:2;max-width:1240px;margin:0 auto;padding:0 40px}
+
+/* ============ 视图切换 ============ */
+#portal{position:fixed;inset:0;z-index:60;pointer-events:none;background:radial-gradient(circle at var(--px,50%) var(--py,50%),rgba(124,58,237,.9),rgba(244,114,182,.85) 40%,rgba(103,232,249,.8) 70%);clip-path:circle(0px at var(--px,50%) var(--py,50%));transition:clip-path .9s cubic-bezier(.7,0,.3,1);opacity:.95}
+#portal.go{clip-path:circle(150% at var(--px,50%) var(--py,50%))}
+#portal.fade{opacity:0;transition:clip-path .9s cubic-bezier(.7,0,.3,1),opacity .5s .5s}
+.view{transition:opacity .6s cubic-bezier(.2,.7,.2,1),transform .6s cubic-bezier(.2,.7,.2,1),filter .6s}
+.view.gone{display:none}
+.view.leaving{opacity:0;transform:scale(1.05);filter:blur(14px);pointer-events:none}
+.view.entering .rv2{opacity:0;transform:translateY(26px) scale(.98)}
+.view.entering.go .rv2{opacity:1;transform:none}
+.rv2{transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
+
+/* ============ 封面 ============ */
+nav{display:flex;justify-content:space-between;align-items:center;padding:26px 0;position:relative;z-index:5}
+.logo{font-weight:900;font-size:18px;letter-spacing:.01em}
+.logo span{background:linear-gradient(90deg,var(--violet),var(--pink));-webkit-background-clip:text;background-clip:text;color:transparent}
+.pill-nav{display:flex;gap:4px;background:rgba(255,255,255,.6);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid var(--glass-brd);border-radius:999px;padding:6px}
+.pill-nav span{padding:9px 22px;border-radius:999px;font-size:14px;color:var(--dim);cursor:pointer;transition:.3s;font-weight:700}
+.pill-nav span.act,.pill-nav span:hover{background:#fff;color:var(--ink);box-shadow:0 4px 18px rgba(23,18,58,.12)}
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;min-height:88vh;padding:20px 0 60px}
+.badge{display:inline-flex;gap:8px;align-items:center;background:rgba(255,255,255,.72);border:1px solid var(--glass-brd);padding:9px 20px;border-radius:999px;font-size:13px;color:var(--violet);font-weight:800;box-shadow:0 8px 28px rgba(124,58,237,.14)}
+h1{font-size:clamp(48px,6.4vw,92px);line-height:1.08;letter-spacing:-.03em;font-weight:900;margin:26px 0}
+h1 .grad{background:linear-gradient(90deg,var(--violet),var(--cyan) 55%,var(--pink));-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{color:var(--dim);font-size:17px;line-height:1.9;max-width:540px}
+.sub b{color:var(--ink)}
+.cta-line{display:flex;align-items:center;gap:14px;margin-top:12px;flex-wrap:wrap}
+.mag-wrap{padding:26px;display:inline-block}
+.btn{background:linear-gradient(90deg,var(--violet),#a855f7 60%,var(--pink));border:none;color:#fff;font-size:16px;font-weight:800;padding:18px 42px;border-radius:999px;cursor:pointer;box-shadow:0 18px 50px rgba(124,58,237,.4);transition:transform .18s ease-out,box-shadow .3s;will-change:transform}
+.btn:hover{box-shadow:0 24px 70px rgba(124,58,237,.55)}
+.btn:disabled{opacity:.5;cursor:wait;transform:none!important}
+.ghost-link{color:var(--dim);font-weight:700;font-size:15px;cursor:pointer;transition:color .3s;background:none;border:none}
+.ghost-link:hover{color:var(--violet)}
+.chips{display:flex;gap:12px;margin-top:24px;flex-wrap:wrap}
+.chip{background:rgba(255,255,255,.66);backdrop-filter:blur(16px);border:1px solid var(--glass-brd);border-radius:14px;padding:12px 18px;font-size:13px;font-weight:700;box-shadow:0 6px 20px rgba(23,18,58,.07)}
+.chip b{color:var(--violet)}
+.stage{position:relative;height:560px}
+.pcard{position:absolute;right:4%;top:2%;width:330px;padding:18px;transform:rotate(4deg);animation:floaty 7s ease-in-out infinite;overflow:hidden}
+.pcard img{width:100%;height:270px;object-fit:cover;border-radius:18px;display:block}
+.pcard .shine{position:absolute;left:18px;right:18px;top:18px;height:270px;border-radius:18px;overflow:hidden;pointer-events:none}
+.pcard .shine::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.45) 50%,transparent 65%);transform:translateX(-120%);animation:shimmer 4.2s ease-in-out infinite}
+@keyframes shimmer{55%,100%{transform:translateX(120%)}}
+.pcard h4{margin:16px 6px 8px;font-size:16px}
+.pcard .row{display:flex;justify-content:space-between;align-items:center;margin:0 6px 6px}
+.pcard .price{font-weight:900;font-size:20px;color:var(--violet)}
+.pcard .buy{background:var(--ink);color:#fff;border-radius:999px;padding:9px 20px;font-size:13px;font-weight:800;cursor:pointer;border:none}
+.mini1{position:absolute;left:-2%;bottom:8%;width:240px;padding:18px;transform:rotate(-5deg);animation:floaty 8.5s ease-in-out -2.5s infinite}
+.mini1 .langs{display:flex;gap:8px;margin-top:12px}
+.mini1 .lang{flex:1;text-align:center;padding:10px 0;border-radius:12px;font-weight:800;font-size:13px;color:#fff}
+.mini1 .l1{background:var(--violet)}.mini1 .l2{background:var(--cyan)}.mini1 .l3{background:var(--pink)}
+.mini2{position:absolute;right:-1%;bottom:-2%;width:210px;padding:16px;transform:rotate(6deg);animation:floaty 9.5s ease-in-out -4s infinite;cursor:pointer}
+.mini2 .play{width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,var(--violet),var(--pink));display:grid;place-items:center;color:#fff;font-size:20px;margin:10px auto 12px;box-shadow:0 12px 30px rgba(124,58,237,.4)}
+.mini2 .cap{text-align:center;font-size:13px;font-weight:800;color:var(--dim)}
+@keyframes floaty{0%,100%{translate:0 0}50%{translate:0 -20px}}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;padding-bottom:90px}
+.step{padding:26px;border-radius:24px;transition:transform .5s cubic-bezier(.2,.7,.2,1),box-shadow .5s}
+.step:hover{transform:translateY(-12px) scale(1.02);box-shadow:0 40px 80px rgba(23,18,58,.2)}
+.step .ico{width:52px;height:52px;border-radius:17px;display:grid;place-items:center;font-size:23px;background:linear-gradient(135deg,var(--violet),var(--cyan));color:#fff;margin-bottom:16px;box-shadow:0 10px 26px rgba(124,58,237,.35)}
+.step h3{font-size:17px;margin-bottom:6px}
+.step .m{font-size:12px;color:var(--violet);font-weight:800;margin-bottom:8px;letter-spacing:.05em}
+.step p{color:var(--dim);font-size:13px;line-height:1.75}
+
+/* ============ 工作台 ============ */
+.wb-top{display:flex;justify-content:space-between;align-items:center;padding:20px 0;gap:16px;flex-wrap:wrap}
+.wb-title{font-weight:900;font-size:20px;display:flex;align-items:center;gap:12px}
+.wb-title .dot{width:10px;height:10px;border-radius:50%;background:var(--ok);box-shadow:0 0 14px var(--ok)}
+.status-pill{display:flex;gap:10px;align-items:center}
+.spill{background:rgba(255,255,255,.7);border:1px solid var(--glass-brd);border-radius:999px;padding:8px 18px;font-size:13px;font-weight:800}
+.spill.run{color:var(--amber)} .spill.done{color:var(--ok)} .spill.idle{color:var(--dim)}
+.wb-grid{display:grid;grid-template-columns:310px 1fr 400px;gap:20px;align-items:start;padding-bottom:30px}
+@media(max-width:1180px){.wb-grid{grid-template-columns:1fr}}
+.panel{padding:24px;border-radius:24px}
+.panel h3{font-size:15px;letter-spacing:.12em;color:var(--violet);margin-bottom:18px;font-weight:900}
+.field{margin-bottom:18px}
+.field label{display:block;font-size:13px;font-weight:800;margin-bottom:8px;color:var(--dim)}
+select{width:100%;padding:12px 14px;border-radius:14px;border:1px solid rgba(23,18,58,.15);background:rgba(255,255,255,.8);font-size:14px;font-weight:700;color:var(--ink);outline:none;cursor:pointer}
+select:focus{border-color:var(--violet);box-shadow:0 0 0 3px rgba(124,58,237,.15)}
+.langrow{display:flex;gap:10px}
+.langbox{flex:1;text-align:center;padding:11px 0;border-radius:12px;font-weight:800;font-size:13px;cursor:pointer;border:2px solid transparent;transition:.25s;background:rgba(255,255,255,.6);color:var(--dim)}
+.langbox.on{color:#fff}
+.langbox.on[data-l="en"]{background:var(--violet)} .langbox.on[data-l="ko"]{background:var(--cyan)} .langbox.on[data-l="pt"]{background:var(--pink)}
+.demo-note{font-size:12px;line-height:1.8;color:var(--dim);background:rgba(124,58,237,.08);border:1px dashed rgba(124,58,237,.4);border-radius:14px;padding:12px 14px;margin-top:6px}
+.stages{display:flex;flex-direction:column;gap:14px}
+.scard{padding:18px 20px;border-radius:20px;display:grid;grid-template-columns:52px 1fr auto;gap:16px;align-items:center;transition:.4s;position:relative;overflow:hidden}
+.scard .ico{width:52px;height:52px;border-radius:16px;display:grid;place-items:center;font-size:22px;background:rgba(124,58,237,.12);color:var(--violet);transition:.4s}
+.scard.active{border-color:rgba(124,58,237,.6);box-shadow:0 20px 60px rgba(124,58,237,.25)}
+.scard.active .ico{background:linear-gradient(135deg,var(--violet),var(--cyan));color:#fff;animation:pulse 1.2s ease-in-out infinite}
+.scard.done .ico{background:var(--ok);color:#fff}
+@keyframes pulse{50%{transform:scale(1.08);box-shadow:0 0 30px rgba(124,58,237,.5)}}
+.scard h4{font-size:15px;margin-bottom:4px}
+.scard .mm{font-size:12px;color:var(--violet);font-weight:800}
+.scard .bar{height:6px;border-radius:99px;background:rgba(23,18,58,.1);margin-top:10px;overflow:hidden}
+.scard .bar b{display:block;height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,var(--violet),var(--pink));transition:width .3s linear}
+.scard .st{font-size:12px;font-weight:800;color:var(--dim);min-width:64px;text-align:right}
+.scard.done .st{color:var(--ok)} .scard.active .st{color:var(--violet)}
+.console{margin-top:16px;background:#14102b;border-radius:20px;padding:18px 20px;height:220px;overflow-y:auto;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;line-height:1.9;color:#c9c3ee;box-shadow:inset 0 2px 20px rgba(0,0,0,.4)}
+.console .ln{white-space:pre-wrap;animation:lnin .3s cubic-bezier(.2,.7,.2,1)}
+@keyframes lnin{from{opacity:0;transform:translateX(-8px)}to{opacity:1;transform:none}}
+.console .t{color:#6d67a0} .console .ok{color:#4ade80} .console .warn{color:#fbbf24} .console .vio{color:#c4b5fd} .console .cy{color:#67e8f9}
+.arts{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.art{border-radius:20px;overflow:hidden;position:relative;aspect-ratio:1;background:rgba(255,255,255,.4);border:2px dashed rgba(23,18,58,.18);display:grid;place-items:center;transition:.4s;transform-style:preserve-3d}
+.art .ph-t{font-size:12px;color:var(--dim);font-weight:700;letter-spacing:.1em;text-align:center;padding:0 10px}
+.art.busy{border-style:solid;border-color:rgba(124,58,237,.4)}
+.art.busy::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 32%,rgba(124,58,237,.12) 50%,transparent 68%);transform:translateX(-110%);animation:shimmer 1.6s ease-in-out infinite}
+.art.filled{border:1px solid var(--glass-brd);background:var(--glass);box-shadow:0 20px 50px rgba(23,18,58,.16);animation:pop .7s cubic-bezier(.2,.9,.3,1.3)}
+@keyframes pop{from{transform:scale(.82);opacity:0}to{transform:scale(1);opacity:1}}
+.art img,.art video{width:100%;height:100%;object-fit:cover;display:block}
+.art .tag{position:absolute;left:10px;top:10px;background:rgba(23,18,58,.75);color:#fff;font-size:10px;font-weight:800;letter-spacing:.14em;padding:4px 10px;border-radius:999px;backdrop-filter:blur(8px);z-index:2}
+.art .sim{position:absolute;right:10px;top:10px;background:rgba(245,158,11,.9);color:#fff;font-size:10px;font-weight:800;padding:4px 10px;border-radius:999px;z-index:2}
+.art.doc{aspect-ratio:1;padding:16px;display:flex;flex-direction:column}
+.art.doc .txt{font-size:11px;line-height:1.7;color:var(--dim);overflow:hidden;flex:1;font-family:ui-monospace,Menlo,monospace}
+.art.doc .tt{font-weight:900;font-size:13px;margin:26px 0 8px}
+.wb-foot{padding:16px 0 60px;display:flex;justify-content:space-between;align-items:center;color:var(--dim);font-size:12px;letter-spacing:.18em;font-weight:700;flex-wrap:wrap;gap:10px}
+.rv{opacity:0;transform:translateY(30px);transition:opacity .85s cubic-bezier(.2,.7,.2,1),transform .85s cubic-bezier(.2,.7,.2,1)}
+.rv.on{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv,.rv2{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+<div id="portal"></div>
+
+<!-- ============ 封面介绍 ============ -->
+<section id="view-cover" class="view">
+<div class="wrap">
+<nav>
+<div class="logo">one-click<span>·global</span></div>
+<div class="pill-nav"><span class="act" data-view="cover">封面</span><span data-view="work">工作台</span></div>
+</nav>
+<header class="hero">
+<div>
+<div class="badge rv">✦ 千问 AI Arena · 一键出海参赛作品</div>
+<h1 class="rv" style="transition-delay:.08s">一键出海，<br/><span class="grad">将感动带给全世界</span></h1>
+<p class="sub rv" style="transition-delay:.16s">输入一份商品 JSON，Agent 自动产出<b>三语文案、主图、5 张详情图与商品视频</b>。全程千问模型驱动，<b>510 秒</b>完成一次真实运行。</p>
+<div class="cta-line rv" style="transition-delay:.24s">
+<span class="mag-wrap" id="magWrapCover"><button class="btn mag-btn" id="enterBtn">进入工作台 →</button></span>
+<button class="ghost-link" id="watchBtn">观看 510 秒实跑 ▶</button>
+</div>
+<div class="chips rv" style="transition-delay:.32s">
+<div class="chip">⏱ 实跑 <b>510s</b></div>
+<div class="chip">📦 产物 <b>11/11</b></div>
+<div class="chip">🧩 第三方依赖 <b>0</b></div>
+<div class="chip">🌏 <b>EN · KO · PT</b></div>
+</div>
+</div>
+<div class="stage rv" style="transition-delay:.2s">
+<div class="glass pcard" id="pcard">
+<img src="assets/run-20260928/character_keyframe_v7_refined.png" alt="粉色百褶半身裙·v7生活感主视觉"/>
+<div class="shine"></div>
+<h4>粉色百褶半身裙 · Pleated Skirt</h4>
+<div class="row"><span class="price">$29.90</span><button class="buy" id="tryBtn">用这件试跑</button></div>
+</div>
+<div class="glass mini1">
+<b style="font-size:14px">三语商品文案</b>
+<div class="langs"><span class="lang l1">EN</span><span class="lang l2">KO</span><span class="lang l3">PT</span></div>
+</div>
+<div class="glass mini2" id="videoCard">
+<div class="play">▶</div>
+<div class="cap">商品视频 · 4.5MB</div>
+</div>
+</div>
+</header>
+<div class="steps">
+<div class="step glass rv" style="transition-delay:.05s"><div class="ico">📥</div><h3>P0 输入解析</h3><div class="m">qwen-vl-max</div><p>解析商品 JSON，VL 模型理解源图语义。</p></div>
+<div class="step glass rv" style="transition-delay:.12s"><div class="ico">🎯</div><h3>P1 类目映射</h3><div class="m">qwen3.7-max</div><p>精准命中目标类目，属性枚举对齐平台。</p></div>
+<div class="step glass rv" style="transition-delay:.19s"><div class="ico">⚡</div><h3>P2 并行生成</h3><div class="m">qwen3.8-max · image-pro</div><p>文案 / 图像 / 视频三线并发。</p></div>
+<div class="step glass rv" style="transition-delay:.26s"><div class="ico">📦</div><h3>P3 策略组装</h3><div class="m">listing.json</div><p>组装、校验、策略文档，退出码 0。</p></div>
+</div>
+</div>
+</section>
+
+<!-- ============ 工作台 ============ -->
+<section id="view-work" class="view gone entering">
+<div class="wrap">
+<div class="wb-top rv2">
+<div class="wb-title"><span class="dot" id="liveDot"></span>一键出海 · 工作台</div>
+<div class="status-pill">
+<span class="spill mono" id="clock">T+0.0s</span>
+<span class="spill idle" id="statusPill">● 待命</span>
+<button class="ghost-link" data-view="cover">← 返回封面</button>
+</div>
+</div>
+<div class="wb-grid">
+<aside class="panel glass rv2" style="transition-delay:.08s">
+<h3>任务配置</h3>
+<div class="field"><label>商品</label><select id="prodSel"></select></div>
+<div class="field"><label>目标语言</label>
+<div class="langrow">
+<span class="langbox on" data-l="en">EN</span>
+<span class="langbox on" data-l="ko">KO</span>
+<span class="langbox on" data-l="pt">PT</span>
+</div></div>
+<div class="field"><label>风格路由</label>
+<select id="styleSel">
+<option>自动路由（推荐）</option>
+<option>premium-editorial 高级编辑风</option>
+<option>street-casual 街头休闲风</option>
+<option>fresh-pastoral 清新田园风</option>
+</select></div>
+<span class="mag-wrap" style="padding:12px 0;display:block" id="magWrapRun"><button class="btn mag-btn" id="runBtn" style="width:100%">开始生成</button></span>
+<div class="demo-note">演示模式：流水线以 14 秒动画模拟真实 510 秒，<b>不实际调用模型 API、不消耗百炼额度</b>（DashScope 接口与模型链路保留在设计中，待额度恢复可一键接真）。选择「百褶半身裙」展示 2026-08-28 真实运行产物；其他商品展示模拟产物（橙色 SIM 标记）。</div>
+</aside>
+<div class="rv2" style="transition-delay:.16s">
+<div class="stages">
+<div class="scard glass" id="st0"><div class="ico">📥</div><div><h4>P0 输入解析</h4><div class="mm">qwen-vl-max</div><div class="bar"><b></b></div></div><div class="st">等待</div></div>
+<div class="scard glass" id="st1"><div class="ico">🎯</div><div><h4>P1 类目属性映射</h4><div class="mm">qwen3.7-max</div><div class="bar"><b></b></div></div><div class="st">等待</div></div>
+<div class="scard glass" id="st2"><div class="ico">⚡</div><div><h4>P2 文案 / 图像 / 视频并行生成</h4><div class="mm">qwen3.8-max · qwen-image-3.0-pro · happyhorse-1.1</div><div class="bar"><b></b></div></div><div class="st">等待</div></div>
+<div class="scard glass" id="st3"><div class="ico">📦</div><div><h4>P3 策略文档 + 组装校验</h4><div class="mm">qwen3.7-max · listing.json</div><div class="bar"><b></b></div></div><div class="st">等待</div></div>
+</div>
+<div class="console" id="console"></div>
+</div>
+<div class="rv2" style="transition-delay:.24s">
+<div class="arts" id="arts"></div>
+</div>
+</div>
+<div class="wb-foot rv2" style="transition-delay:.3s;justify-content:center"><span class="mono">QWEN AI ARENA · 一键出海 · 将感动带给全世界</span></div>
+</div>
+</section>
+<script>
+(function(){
+var REAL='8822221153828';
+var PRODUCTS=[
+['8822221153828','温柔韩版高腰百褶半身裙通勤显瘦气质长裙粉色大摆裙（真实运行案例）'],
+['3887087154767','春秋宽松大码纯色雪纺衬衫女装韩版休闲风'],
+['5681480836479','韩版挂脖露肩设计感针织衫女秋冬长袖'],
+['5758364264251','欧美跨境复古花卉印花休闲宽松女式长袖T恤'],
+['5977010166484','新款韩版宽松毛呢外套女秋冬短款大衣'],
+['6786311895552','花色时尚洋气淑女名媛风大码连衣裙夏季'],
+['6837006744133','美式工装夹克男春秋季宽松立领飞行服'],
+['8409262509816','中长裙纯色气质通勤粉色冰丝简洁连衣裙'],
+['8688570444629','男女童短袖卡通含棉汪汪队T恤儿童夏装'],
+['9451226053560','男士商务免烫弹力衬衫长袖光泽丝滑'],
+['9493156931235','夏季男士五分沙滩短裤宽松纯色休闲']
+];
+var ART_DEFS=[
+{k:'img',tag:'MAIN IMAGE',name:'主图 · 白底',src:'assets/main_image.png'},
+{k:'img',tag:'DETAIL 01',name:'详情图 · 卖点',src:'assets/detail_image_1.png'},
+{k:'img',tag:'DETAIL 02',name:'详情图 · 工艺',src:'assets/detail_image_2.png'},
+{k:'img',tag:'DETAIL 03',name:'详情图 · 材质',src:'assets/detail_image_3.png'},
+{k:'img',tag:'DETAIL 04',name:'详情图 · 场景',src:'assets/detail_image_4.png'},
+{k:'img',tag:'DETAIL 05',name:'详情图 · 全景',src:'assets/detail_image_5.png'},
+{k:'video',tag:'VIDEO · i2v',name:'商品视频·15s主版',src:'assets/run-20260928/product_video_v7_15s_clean.mp4'},
+{k:'doc',tag:'COPY · EN',name:'英文文案',src:'assets/product_description_en.md'},
+{k:'doc',tag:'COPY · KO',name:'韩文文案',src:'assets/product_description_ko.md'},
+{k:'doc',tag:'COPY · PT',name:'葡文文案',src:'assets/product_description_pt.md'},
+{k:'doc',tag:'STRATEGY',name:'策略文档',src:'assets/strategy_document.md'}
+];
+var SIM_GRADS=['linear-gradient(150deg,#fbcfe8,#f9a8d4 45%,#a78bfa)','linear-gradient(150deg,#a5f3fc,#67e8f9 50%,#818cf8)','linear-gradient(150deg,#fde68a,#fbbf24 50%,#fb923c)','linear-gradient(150deg,#ddd6fe,#a78bfa 55%,#7c3aed)','linear-gradient(150deg,#fecdd3,#fda4af 50%,#f43f5e)','linear-gradient(150deg,#bbf7d0,#86efac 50%,#22d3ee)'];
+/* ---- DashScope API 挂点：保留 API，暂不实际生成 ----
+   百炼额度恢复后：填入 KEY、MODE 改 'live'，即切换真实生成；
+   当前 MODE='sim'，页面不发起任何真实模型请求，不消耗额度。 */
+var DASHSCOPE={ MODE:'sim', BASE:'https://dashscope.aliyuncs.com/compatible-mode/v1', KEY:'',
+  MODELS:{ text:'qwen3.8-max', image:'qwen-image-3.0-pro', video:'happyhorse-1.1-t2v', vl:'qwen-vl-max' } };
+function $(id){return document.getElementById(id)}
+var cover=$('view-cover'), work=$('view-work'), portal=$('portal'), cons=$('console'), artsBox=$('arts'),
+    prodSel=$('prodSel'), runBtn=$('runBtn'), statusPill=$('statusPill'), clockEl=$('clock');
+var artEls=[], running=false, clockRAF=null;
+
+/* ---- 初始化：商品选择 + 产物槽 ---- */
+PRODUCTS.forEach(function(p){ var o=document.createElement('option'); o.value=p[0]; o.textContent=p[1]; prodSel.appendChild(o); });
+prodSel.value=REAL;
+function renderArts(){
+  artsBox.innerHTML=''; artEls=[];
+  ART_DEFS.forEach(function(d){
+    var el=document.createElement('div'); el.className='art';
+    el.innerHTML='<span class="ph-t">待生成<br/>'+d.name+'</span>';
+    artsBox.appendChild(el); artEls.push(el);
+  });
+}
+renderArts();
+
+/* ---- 封面滚动入场 ---- */
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target);}})},{threshold:.14});
+document.querySelectorAll('#view-cover .rv').forEach(function(el){io.observe(el)});
+
+/* ---- 磁吸按钮 ---- */
+document.querySelectorAll('.mag-wrap').forEach(function(w){
+  var b=w.querySelector('.mag-btn'); if(!b) return;
+  w.addEventListener('mousemove',function(ev){ var r=w.getBoundingClientRect(); b.style.transform='translate('+((ev.clientX-r.left-r.width/2)*0.28)+'px,'+((ev.clientY-r.top-r.height/2)*0.28)+'px)'; });
+  w.addEventListener('mouseleave',function(){ b.style.transform='translate(0,0)'; });
+});
+
+/* ---- 视图切换（圆形扩散过渡） ---- */
+function setActivePill(v){ document.querySelectorAll('.pill-nav span').forEach(function(s){ s.classList.toggle('act', s.getAttribute('data-view')===v); }); }
+function enterWork(ev,thenRun){
+  var x=ev?ev.clientX:innerWidth/2, y=ev?ev.clientY:innerHeight*0.5;
+  portal.style.setProperty('--px',x+'px'); portal.style.setProperty('--py',y+'px');
+  portal.classList.remove('fade'); void portal.offsetWidth; portal.classList.add('go');
+  setTimeout(function(){
+    cover.classList.add('leaving');
+    work.classList.remove('gone'); work.classList.add('entering');
+    requestAnimationFrame(function(){requestAnimationFrame(function(){work.classList.add('go')})});
+    setTimeout(function(){ cover.classList.add('gone'); window.scrollTo(0,0); },520);
+    setActivePill('work');
+    if(thenRun) setTimeout(run,1400);
+  },380);
+  setTimeout(function(){portal.classList.add('fade')},950);
+  setTimeout(function(){portal.classList.remove('go','fade')},1700);
+}
+function backCover(){
+  work.classList.add('gone'); work.classList.remove('go');
+  cover.classList.remove('gone','leaving');
+  window.scrollTo(0,0); setActivePill('cover');
+}
+document.querySelectorAll('[data-view]').forEach(function(el){
+  el.addEventListener('click',function(ev){
+    var v=el.getAttribute('data-view');
+    if(v==='work' && cover.classList.contains('gone')) return;
+    if(v==='cover') backCover(); else enterWork(ev,false);
+  });
+});
+$('enterBtn').addEventListener('click',function(ev){enterWork(ev,false)});
+$('tryBtn').addEventListener('click',function(ev){ prodSel.value=REAL; resetRun(); enterWork(ev,true); });
+$('watchBtn').addEventListener('click',function(ev){ enterWork(ev,true); });
+if(/[?&]auto=1/.test(location.search)||location.hash.indexOf('auto')===1){ setTimeout(function(){ enterWork(null,true); },600); }
+$('videoCard').addEventListener('click',function(ev){ enterWork(ev,true); });
+
+/* ---- 语言开关 ---- */
+document.querySelectorAll('.langbox').forEach(function(b){ b.addEventListener('click',function(){ b.classList.toggle('on'); }); });
+prodSel.addEventListener('change',function(){ if(!running){ renderArts(); statusPill.className='spill idle'; statusPill.textContent='● 待命'; } });
+
+/* ---- 日志 ---- */
+function simT(){ return clockEl._v||0; }
+function log(cls,msg){
+  var d=document.createElement('div'); d.className='ln';
+  d.innerHTML='<span class="t">[T+'+simT().toFixed(1)+'s]</span> <span class="'+cls+'">'+msg+'</span>';
+  cons.appendChild(d); cons.scrollTop=cons.scrollHeight;
+}
+
+/* ---- 产物填充 ---- */
+function tiltBind(el){
+  el.addEventListener('mousemove',function(ev){ var r=el.getBoundingClientRect(); var px=(ev.clientX-r.left)/r.width, py=(ev.clientY-r.top)/r.height; el.style.transform='rotateY('+((px-0.5)*10)+'deg) rotateX('+((0.5-py)*10)+'deg)'; });
+  el.addEventListener('mouseleave',function(){ el.style.transform=''; });
+}
+function fillArt(i){
+  var d=ART_DEFS[i], el=artEls[i], real=(prodSel.value===REAL);
+  el.className='art filled'; el.innerHTML='';
+  var tag=document.createElement('span'); tag.className='tag'; tag.textContent=d.tag; el.appendChild(tag);
+  if(!real){ var s=document.createElement('span'); s.className='sim'; s.textContent='SIM'; el.appendChild(s); }
+  if(d.k==='img'){
+    if(real){ var im=document.createElement('img'); im.src=d.src; im.alt=d.name; el.appendChild(im); }
+    else{ var g=document.createElement('div'); g.style.cssText='position:absolute;inset:0;background:'+SIM_GRADS[i%6]; el.appendChild(g); }
+  } else if(d.k==='video'){
+    if(real){ var v=document.createElement('video'); v.src=d.src; v.muted=true; v.loop=true; v.autoplay=true; v.controls=true; v.playsInline=true; el.appendChild(v); }
+    else{ var g2=document.createElement('div'); g2.style.cssText='position:absolute;inset:0;background:'+SIM_GRADS[5]+';display:grid;place-items:center;color:#fff;font-size:34px'; g2.textContent='▶'; el.appendChild(g2); }
+  } else {
+    el.classList.add('doc');
+    var tt=document.createElement('div'); tt.className='tt'; tt.textContent=d.name; el.appendChild(tt);
+    var tx=document.createElement('div'); tx.className='txt'; tx.textContent='加载中…'; el.appendChild(tx);
+    if(real){
+      fetch(d.src).then(function(r){return r.text()}).then(function(t){ tx.textContent=t.replace(/[#*\n]+/g,' ').slice(0,220)+' …'; }).catch(function(){ tx.textContent='（文案加载失败）'; });
+    } else {
+      tx.textContent='【模拟文案】'+d.name+' 生成完成：标题 / 卖点 / 关键词 / 描述四段式结构，符合目标平台规范。真实运行请选「百褶半身裙」。';
+    }
+  }
+  tiltBind(el);
+}
+
+/* ---- 流水线模拟 ---- */
+var DURS=[2500,3000,6000,2500], TOTAL=14000;
+function sleep(ms){ return new Promise(function(r){setTimeout(r,ms)}); }
+function setStage(i,mode){
+  var el=$('st'+i);
+  el.classList.remove('active','done');
+  if(mode) el.classList.add(mode);
+  el.querySelector('.st').textContent = mode==='active'?'运行中':(mode==='done'?'完成 ✓':'等待');
+}
+function resetRun(){
+  for(var i=0;i<4;i++){ setStage(i,null); $('st'+i).querySelector('.bar b').style.width='0%'; }
+  renderArts(); cons.innerHTML='';
+  statusPill.className='spill idle'; statusPill.textContent='● 待命';
+  clockEl.textContent='T+0.0s'; clockEl._v=0;
+}
+async function run(){
+  if(running) return; running=true;
+  resetRun();
+  runBtn.disabled=true; runBtn.textContent='生成中…';
+  statusPill.className='spill run'; statusPill.textContent='● 运行中';
+  var t0=performance.now();
+  function tickClock(){ var t=Math.min(TOTAL,performance.now()-t0); clockEl._v=t/TOTAL*510; clockEl.textContent='T+'+clockEl._v.toFixed(1)+'s'; if(t<TOTAL) clockRAF=requestAnimationFrame(tickClock); }
+  tickClock();
+  var LOGS=[
+    [[100,'vio','加载商品 JSON … '+prodSel.value],[700,'cy','VL 读图：识别主体 / 颜色 / 风格语义'],[1600,'ok','P0 完成 · 视觉语义注入生成 prompt']],
+    [[200,'vio','66 个叶子类目候选 → 打分'],[1200,'cy','命中：39153 女士半身裙（conf 0.97）'],[2200,'ok','属性枚举对齐目标平台 ok']],
+    [[300,'vio','SSE 流式文案 EN … ok'],[900,'vio','SSE 流式文案 KO … ok'],[1500,'vio','SSE 流式文案 PT … ok'],[2100,'cy','主图 qwen-image-3.0-pro → 1328x1328 ok'],[3000,'cy','详情图 wan2.7-image-pro → 5/5 ok'],[4600,'cy','视频 happyhorse-1.1 i2v → 4.5MB ok'],[5400,'ok','P2 完成 · 10/10 媒体产物']],
+    [[200,'vio','组装 listing.json'],[900,'cy','校验器：命名 / 格式 / 数量 11/11 ok'],[1500,'vio','策略文档生成 ok'],[2200,'ok','exit code 0 · 全部交付']]
+  ];
+  var ART_TIMES=[[2,0,500],[2,1,1300],[2,2,2000],[2,3,2700],[2,4,3400],[2,5,4100],[2,6,5000],[3,7,400],[3,8,900],[3,9,1400],[3,10,1900]];
+  for(var i=0;i<4;i++){
+    setStage(i,'active');
+    var bar=$('st'+i).querySelector('.bar b'), stStart=performance.now();
+    (function(bar){ function bw(){ var p=Math.min(1,(performance.now()-stStart)/DURS[i]); bar.style.width=(p*100)+'%'; if(p<1) requestAnimationFrame(bw); } bw(); })(bar);
+    LOGS[i].forEach(function(L){ setTimeout(function(){log(L[1],L[2])},L[0]); });
+    ART_TIMES.forEach(function(A){ if(A[0]===i){ setTimeout(function(){ if(artEls[A[1]]) artEls[A[1]].classList.add('busy'); },A[2]); setTimeout(function(){ fillArt(A[1]); },A[2]+700); } });
+    await sleep(DURS[i]);
+    setStage(i,'done');
+  }
+  statusPill.className='spill done'; statusPill.textContent='● 已交付 11/11';
+  log('ok','═══ 运行结束 · 510s（模拟）· 退出码 0 ═══');
+  runBtn.disabled=false; runBtn.textContent='重新生成';
+  running=false;
+}
+runBtn.addEventListener('click',run);
+})();
+</script>
+</body>
+</html>

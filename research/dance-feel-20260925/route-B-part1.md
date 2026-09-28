@@ -1,0 +1,11 @@
+【B路报告 1/3】裙装带货短视频爆款舞蹈动作研究（STEEZY验证为主）
+渠道说明：web_search被污染不可用；STEEZY 9篇全文验证；CSDN 2篇；DancePlug 1篇；知乎/WikiHow/DDG不可达。
+A档（AI可稳定生成）动作摘录：
+A1 胯部横摆/8字摆胯 Hip Sway/Figure-8（2-4s）：Taemin MOVE，less is more，胯isolation清晰，宽站count1右推count3左推，脚跟内收；裙摆横向波浪。短语: she sways her hips slowly side to side in a figure-8, minimal upper body movement / hips roll smoothly left and right, the pleated skirt follows with soft waves / confident gaze, subtle narrowed eyes。来源 steezy.co/posts/how-to-do-the-hip-sway-from-move-by-taemin
+A2 肩部抖动+卡点 Shoulder Shimmy & Hit（ITZY Wannabe，2-4s）：右肩上顶左肩下压对角线交替，胸肩isolation，双手叉腰展示高腰线。短语: hands on her waist, she hits sharp shoulder pops to the beat, alternating left and right / isolated shoulder shimmy with confident attitude。来源 steezy.co/posts/how-to-do-the-dance-move-from-wannabe-by-itzy
+A3 两步侧向律动 Two-Step Groove（2-3s可循环）：foolproof万能律动，人体节拍器。短语: she grooves side to side in a relaxed two-step, bouncing lightly on the beat / gentle knee bounce, arms swinging naturally。来源 steezy.co/posts/10-easy-dance-moves-anyone-can-learn
+A4 踮脚弹胯 Swagg Bouncee（2-3s）：前脚掌踮起全幅度左右弹胯，make it bigger=更自信；长裙漂浮感。短语: bouncing lightly on her toes, hips swaying with full range of motion / the long pleated skirt swings side to side with playful energy。来源 steezy.co/posts/7-tiktok-dance-moves-you-can-learn-at-home
+A5 手臂波浪 Arm Wave（2-3s）：腕→肘→肩传导。短语: a fluid arm wave ripples through her arms, from fingertips to shoulders / smooth liquid wave motion。来源 steezy.co/posts/7-popping-exercises-you-can-practice-now
+A6 身体波浪 Body Wave/Body Roll（2-3s）：胸→腰→胯传导，面料纵线起伏；专门教程未验证（综合CSDN+常识）。短语: a slow graceful body roll travels down her torso, from chest to hips / fluid body wave, fabric ripples softly。来源 blog.csdn.net/weixin_32487557/article/details/163939737
+A7 胯部画圈 Hip Roll（2-4s两圈）：胯前→侧→后→侧画圈，裙摆圆锥荡开，A字/百褶最佳展示。短语: she rolls her hips in slow circles, the pleated skirt traces a soft cone around her legs / slow circular hip motion, fabric flowing outward。来源 steezy.co/posts/how-to-dance-sexy
+（A8-A13 与 B档、组合套路、风险禁忌见后续 2/3、3/3）

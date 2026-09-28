@@ -1,0 +1,277 @@
+{
+  "schema_version": 1,
+  "artifacts": [
+    {
+      "id": "product_description_en",
+      "kind": "copy",
+      "file": "product_description_en.md",
+      "technical_valid": true,
+      "status": "需返工",
+      "checks": [
+        "local structure checks passed; semantic quality not certified",
+        "旧文案重复标题；图像扩展名写为.jpeg而文件实际为.png。",
+        "含有标签洗护指引等未经源数据证实的推断；新版须按真实字段复核。"
+      ],
+      "bytes": 2680,
+      "sha256": "da7678b77a631706f0ea5d76c6116574ae890d0eed2645c16616b0787de29e7c",
+      "generation_quality": {},
+      "evidence_type": "local_structure_and_manual_observation"
+    },
+    {
+      "id": "product_description_ko",
+      "kind": "copy",
+      "file": "product_description_ko.md",
+      "technical_valid": false,
+      "status": "需返工",
+      "checks": [
+        "missing sections: Product Information, Size Chart, Source Information, Image Guide, Video",
+        "旧文案52–55行编造腰围66/71/76/81cm、臀围86/91/96/101cm及55/66/77/88韩码关系。",
+        "商品结构化来源只有S/M/L/XL，没有对应实测值。还存在英文章节标题、重复标题及图片扩展名错误。"
+      ],
+      "bytes": 3570,
+      "sha256": "f797d0b44a2849fdb0354c05d0872600cfaa13f352331b6a31781befd742f0c2",
+      "generation_quality": {},
+      "evidence_type": "local_structure_and_manual_observation"
+    },
+    {
+      "id": "product_description_pt",
+      "kind": "copy",
+      "file": "product_description_pt.md",
+      "technical_valid": true,
+      "status": "需返工",
+      "checks": [
+        "local structure checks passed; semantic quality not certified",
+        "把S/M/L/XL直接等同P/M/G/GG，缺少品牌实测依据；旧文案重复标题、图片扩展名错误。"
+      ],
+      "bytes": 2760,
+      "sha256": "5079805061f1d9bed1b14133300355ea43f5871da9979401a14af25d5c6e7de9",
+      "generation_quality": {},
+      "evidence_type": "local_structure_and_manual_observation"
+    },
+    {
+      "id": "main_image",
+      "kind": "image",
+      "file": "main_image.png",
+      "technical_valid": true,
+      "status": "需返工",
+      "checks": [
+        "local structure checks passed; semantic quality not certified",
+        "主图原图目检：浅灰白背景，带模特上衣与鞋；不能以文件存在等同白底和商品独占合格。",
+        "来源：frontend/assets/main_image.png；与真实商品原图保真尚未独立比对。"
+      ],
+      "bytes": 1484599,
+      "width": 1328,
+      "height": 1328,
+      "inspection": {
+        "extension": "png",
+        "status": "passed",
+        "white_ratio": 0.6780002881429189
+      },
+      "sha256": "f083076acf74bbe8a9d8cef5974bdb094bc0408afbd08c35e954e84049520cd9",
+      "generation_quality": {},
+      "evidence_type": "local_structure_and_manual_observation"
+    },
+    {
+      "id": "detail_image_1",
+      "kind": "image",
+      "file": "detail_image_1.png",
+      "technical_valid": true,
+      "status": "需源图保真复核",
+      "checks": [
+        "local structure checks passed; semantic quality not certified",
+        "目检为整裙展示，可承担整体卖点图；腰头和裙长与其他图片不完全一致，保真待源图比较。"
+      ],
+      "bytes": 2596484,
+      "width": 1328,
+      "height": 1328,
+      "inspection": {
+        "extension": "png",
+        "status": "passed",
+        "white_ratio": 0.0
+      },
+      "sha256": "b4be3128096bf5845d61339d86a58266d3110aa83dc07b60c0ad7ac9448386c8",
+      "generation_quality": {},
+      "evidence_type": "local_structure_and_manual_observation"
+    },
+    {
+      "id": "detail_image_2",
+      "kind": "image",
+      "file": "detail_image_2.png",
+      "technical_valid": true,
+      "status": "需返工",
+      "checks": [
+        "local structure checks passed; semantic quality not certified",
+        "应为工艺特写，实际为整裙悬挂图。工艺槽位未完成。"
+      ],
+      "bytes": 2429472,
+      "width": 1328,
+      "height": 1328,
+      "inspection": {
+        "extension": "png",
+        "status": "passed",
+        "white_ratio": 0.009082504922441531
+      },
+      "sha256": "7e2417bfe82696182f648a496320bb695843f737493a3c3a340be32e79af86f9",
+      "generation_quality": {},
+      "evidence_type": "local_structure_and_manual_observation"
+    },
+    {
+      "id": "detail_image_3",
+      "kind": "image",
+      "file": "detail_image_3.png",
+      "technical_valid": true,
+      "status": "需返工",
+      "checks": [
+        "local structure checks passed; semantic quality not certified",
+        "应为材质特写，实际为整裙展示图。材质槽位未完成。"
+      ],
+      "bytes": 1871286,
+      "width": 1328,
+      "height": 1328,
+      "inspection": {
+        "extension": "png",
+        "status": "passed",
+        "white_ratio": 0.0
+      },
+      "sha256": "2be9b8a23380ffcb2a4a56194ae01e0604771ad425fa6a32ea859c282be30c3c",
+      "generation_quality": {},
+      "evidence_type": "local_structure_and_manual_observation"
+    },
+    {
+      "id": "detail_image_4",
+      "kind": "image",
+      "file": "detail_image_4.png",
+      "technical_valid": true,
+      "status": "需返工",
+      "checks": [
+        "local structure checks passed; semantic quality not certified",
+        "应为生活场景，实际为纯背景整裙展示图。场景槽位未完成。"
+      ],
+      "bytes": 2490967,
+      "width": 1328,
+      "height": 1328,
+      "inspection": {
+        "extension": "png",
+        "status": "passed",
+        "white_ratio": 0.0
+      },
+      "sha256": "888e1f8967a991feb2604931553145a82ec8df1784a56f39b5da9b6fa37177d1",
+      "generation_quality": {},
+      "evidence_type": "local_structure_and_manual_observation"
+    },
+    {
+      "id": "detail_image_5",
+      "kind": "image",
+      "file": "detail_image_5.png",
+      "technical_valid": true,
+      "status": "需源图保真复核",
+      "checks": [
+        "local structure checks passed; semantic quality not certified",
+        "整裙全景可读，但与其他详情图重复度高，需检查来源一致性。"
+      ],
+      "bytes": 1929305,
+      "width": 1328,
+      "height": 1328,
+      "inspection": {
+        "extension": "png",
+        "status": "passed",
+        "white_ratio": 0.3441867166114393
+      },
+      "sha256": "9c4ab799d82376ff37dadf08e6c7ab14ade5a5074c64359cfc0b49367e27ce8c",
+      "generation_quality": {},
+      "evidence_type": "local_structure_and_manual_observation"
+    },
+    {
+      "id": "product_video",
+      "kind": "video",
+      "file": "product_video.mp4",
+      "technical_valid": true,
+      "status": "需返工",
+      "checks": [
+        "local structure checks passed; semantic quality not certified",
+        "ffprobe：H.264 1920×1080，123帧；视频轨道5.125秒，AAC音轨5.16秒，容器5.16秒。",
+        "ffmpeg逐秒抽帧成功，右下角可见Happy Horse水印。不得通过去水印冒充可发布素材，需供应商授权的无水印输出。",
+        "只是一段短片，未交付所设计的完整多镜头结构；赛规本身没有15/30秒最低时长。",
+        "有音轨不等于配乐授权、听感或音画同步已通过。"
+      ],
+      "bytes": 4539279,
+      "inspection": {
+        "valid": true,
+        "status": "valid",
+        "duration_seconds": 5.125,
+        "video_start_seconds": 0.0,
+        "width": 1920,
+        "height": 1080,
+        "has_video": true,
+        "has_audio": true,
+        "errors": []
+      },
+      "sha256": "1187cd853f7fe229aa432b484f4207b283400d84f0e5c410899736d97632adbd",
+      "generation_quality": {},
+      "evidence_type": "local_structure_and_manual_observation"
+    },
+    {
+      "id": "strategy_document",
+      "kind": "strategy",
+      "file": "strategy_document.md",
+      "technical_valid": true,
+      "status": "需返工",
+      "checks": [
+        "local structure checks passed; semantic quality not certified",
+        "旧策略45–61行宣称SDXL、ControlNet、IP-Adapter、Runway、Kling；实际本项目未使用这些组件。",
+        "把属性未映射当成源数据缺失，并声称安全的“透气”表述；与源事实和实际流程不一致。"
+      ],
+      "bytes": 9173,
+      "sha256": "c3d227e961fcaa5df8892d246237d1d3d45d1724e6da891d1a7a444da15cd993",
+      "generation_quality": {},
+      "evidence_type": "local_structure_and_manual_observation"
+    }
+  ],
+  "technical_valid_count": 10,
+  "required_count": 11,
+  "structurally_complete": false,
+  "publish_ready": false,
+  "official_score": null,
+  "limitations": [
+    "This local report is not the official A1–A7 evaluation.",
+    "No visual model or paid generation is called by this validator.",
+    "没有官方67分分项回执，不能把本地检查当官方重新评分。",
+    "尚未调用低价模型；新提示词没有真实生成质量证据。"
+  ],
+  "generated_date": "2026-09-22",
+  "mode": "offline_historical_audit",
+  "model_calls": 0,
+  "baseline_score": {
+    "value": 67,
+    "source": "user_report",
+    "verified": false
+  },
+  "updated_official_score": null,
+  "archive_review": {
+    "jsonl_records_scanned": 24762,
+    "parse_errors": 0,
+    "research_documents": 8,
+    "scope": "历史会话全量流式扫描、规则和研究阅读；不是每条工具原文逐字人工阅读。"
+  },
+  "official_weights": {
+    "A1_content_compliance": 25,
+    "A2_specification": 20,
+    "A3_mapping": 18,
+    "A4_localization": 15,
+    "A5_factuality": 10,
+    "A6_image_usability": 7,
+    "A7_video_usability": 5
+  },
+  "expert_weights": {
+    "experience": 15,
+    "image": 30,
+    "video": 20,
+    "strategy": 35
+  },
+  "provider_test": {
+    "host": "api.lk888.ai",
+    "status": "blocked_by_enterprise_domain_policy",
+    "generation_requests": 0,
+    "token_plan_requests": 0
+  }
+}

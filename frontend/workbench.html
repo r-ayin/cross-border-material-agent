@@ -1,0 +1,409 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>一键出海 · 将感动带给全世界</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --ink:#17123a; --dim:#5d5a7a; --violet:#7c3aed; --cyan:#06b6d4; --pink:#f472b6; --amber:#f59e0b;
+  --glass:rgba(255,255,255,.55); --glass-brd:rgba(255,255,255,.9);
+  --ok:#10b981; --warn:#f59e0b; --err:#ef4444;
+}
+html{scroll-behavior:smooth}
+body{font-family:"PingFang SC","Noto Sans SC",system-ui,sans-serif;background:#f4f2ff;color:var(--ink);overflow-x:hidden}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+.blob{position:fixed;border-radius:50%;filter:blur(100px);opacity:.5;z-index:0;pointer-events:none;will-change:transform}
+.b1{width:580px;height:580px;background:#a78bfa;top:-150px;left:-130px;animation:drift1 16s ease-in-out infinite alternate}
+.b2{width:540px;height:540px;background:#67e8f9;top:18%;right:-170px;animation:drift2 19s ease-in-out infinite alternate}
+.b3{width:640px;height:640px;background:#f9a8d4;bottom:-240px;left:20%;animation:drift3 23s ease-in-out infinite alternate}
+@keyframes drift1{to{transform:translate(130px,90px) scale(1.15)}}
+@keyframes drift2{to{transform:translate(-150px,70px) scale(.88)}}
+@keyframes drift3{to{transform:translate(100px,-120px) scale(1.12)}}
+.glass{background:var(--glass);backdrop-filter:blur(26px) saturate(1.5);-webkit-backdrop-filter:blur(26px) saturate(1.5);border:1px solid var(--glass-brd);border-radius:28px;box-shadow:0 30px 80px rgba(23,18,58,.14)}
+.wrap{position:relative;z-index:2;max-width:1240px;margin:0 auto;padding:0 40px}
+
+/* ============ 视图切换 ============ */
+#portal{position:fixed;inset:0;z-index:60;pointer-events:none;background:radial-gradient(circle at var(--px,50%) var(--py,50%),rgba(124,58,237,.9),rgba(244,114,182,.85) 40%,rgba(103,232,249,.8) 70%);clip-path:circle(0px at var(--px,50%) var(--py,50%));transition:clip-path .9s cubic-bezier(.7,0,.3,1);opacity:.95}
+#portal.go{clip-path:circle(150% at var(--px,50%) var(--py,50%))}
+#portal.fade{opacity:0;transition:clip-path .9s cubic-bezier(.7,0,.3,1),opacity .5s .5s}
+.view{transition:opacity .6s cubic-bezier(.2,.7,.2,1),transform .6s cubic-bezier(.2,.7,.2,1),filter .6s}
+.view.gone{display:none}
+.view.leaving{opacity:0;transform:scale(1.05);filter:blur(14px);pointer-events:none}
+.view.entering .rv2{opacity:0;transform:translateY(26px) scale(.98)}
+.view.entering.go .rv2{opacity:1;transform:none}
+.rv2{transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
+
+/* ============ 封面 ============ */
+nav{display:flex;justify-content:space-between;align-items:center;padding:26px 0;position:relative;z-index:5}
+.logo{font-weight:900;font-size:18px;letter-spacing:.01em}
+.logo span{background:linear-gradient(90deg,var(--violet),var(--pink));-webkit-background-clip:text;background-clip:text;color:transparent}
+.pill-nav{display:flex;gap:4px;background:rgba(255,255,255,.6);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid var(--glass-brd);border-radius:999px;padding:6px}
+.pill-nav span{padding:9px 22px;border-radius:999px;font-size:14px;color:var(--dim);cursor:pointer;transition:.3s;font-weight:700}
+.pill-nav span.act,.pill-nav span:hover{background:#fff;color:var(--ink);box-shadow:0 4px 18px rgba(23,18,58,.12)}
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;min-height:88vh;padding:20px 0 60px}
+.badge{display:inline-flex;gap:8px;align-items:center;background:rgba(255,255,255,.72);border:1px solid var(--glass-brd);padding:9px 20px;border-radius:999px;font-size:13px;color:var(--violet);font-weight:800;box-shadow:0 8px 28px rgba(124,58,237,.14)}
+h1{font-size:clamp(48px,6.4vw,92px);line-height:1.08;letter-spacing:-.03em;font-weight:900;margin:26px 0}
+h1 .grad{background:linear-gradient(90deg,var(--violet),var(--cyan) 55%,var(--pink));-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{color:var(--dim);font-size:17px;line-height:1.9;max-width:540px}
+.sub b{color:var(--ink)}
+.cta-line{display:flex;align-items:center;gap:14px;margin-top:12px;flex-wrap:wrap}
+.mag-wrap{padding:26px;display:inline-block}
+.btn{background:linear-gradient(90deg,var(--violet),#a855f7 60%,var(--pink));border:none;color:#fff;font-size:16px;font-weight:800;padding:18px 42px;border-radius:999px;cursor:pointer;box-shadow:0 18px 50px rgba(124,58,237,.4);transition:transform .18s ease-out,box-shadow .3s;will-change:transform}
+.btn:hover{box-shadow:0 24px 70px rgba(124,58,237,.55)}
+.btn:disabled{opacity:.5;cursor:wait;transform:none!important}
+.ghost-link{color:var(--dim);font-weight:700;font-size:15px;cursor:pointer;transition:color .3s;background:none;border:none}
+.ghost-link:hover{color:var(--violet)}
+.chips{display:flex;gap:12px;margin-top:24px;flex-wrap:wrap}
+.chip{background:rgba(255,255,255,.66);backdrop-filter:blur(16px);border:1px solid var(--glass-brd);border-radius:14px;padding:12px 18px;font-size:13px;font-weight:700;box-shadow:0 6px 20px rgba(23,18,58,.07)}
+.chip b{color:var(--violet)}
+.stage{position:relative;height:560px}
+.pcard{position:absolute;right:4%;top:2%;width:330px;padding:18px;transform:rotate(4deg);animation:floaty 7s ease-in-out infinite;overflow:hidden}
+.pcard img{width:100%;height:270px;object-fit:cover;border-radius:18px;display:block}
+.pcard .shine{position:absolute;left:18px;right:18px;top:18px;height:270px;border-radius:18px;overflow:hidden;pointer-events:none}
+.pcard .shine::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.45) 50%,transparent 65%);transform:translateX(-120%);animation:shimmer 4.2s ease-in-out infinite}
+@keyframes shimmer{55%,100%{transform:translateX(120%)}}
+.pcard h4{margin:16px 6px 8px;font-size:16px}
+.pcard .row{display:flex;justify-content:space-between;align-items:center;margin:0 6px 6px}
+.pcard .price{font-weight:900;font-size:20px;color:var(--violet)}
+.pcard .buy{background:var(--ink);color:#fff;border-radius:999px;padding:9px 20px;font-size:13px;font-weight:800;cursor:pointer;border:none}
+.mini1{position:absolute;left:-2%;bottom:8%;width:240px;padding:18px;transform:rotate(-5deg);animation:floaty 8.5s ease-in-out -2.5s infinite}
+.mini1 .langs{display:flex;gap:8px;margin-top:12px}
+.mini1 .lang{flex:1;text-align:center;padding:10px 0;border-radius:12px;font-weight:800;font-size:13px;color:#fff}
+.mini1 .l1{background:var(--violet)}.mini1 .l2{background:var(--cyan)}.mini1 .l3{background:var(--pink)}
+.mini2{position:absolute;right:-1%;bottom:-2%;width:210px;padding:16px;transform:rotate(6deg);animation:floaty 9.5s ease-in-out -4s infinite;cursor:pointer}
+.mini2 .play{width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,var(--violet),var(--pink));display:grid;place-items:center;color:#fff;font-size:20px;margin:10px auto 12px;box-shadow:0 12px 30px rgba(124,58,237,.4)}
+.mini2 .cap{text-align:center;font-size:13px;font-weight:800;color:var(--dim)}
+@keyframes floaty{0%,100%{translate:0 0}50%{translate:0 -20px}}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;padding-bottom:90px}
+.step{padding:26px;border-radius:24px;transition:transform .5s cubic-bezier(.2,.7,.2,1),box-shadow .5s}
+.step:hover{transform:translateY(-12px) scale(1.02);box-shadow:0 40px 80px rgba(23,18,58,.2)}
+.step .ico{width:52px;height:52px;border-radius:17px;display:grid;place-items:center;font-size:23px;background:linear-gradient(135deg,var(--violet),var(--cyan));color:#fff;margin-bottom:16px;box-shadow:0 10px 26px rgba(124,58,237,.35)}
+.step h3{font-size:17px;margin-bottom:6px}
+.step .m{font-size:12px;color:var(--violet);font-weight:800;margin-bottom:8px;letter-spacing:.05em}
+.step p{color:var(--dim);font-size:13px;line-height:1.75}
+
+/* ============ 工作台 ============ */
+.wb-top{display:flex;justify-content:space-between;align-items:center;padding:20px 0;gap:16px;flex-wrap:wrap}
+.wb-title{font-weight:900;font-size:20px;display:flex;align-items:center;gap:12px}
+.wb-title .dot{width:10px;height:10px;border-radius:50%;background:var(--ok);box-shadow:0 0 14px var(--ok)}
+.status-pill{display:flex;gap:10px;align-items:center}
+.spill{background:rgba(255,255,255,.7);border:1px solid var(--glass-brd);border-radius:999px;padding:8px 18px;font-size:13px;font-weight:800}
+.spill.run{color:var(--amber)} .spill.done{color:var(--ok)} .spill.idle{color:var(--dim)}
+.wb-grid{display:grid;grid-template-columns:310px 1fr 400px;gap:20px;align-items:start;padding-bottom:30px}
+@media(max-width:1180px){.wb-grid{grid-template-columns:1fr}}
+.panel{padding:24px;border-radius:24px}
+.panel h3{font-size:15px;letter-spacing:.12em;color:var(--violet);margin-bottom:18px;font-weight:900}
+.field{margin-bottom:18px}
+.field label{display:block;font-size:13px;font-weight:800;margin-bottom:8px;color:var(--dim)}
+select{width:100%;padding:12px 14px;border-radius:14px;border:1px solid rgba(23,18,58,.15);background:rgba(255,255,255,.8);font-size:14px;font-weight:700;color:var(--ink);outline:none;cursor:pointer}
+select:focus{border-color:var(--violet);box-shadow:0 0 0 3px rgba(124,58,237,.15)}
+.langrow{display:flex;gap:10px}
+.langbox{flex:1;text-align:center;padding:11px 0;border-radius:12px;font-weight:800;font-size:13px;cursor:pointer;border:2px solid transparent;transition:.25s;background:rgba(255,255,255,.6);color:var(--dim)}
+.langbox.on{color:#fff}
+.langbox.on[data-l="en"]{background:var(--violet)} .langbox.on[data-l="ko"]{background:var(--cyan)} .langbox.on[data-l="pt"]{background:var(--pink)}
+.demo-note{font-size:12px;line-height:1.8;color:var(--dim);background:rgba(124,58,237,.08);border:1px dashed rgba(124,58,237,.4);border-radius:14px;padding:12px 14px;margin-top:6px}
+.stages{display:flex;flex-direction:column;gap:14px}
+.scard{padding:18px 20px;border-radius:20px;display:grid;grid-template-columns:52px 1fr auto;gap:16px;align-items:center;transition:.4s;position:relative;overflow:hidden}
+.scard .ico{width:52px;height:52px;border-radius:16px;display:grid;place-items:center;font-size:22px;background:rgba(124,58,237,.12);color:var(--violet);transition:.4s}
+.scard.active{border-color:rgba(124,58,237,.6);box-shadow:0 20px 60px rgba(124,58,237,.25)}
+.scard.active .ico{background:linear-gradient(135deg,var(--violet),var(--cyan));color:#fff;animation:pulse 1.2s ease-in-out infinite}
+.scard.done .ico{background:var(--ok);color:#fff}
+@keyframes pulse{50%{transform:scale(1.08);box-shadow:0 0 30px rgba(124,58,237,.5)}}
+.scard h4{font-size:15px;margin-bottom:4px}
+.scard .mm{font-size:12px;color:var(--violet);font-weight:800}
+.scard .bar{height:6px;border-radius:99px;background:rgba(23,18,58,.1);margin-top:10px;overflow:hidden}
+.scard .bar b{display:block;height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,var(--violet),var(--pink));transition:width .3s linear}
+.scard .st{font-size:12px;font-weight:800;color:var(--dim);min-width:64px;text-align:right}
+.scard.done .st{color:var(--ok)} .scard.active .st{color:var(--violet)}
+.console{margin-top:16px;background:#14102b;border-radius:20px;padding:18px 20px;height:220px;overflow-y:auto;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;line-height:1.9;color:#c9c3ee;box-shadow:inset 0 2px 20px rgba(0,0,0,.4)}
+.console .ln{white-space:pre-wrap;animation:lnin .3s cubic-bezier(.2,.7,.2,1)}
+@keyframes lnin{from{opacity:0;transform:translateX(-8px)}to{opacity:1;transform:none}}
+.console .t{color:#6d67a0} .console .ok{color:#4ade80} .console .warn{color:#fbbf24} .console .vio{color:#c4b5fd} .console .cy{color:#67e8f9}
+.arts{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.art{border-radius:20px;overflow:hidden;position:relative;aspect-ratio:1;background:rgba(255,255,255,.4);border:2px dashed rgba(23,18,58,.18);display:grid;place-items:center;transition:.4s;transform-style:preserve-3d}
+.art .ph-t{font-size:12px;color:var(--dim);font-weight:700;letter-spacing:.1em;text-align:center;padding:0 10px}
+.art.busy{border-style:solid;border-color:rgba(124,58,237,.4)}
+.art.busy::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 32%,rgba(124,58,237,.12) 50%,transparent 68%);transform:translateX(-110%);animation:shimmer 1.6s ease-in-out infinite}
+.art.filled{border:1px solid var(--glass-brd);background:var(--glass);box-shadow:0 20px 50px rgba(23,18,58,.16);animation:pop .7s cubic-bezier(.2,.9,.3,1.3)}
+@keyframes pop{from{transform:scale(.82);opacity:0}to{transform:scale(1);opacity:1}}
+.art img,.art video{width:100%;height:100%;object-fit:cover;display:block}
+.art .tag{position:absolute;left:10px;top:10px;background:rgba(23,18,58,.75);color:#fff;font-size:10px;font-weight:800;letter-spacing:.14em;padding:4px 10px;border-radius:999px;backdrop-filter:blur(8px);z-index:2}
+.art .sim{position:absolute;right:10px;top:10px;background:rgba(245,158,11,.9);color:#fff;font-size:10px;font-weight:800;padding:4px 10px;border-radius:999px;z-index:2}
+.art.doc{aspect-ratio:1;padding:16px;display:flex;flex-direction:column}
+.art.doc .txt{font-size:11px;line-height:1.7;color:var(--dim);overflow:hidden;flex:1;font-family:ui-monospace,Menlo,monospace}
+.art.doc .tt{font-weight:900;font-size:13px;margin:26px 0 8px}
+.wb-foot{padding:16px 0 60px;display:flex;justify-content:space-between;align-items:center;color:var(--dim);font-size:12px;letter-spacing:.18em;font-weight:700;flex-wrap:wrap;gap:10px}
+.rv{opacity:0;transform:translateY(30px);transition:opacity .85s cubic-bezier(.2,.7,.2,1),transform .85s cubic-bezier(.2,.7,.2,1)}
+.rv.on{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv,.rv2{opacity:1;transform:none}}
+
+/* 原版玻璃界面 · 素材浏览 */
+button,a,input,select{font:inherit;-webkit-tap-highlight-color:transparent}
+button{color:inherit}a{color:inherit;text-decoration:none}button,a,select{touch-action:manipulation}
+button:focus-visible,a:focus-visible,select:focus-visible,[tabindex]:focus-visible{outline:3px solid var(--violet);outline-offset:4px}
+[hidden]{display:none!important}
+.pill-nav a{padding:9px 22px;border-radius:999px;font-size:14px;color:var(--dim);transition:.3s;font-weight:700}
+.pill-nav a.act,.pill-nav a:hover{background:#fff;color:var(--ink);box-shadow:0 4px 18px rgba(23,18,58,.12)}
+.btn{display:inline-flex;align-items:center;justify-content:center;text-align:center}
+.pcard img{object-fit:contain;background:#fff}.pcard .price{font-size:15px}
+.mini2{display:block;color:inherit}.mini2:focus-visible{outline-offset:8px}
+#view-work .wrap{max-width:1480px;padding:0 32px}
+.wb-grid{grid-template-columns:240px minmax(0,1fr) 282px;gap:20px}
+.wb-grid>*{min-width:0}.wb-top{padding:26px 0}.wb-title{letter-spacing:-.02em}
+.panel{padding:22px}.panel h3{letter-spacing:.07em}.status-pill{flex-wrap:wrap}
+.current-product{margin:4px 0 22px}.product-photo{height:142px;border-radius:18px;overflow:hidden;background:rgba(255,255,255,.65);display:grid;place-items:center;margin-bottom:14px}
+.product-photo img{width:100%;height:100%;object-fit:contain}.product-photo span{font-size:13px;color:var(--dim)}
+.current-product h4{font-size:16px;line-height:1.65;margin-bottom:8px}.product-style{font-size:12px;color:var(--dim)}
+.langrow{gap:5px;flex-wrap:wrap}.langbox{font-size:12px;padding:10px 2px;border:0;min-width:34px}.langbox.on[data-l="all"]{background:var(--ink)}
+.field select{font-size:12px;white-space:normal}.field label{font-size:12px}
+.side-actions{display:grid;gap:12px}.side-actions .btn{width:100%;padding:15px 12px;font-size:14px}.secondary-btn{border:1px solid rgba(124,58,237,.2);background:rgba(255,255,255,.7);border-radius:15px;padding:12px 16px;font-size:13px;font-weight:800;text-align:center;cursor:pointer;transition:background .2s}
+.secondary-btn:hover{background:#fff}.secondary-btn:disabled,[aria-disabled="true"]{opacity:.45;cursor:not-allowed}.side-actions .ghost-link{font-size:12px;padding:8px}
+.preview-panel{padding:20px}.preview-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:16px}.preview-heading h3{font-size:17px;letter-spacing:0;color:var(--ink);margin:0 0 5px}.preview-meta{font-size:12px;line-height:1.7;color:var(--dim)}
+.preview-status{font-size:11px;font-weight:700;color:var(--violet);padding:6px 10px;border-radius:999px;background:rgba(124,58,237,.08);white-space:nowrap}
+.preview-stage{height:510px;border-radius:19px;background:rgba(255,255,255,.65);overflow:hidden;position:relative;display:flex;align-items:center;justify-content:center}
+.image-preview{border:0;background:none;display:block;width:100%;height:100%;cursor:zoom-in}.image-preview img{width:100%;height:100%;display:block;object-fit:contain}
+.preview-stage video{width:100%;height:100%;object-fit:contain;background:#151125;border-radius:19px}
+.preview-stage.has-doc{display:block;background:rgba(255,255,255,.88);overflow-y:auto;overscroll-behavior:contain}
+.doc-content{padding:28px;color:#3d3658;font-size:14px;line-height:1.9;overflow-wrap:anywhere;user-select:text}.doc-content h1,.doc-content h2,.doc-content h3,.doc-content h4{color:var(--ink);line-height:1.55;letter-spacing:0;margin:22px 0 12px;font-weight:800}.doc-content h1{font-size:21px}.doc-content h2{font-size:18px}.doc-content h3,.doc-content h4{font-size:16px}.doc-content>:first-child{margin-top:0}.doc-content p{white-space:pre-wrap;margin:8px 0}.doc-content ul{padding-left:20px;margin:10px 0}.doc-content li{padding:3px 0}.doc-content hr{border:0;border-top:1px solid #e9e4f3;margin:22px 0}.doc-table{max-width:100%;overflow:auto;margin:18px 0}.doc-content table{border-collapse:collapse;font-size:12px;min-width:100%}.doc-content td,.doc-content th{padding:9px 12px;border:1px solid #e6e0ef;text-align:left;white-space:normal}.doc-content th{background:#f6f2fb}
+.preview-actions{display:flex;align-items:center;justify-content:flex-end;gap:10px;flex-wrap:wrap;margin-top:15px}.preview-actions .secondary-btn{font-size:12px;padding:10px 14px}
+.thumbnails{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:9px;margin-top:18px}.thumb{min-width:0;padding:4px;border:2px solid transparent;background:rgba(255,255,255,.6);border-radius:13px;cursor:pointer;transition:border-color .2s,transform .2s}.thumb:hover{transform:translateY(-3px)}.thumb.active{border-color:var(--violet)}.thumb img{width:100%;aspect-ratio:1;object-fit:contain;border-radius:8px;display:block;background:#fff}.thumb span{display:block;font-size:10px;color:var(--dim);padding:5px 0 2px}
+.library-title{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}.library-title h3{margin:0}.library-title span{font-size:12px;color:var(--dim)}
+.library-tabs{display:flex;gap:4px;padding:4px;background:rgba(124,58,237,.06);border-radius:12px;margin-bottom:17px}.library-tabs button{flex:1;font-size:12px;font-weight:700;border:0;border-radius:9px;padding:8px 3px;background:none;color:var(--dim);cursor:pointer}.library-tabs button.active{background:#fff;color:var(--violet);box-shadow:0 3px 9px #26133d0b}
+.arts{gap:10px;max-height:664px;overflow-y:auto;padding:2px 3px 10px;align-content:start;scrollbar-width:thin}
+.art.file-card{aspect-ratio:auto;display:flex;flex-direction:column;align-items:stretch;text-align:left;border:1px solid rgba(255,255,255,.85);border-radius:15px;background:rgba(255,255,255,.6);padding:6px;cursor:pointer;box-shadow:0 5px 14px rgba(23,18,58,.04);transform-style:preserve-3d;transition:border-color .2s,box-shadow .2s}
+.art.file-card:hover{box-shadow:0 10px 22px rgba(124,58,237,.12)}.art.file-card.selected{border:2px solid var(--violet);padding:5px;background:#fff}
+.file-visual{height:77px;position:relative;display:grid;place-items:center;background:rgba(124,58,237,.07);border-radius:10px;overflow:hidden}
+.art.file-card img,.art.file-card video{width:100%;height:77px;object-fit:contain;background:#fff;pointer-events:none}.file-visual .video-label{position:absolute;inset:0;display:grid;place-items:center;background:rgba(23,18,58,.1);color:#fff;font-size:22px;text-shadow:0 1px 10px #17123a}
+.file-visual .doc-label{font-weight:900;font-size:21px;color:var(--violet);letter-spacing:.06em}.file-card[data-lang="ko"] .file-visual{background:rgba(6,182,212,.1)}.file-card[data-lang="ko"] .doc-label{color:#07889c}.file-card[data-lang="pt"] .file-visual{background:rgba(244,114,182,.1)}.file-card[data-lang="pt"] .doc-label{color:#c8498c}
+.file-name{font-size:11px;font-weight:800;line-height:1.6;margin:8px 3px 3px}.file-meta{font-size:10px;color:var(--dim);line-height:1.6;margin:0 3px 5px}
+.empty-state{text-align:center;padding:30px 20px;max-width:380px;margin:auto}.empty-state .empty-mark{display:block;width:64px;height:64px;line-height:64px;background:rgba(124,58,237,.08);border-radius:22px;margin:0 auto 20px;font-size:23px;font-weight:800;color:var(--violet)}.empty-state h4{font-size:17px;line-height:1.7;margin-bottom:10px}.empty-state p{font-size:13px;color:var(--dim);line-height:1.9;margin-bottom:20px}.empty-state .secondary-btn{margin:4px}.library-empty{grid-column:1/-1;text-align:center;color:var(--dim);font-size:13px;padding:35px 12px}
+.lightbox{position:fixed;inset:0;margin:auto;width:min(1100px,94vw);max-height:94dvh;padding:18px;color:var(--ink);background:rgba(250,248,255,.96);border:1px solid #fff;border-radius:24px;overflow:auto}.lightbox::backdrop{background:rgba(23,18,58,.62);backdrop-filter:blur(12px)}.lightbox:not([open]){display:none}.lightbox-header,.lightbox-footer{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.lightbox-header{margin-bottom:14px}.lightbox-header h3{font-size:15px}.lightbox-tools{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.lightbox-tools .secondary-btn{padding:8px 13px;font-size:12px}.icon-btn{border:0;background:rgba(124,58,237,.08);border-radius:50%;width:36px;height:36px;font-size:20px;cursor:pointer;flex-shrink:0}.lightbox-body{height:min(70dvh,780px);width:100%;overflow:auto;display:flex;align-items:center;justify-content:center;background:#fff;border-radius:16px}.lightbox-body img{max-width:100%;max-height:100%;object-fit:contain;display:block}.lightbox-body.zoomed{display:block}.lightbox-body.zoomed img{max-width:none;max-height:none}.lightbox-footer{margin-top:14px;font-size:12px;color:var(--dim)}.lightbox-footer button{min-width:44px}
+.toast{position:fixed;z-index:100;left:50%;bottom:28px;transform:translateX(-50%);max-width:calc(100% - 32px);padding:13px 22px;border-radius:999px;background:rgba(23,18,58,.93);color:#fff;box-shadow:0 12px 36px rgba(23,18,58,.2);font-size:13px;line-height:1.7;text-align:center;pointer-events:none}
+@media(min-width:1500px){.preview-stage{height:570px}}
+@media(max-width:1180px) and (min-width:901px){.wb-grid{grid-template-columns:205px minmax(0,1fr) 238px;gap:14px}#view-work .wrap{padding:0 22px}.panel{padding:16px}.preview-stage{height:420px}.file-visual,.art.file-card img,.art.file-card video{height:68px}.file-name{font-size:10px}.langrow{gap:3px}.thumbnails{gap:4px}.thumb span{font-size:9px}.wb-title{font-size:18px}}
+@media(max-width:1000px){.wrap{padding:0 28px}.hero{gap:12px}.pcard{width:285px;right:1%;top:5%}.pcard img,.pcard .shine{height:245px}.mini1{width:205px;left:-3%;bottom:11%}.mini2{width:180px;right:-2%;bottom:-2%}.stage{height:530px}.steps{gap:12px}.step{padding:22px}.sub{font-size:15px}.mag-wrap{padding:22px 12px 22px 0}.btn{padding:17px 32px}}
+@media(max-width:900px){.wb-grid{grid-template-columns:210px minmax(0,1fr);gap:16px}.library-panel{grid-column:1/-1}.arts{grid-template-columns:repeat(6,minmax(0,1fr));max-height:none;overflow:visible}.library-tabs{max-width:380px}.preview-stage{height:460px}#view-work .wrap{padding:0 24px}.panel{padding:18px}.hero{grid-template-columns:1fr;gap:22px;padding-top:35px}.sub{max-width:570px}.stage{width:min(500px,100%);height:535px;margin:0 auto}.pcard{width:330px;right:5%;top:2%}.pcard img,.pcard .shine{height:270px}.mini1{width:240px;left:0;bottom:8%}.mini2{width:210px;right:0;bottom:-2%}.steps{grid-template-columns:repeat(2,1fr)}h1{font-size:clamp(50px,8vw,78px)}.hero .cta-line{margin-top:0}}
+@media(max-width:600px){.wrap,#view-work .wrap{padding:0 18px}nav{padding:21px 0}.logo{font-size:15px}.pill-nav{padding:4px}.pill-nav a{padding:8px 14px;font-size:12px}.hero{min-height:0;padding:18px 0 54px;gap:24px}h1{font-size:clamp(39px,11.3vw,61px);line-height:1.15;margin:22px 0}.badge{font-size:11px;padding:8px 14px}.sub{font-size:14px;line-height:1.9}.cta-line{gap:5px}.mag-wrap{padding:22px 6px 10px 0}.btn{font-size:14px;padding:16px 26px}.ghost-link{font-size:13px}.chips{gap:8px;margin-top:15px}.chip{padding:10px 12px;font-size:11px;border-radius:12px}.stage{height:477px;width:100%}.pcard{width:276px;right:4%;top:4%;padding:14px}.pcard img,.pcard .shine{height:235px}.pcard .shine{left:14px;right:14px;top:14px}.pcard h4{font-size:13px;margin-top:13px}.pcard .price{font-size:12px}.pcard .buy{font-size:11px;padding:8px 12px}.mini1{width:195px;padding:16px;left:1%;bottom:5%}.mini1 .lang{font-size:11px;padding:8px 0}.mini2{width:156px;padding:12px;right:0;bottom:-4%}.mini2 .play{width:43px;height:43px;margin:5px auto 8px}.mini2 .cap{font-size:11px}.steps{gap:12px;padding-bottom:44px}.step{padding:18px;border-radius:20px}.step .ico{width:42px;height:42px;font-size:16px;margin-bottom:12px}.step h3{font-size:15px}.step .m{font-size:10px}.step p{font-size:12px}.wb-top{padding:22px 0 18px;gap:12px}.wb-title{font-size:18px}.status-pill{width:100%;justify-content:space-between;gap:8px}.spill{font-size:11px;padding:7px 12px}.wb-grid{grid-template-columns:minmax(0,1fr);gap:16px}.library-panel{grid-column:auto}.product-panel{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0 16px}.product-panel>h3,.product-panel>.product-field,.current-product,.side-actions{grid-column:1/-1}.product-panel h3{margin-bottom:16px}.current-product{display:grid;grid-template-columns:76px 1fr;column-gap:14px;align-items:center;margin:0 0 17px}.product-photo{grid-row:1/3;height:86px;margin:0}.current-product h4{font-size:14px;margin-bottom:2px}.product-style{font-size:11px}.product-panel .field{margin-bottom:15px}.side-actions{grid-template-columns:1fr 1fr;gap:10px}.side-actions .btn{padding:12px 8px;font-size:13px}.side-actions .ghost-link{grid-column:1/-1;padding:5px}.side-actions .mag-wrap{padding:0!important}.side-actions .secondary-btn{padding:12px 8px;font-size:12px}.preview-stage{height:auto;min-height:290px;aspect-ratio:1}.preview-stage.has-doc{height:520px;aspect-ratio:auto}.preview-stage video{position:absolute;inset:0}.image-preview{position:absolute;inset:0}.preview-panel{padding:16px}.preview-heading h3{font-size:15px}.preview-status{font-size:10px;padding:5px 8px}.thumbnails{gap:5px;margin-top:13px}.thumb{padding:2px;border-radius:9px}.thumb span{font-size:9px}.preview-actions{gap:8px}.preview-actions .secondary-btn{font-size:11px;padding:9px 12px}.arts{grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}.file-visual,.art.file-card img,.art.file-card video{height:87px}.library-tabs{max-width:none}.doc-content{padding:20px;font-size:13px}.doc-content h1{font-size:18px}.wb-foot{font-size:10px;padding:6px 0 30px;letter-spacing:.1em}.lightbox{padding:12px;border-radius:20px;width:96vw}.lightbox-tools{gap:6px}.lightbox-tools .secondary-btn{font-size:11px;padding:8px 9px}.lightbox-header h3{font-size:13px}.lightbox-body{height:65dvh}.toast{bottom:18px;border-radius:18px}}
+@media(max-width:360px){.wrap,#view-work .wrap{padding:0 14px}.pcard{width:260px;right:1%}.mini1{width:174px}.mini2{width:139px}.langbox{min-width:28px}.side-actions{gap:8px}.product-panel{column-gap:10px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.blob,.mag-btn,.art,.pcard,.mini1,.mini2{will-change:auto!important}.view.leaving,.view.entering .rv2{transform:none;filter:none;opacity:1}#portal{display:none}.rv,.rv2{transform:none!important}.thumb:hover,.step:hover{transform:none}}
+</style>
+</head>
+<body>
+<div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+<div id="portal"></div>
+
+<!-- ============ 封面介绍 ============ -->
+<section id="view-cover" class="view">
+<div class="wrap">
+<nav>
+<div class="logo">one-click<span>·global</span></div>
+<div class="pill-nav" aria-label="页面导航"><a class="act" href="#cover" data-view="cover" aria-current="page">封面</a><a href="#work" data-view="work">工作台</a><button id="demoToggle" title="切到初版 14 秒动画演示流水线（demo sim）">▶ 演示模式</button></div>
+</nav>
+<header class="hero">
+<div>
+<div class="badge rv">✦ 跨境电商 AI 素材工作台</div>
+<h1 class="rv" style="transition-delay:.08s">一键出海，<br/><span class="grad">将感动带给全世界</span></h1>
+<p class="sub rv" style="transition-delay:.16s">从一件好商品，到打动世界的表达。让<b>三语文案、商品主图、5 张详情图与商品视频</b>在一个工作台相遇，把你的品牌故事带向更远的市场。</p>
+<div class="cta-line rv" style="transition-delay:.24s">
+<span class="mag-wrap" id="magWrapCover"><a class="btn mag-btn" id="enterBtn" href="#work" data-view="work">进入工作台 →</a></span>
+<a class="ghost-link" id="watchBtn" href="#work/video" data-watch>观看成片 ▷</a>
+</div>
+<div class="chips rv" style="transition-delay:.32s">
+<div class="chip"><b>6 张</b> 商品图</div>
+<div class="chip"><b>30 秒</b> 成片</div>
+<div class="chip"><b>EN · KO · PT</b> 三语言</div>
+</div>
+</div>
+<div class="stage rv" style="transition-delay:.2s">
+<div class="glass pcard" id="pcard">
+<img src="assets/run-20260922/main_image.png" alt="粉色百褶半身裙主图" width="2048" height="2048" fetchpriority="high"/>
+<div class="shine"></div>
+<h4>粉色百褶半身裙 · Pleated Skirt</h4>
+<div class="row"><span class="price">韩系 · 温柔通勤</span><a class="buy" id="tryBtn" href="#work">查看素材</a></div>
+</div>
+<div class="glass mini1">
+<b style="font-size:14px">三语商品文案</b>
+<div class="langs"><span class="lang l1">EN</span><span class="lang l2">KO</span><span class="lang l3">PT</span></div>
+</div>
+<a class="glass mini2" id="videoCard" href="#work/video" data-watch aria-label="观看粉色百褶半身裙 30 秒成片">
+<div class="play" aria-hidden="true">▷</div>
+<div class="cap">商品视频 · 30 秒成片</div>
+</a>
+</div>
+</header>
+<div class="steps">
+<div class="step glass rv" style="transition-delay:.05s"><div class="ico">01</div><h3>从商品出发</h3><div class="m">PRODUCT</div><p>围绕商品款式与细节，找到值得被看见的亮点。</p></div>
+<div class="step glass rv" style="transition-delay:.12s"><div class="ico">02</div><h3>用当地语言打动</h3><div class="m">EN · KO · PT</div><p>英文、韩文与葡文，让商品故事走近不同市场。</p></div>
+<div class="step glass rv" style="transition-delay:.19s"><div class="ico">03</div><h3>让好商品被看见</h3><div class="m">IMAGE · VIDEO</div><p>从主图到细节，再到动态成片，呈现完整商品魅力。</p></div>
+<div class="step glass rv" style="transition-delay:.26s"><div class="ico">04</div><h3>带着素材出发</h3><div class="m">READY TO TAKE</div><p>预览、挑选、下载，在一处整理你的出海素材。</p></div>
+</div>
+</div>
+</section>
+
+<!-- ============ 工作台 ============ -->
+<section id="view-work" class="view gone entering" aria-label="素材工作台">
+<div class="wrap">
+<div class="wb-top rv2">
+<h2 class="wb-title" id="workTitle" tabindex="-1"><span class="dot" aria-hidden="true"></span>一键出海 · 工作台</h2>
+<div class="status-pill">
+<span class="spill idle" id="statusPill" role="status">素材待载入</span>
+<a class="ghost-link" href="#cover" data-view="cover">← 返回封面</a>
+</div>
+</div>
+<div class="wb-grid">
+<aside class="panel glass product-panel rv2" style="transition-delay:.08s">
+<h3>当前商品</h3>
+<div class="field product-field"><label for="prodSel">选择商品</label><select id="prodSel"></select></div>
+<div class="current-product">
+<div class="product-photo" id="productPhoto"></div>
+<h4 id="productName">粉色高腰百褶半身裙</h4>
+<p class="product-style" id="productStyle">韩系 · 温柔通勤</p>
+</div>
+<div class="field"><label id="languageLabel">文案语言</label>
+<div class="langrow" role="group" aria-labelledby="languageLabel">
+<button class="langbox on" data-l="all" aria-pressed="true">全部</button>
+<button class="langbox" data-l="en" aria-pressed="false" aria-label="英文文案">EN</button>
+<button class="langbox" data-l="ko" aria-pressed="false" aria-label="韩文文案">KO</button>
+<button class="langbox" data-l="pt" aria-pressed="false" aria-label="葡文文案">PT</button>
+</div></div>
+<div class="side-actions">
+<span class="mag-wrap" style="padding:4px 0;display:block"><button class="btn mag-btn" id="viewAssetsBtn">查看素材 →</button></span>
+<a class="secondary-btn" id="bundleBtn" href="assets/material_pack_20260928.zip" download="material_pack_20260928.zip">下载素材包 ↓</a>
+<button class="ghost-link" id="generationBtn">制作新素材</button>
+</div>
+</aside>
+<section class="panel glass preview-panel rv2" style="transition-delay:.16s" aria-label="素材预览">
+<div class="preview-heading"><div><h3 id="previewTitle">商品主图</h3><p class="preview-meta" id="previewMeta">粉色百褶半身裙</p></div><span class="preview-status" id="previewStatus" role="status">待载入</span></div>
+<div class="preview-stage" id="previewStage" aria-labelledby="previewTitle"></div>
+<div class="preview-actions">
+<button class="secondary-btn" id="openImageBtn">查看原图 ↗</button>
+<button class="secondary-btn" id="copyBtn" hidden>复制全文</button>
+<a class="secondary-btn" id="downloadCurrent" download>下载当前素材 ↓</a>
+</div>
+<div class="thumbnails" id="thumbnails" role="group" aria-label="六张商品图"></div>
+</section>
+<aside class="panel glass library-panel rv2" style="transition-delay:.24s">
+<div class="library-title"><h3>素材库</h3><span id="fileCount">11 个文件</span></div>
+<div class="library-tabs" role="group" aria-label="素材类型筛选">
+<button data-filter="all" class="active" aria-pressed="true">全部</button>
+<button data-filter="img" aria-pressed="false">图片</button>
+<button data-filter="video" aria-pressed="false">视频</button>
+<button data-filter="doc" aria-pressed="false">文案</button>
+</div>
+<div class="arts" id="arts" aria-label="素材文件"></div>
+</aside>
+</div>
+<div class="wb-foot rv2" style="transition-delay:.3s;justify-content:center"><span>一键出海 · 将感动带给全世界</span></div>
+</div>
+</section>
+<dialog class="lightbox glass" id="imageDialog" aria-labelledby="imageDialogTitle">
+<div class="lightbox-header"><h3 id="imageDialogTitle">商品原图</h3><div class="lightbox-tools"><button class="secondary-btn" id="zoomImageBtn" aria-pressed="false">原尺寸</button><a class="secondary-btn" id="downloadOriginal" download>下载原图 ↓</a><button class="icon-btn" id="closeImageBtn" aria-label="关闭原图">×</button></div></div>
+<div class="lightbox-body" id="lightboxBody"><img id="lightboxImage" alt=""/><p id="lightboxError" hidden>图片未能载入</p></div>
+<div class="lightbox-footer"><button class="icon-btn" id="previousImageBtn" aria-label="上一张图片">←</button><span id="lightboxCaption"></span><button class="icon-btn" id="nextImageBtn" aria-label="下一张图片">→</button></div>
+</dialog>
+<div id="toast" class="toast" role="status" hidden></div>
+<script>
+/* Product interface: original liquid-glass cover, real asset browsing. */
+(function () {
+'use strict';
+const $ = id => document.getElementById(id);
+const ROOT='assets/run-20260922/';
+const REAL='8822221153828';
+const PRODUCTS=[ [REAL,'粉色高腰百褶半身裙'],['3887087154767','春秋宽松雪纺衬衫'],['5681480836479','韩版挂脖针织衫'],['5758364264251','复古印花长袖T恤'],['5977010166484','韩版毛呢外套'],['6786311895552','印花连衣裙'],['6837006744133','美式工装夹克'],['8409262509816','简洁通勤连衣裙'],['8688570444629','儿童短袖T恤'],['9451226053560','男士商务衬衫'],['9493156931235','男士休闲短裤'] ];
+const files=[{id:'main_image',kind:'img',name:'商品主图',src:ROOT+'main_image.png'},...Array.from({length:5},(_,i)=>({id:'detail_image_'+(i+1),kind:'img',name:['穿搭展示','侧面展示','垂坠展示','静物展示','整体展示'][i],src:ROOT+'detail_image_'+(i+1)+'.png'})),{id:'keyframe_bedroom',kind:'img',name:'人物关键帧·卧室定版',src:'assets/run-20260928/character_keyframe_v7_refined.png'},{id:'keyframe_street',kind:'img',name:'人物关键帧·街边定版',src:'assets/run-20260928/character_keyframe_pipeline-T01-street-20260928.png'},{id:'video',kind:'video',name:'商品成片·15s主版',src:'assets/run-20260928/product_video_v7_15s_clean.mp4',poster:'assets/run-20260928/character_keyframe_v7_refined.png'},{id:'video_subbed',kind:'video',name:'商品成片·15s字幕版',src:'assets/run-20260928/product_video_v7_15s_subbed.mp4',poster:'assets/run-20260928/character_keyframe_v7_refined.png'},{id:'video_street',kind:'video',name:'商品成片·街边场景版',src:'assets/run-20260928/product_video_pipeline-T01-street-20260928.mp4',poster:'assets/run-20260928/character_keyframe_pipeline-T01-street-20260928.png'},...['en','ko','pt'].map((l,i)=>({id:'copy_'+l,kind:'doc',lang:l,name:['英文文案','韩文文案','葡文文案'][i],src:'assets/product_description_'+l+'.md'})),{id:'strategy',kind:'doc',name:'商品策略',src:'assets/strategy_document.md'},];
+const state={product:REAL,selected:'main_image',filter:'all',lang:'all',request:0,doc:'',view:'cover'};
+const cache=new Map(); let toastTimer,transition=0,opener=null;
+function el(tag,text,cls){const n=document.createElement(tag);if(text!==undefined)n.textContent=text;if(cls)n.className=cls;return n;}
+function toast(t){clearTimeout(toastTimer);$('toast').textContent=t;$('toast').hidden=false;toastTimer=setTimeout(()=>$('toast').hidden=true,3600);}
+function pause(){document.querySelectorAll('video').forEach(v=>v.pause());}
+function isReal(){return state.product===REAL;}
+function current(){return files.find(f=>f.id===state.selected)||files[0];}
+function path(f){return f.src;}
+function md(text,node){
+ node.replaceChildren();const lines=text.split(/\r?\n/);let list=null,table=null,code=null;
+ for(const line of lines){
+  if(line.startsWith('```')){if(code){code=null;}else{code=el('pre','','mono');node.append(code);}continue;}
+  if(code){code.textContent+=line+'\n';continue;}
+  const h=line.match(/^(#{1,4})\s+(.+)/);
+  if(h){node.append(el('h'+h[1].length,h[2]));list=null;table=null;continue;}
+  if(/^\s*\|/.test(line)){if(/^\s*\|?[\s:|-]+$/.test(line))continue;if(!table){const wrap=el('div',undefined,'doc-table');table=el('table');wrap.append(table);node.append(wrap);}const tr=el('tr');line.replace(/^\s*\||\|\s*$/g,'').split('|').forEach(c=>tr.append(el('td',c.trim())));table.append(tr);continue;}
+  table=null;
+  if(/^[-*] /.test(line)){if(!list){list=el('ul');node.append(list);}list.append(el('li',line.slice(2)));continue;}
+  list=null;if(line.trim())node.append(el('p',line));
+ }
+}
+function renderLibrary(){
+ $('arts').replaceChildren();document.querySelectorAll('[data-filter]').forEach(b=>{b.classList.toggle('active',b.dataset.filter===state.filter);b.setAttribute('aria-pressed',String(b.dataset.filter===state.filter));});
+ if(!isReal()){$('arts').append(el('p','还没有这件商品的素材','library-empty'));$('fileCount').textContent='0 个文件';return;}
+ const shown=files.filter(f=>(state.filter==='all'||f.kind===state.filter)&&(state.lang==='all'||f.kind!=='doc'||f.lang===state.lang));
+ $('fileCount').textContent=shown.length+' 个文件';
+ for(const f of shown){const card=el('button',undefined,'art file-card'+(f.id===state.selected?' selected':''));card.dataset.id=f.id;if(f.lang)card.dataset.lang=f.lang;card.setAttribute('aria-label','预览'+f.name);
+ const visual=el('div',undefined,'file-visual');if(f.kind==='img'||f.kind==='video'){const im=el('img');im.src=f.kind==='img'?f.src:(f.poster||files[0].src);im.alt=f.name;im.loading='lazy';visual.append(im);if(f.kind==='video')visual.append(el('span','▷','video-label'));}else visual.append(el('span',f.lang?f.lang.toUpperCase():'策略','doc-label'));
+ card.append(visual,el('span',f.name,'file-name'),el('span',f.kind==='img'?(f.id.startsWith('keyframe')?'PNG · 1080 × 1920':'PNG · 2048 × 2048'):f.kind==='video'?'15 秒 · 1080 × 1920':f.lang?'商品文案':'策略文档','file-meta'));
+ card.addEventListener('click',()=>select(f.id));$('arts').append(card);}
+}
+function thumbs(){ $('thumbnails').replaceChildren();if(!isReal())return;files.filter(f=>f.kind==='img').forEach((f,i)=>{const b=el('button',undefined,'thumb'+(f.id===state.selected?' active':''));b.setAttribute('aria-label','查看'+f.name);const im=el('img');im.src=f.src;im.alt='';im.loading='lazy';b.append(im,el('span',i===0?'主图':'展示 '+i));b.onclick=()=>select(f.id);$('thumbnails').append(b);}); }
+function select(id){state.selected=id;renderLibrary();thumbs();renderPreview();}
+async function renderPreview(){
+ const token=++state.request,f=current();pause();state.doc='';const box=$('previewStage');box.replaceChildren();box.classList.toggle('has-doc',f.kind==='doc'&&isReal());$('openImageBtn').hidden=f.kind!=='img'||!isReal();$('copyBtn').hidden=f.kind!=='doc'||!isReal();$('downloadCurrent').hidden=!isReal();$('previewTitle').textContent=isReal()?f.name:'素材待制作';$('previewStatus').textContent=isReal()?'载入中':'暂无素材';$('previewMeta').textContent=isReal()?'粉色高腰百褶半身裙':PRODUCTS.find(p=>p[0]===state.product)[1];
+ if(!isReal()){const n=el('div',undefined,'empty-state');n.append(el('span','＋','empty-mark'),el('h4','为这件商品开启新创作'),el('p','素材准备好后，可在这里预览和下载。'));const b=el('button','制作新素材','secondary-btn');b.onclick=()=>toast('生成服务尚未连接，暂时可以浏览现有素材。');n.append(b);box.append(n);return;}
+ const src=path(f);$('downloadCurrent').href=src;$('downloadCurrent').download=src.split('/').pop();
+ function loaded(info){if(token!==state.request)return;$('previewStatus').textContent='已载入';$('previewMeta').textContent=info;$('statusPill').textContent='当前素材已载入';$('statusPill').className='spill done';}
+ function failed(){if(token!==state.request)return;$('previewStatus').textContent='载入失败';toast('素材暂时无法读取，请刷新重试。');}
+ if(f.kind==='img'){const b=el('button',undefined,'image-preview');b.setAttribute('aria-label','全屏查看'+f.name);const im=el('img');im.alt=f.name;im.onload=()=>loaded(im.naturalWidth+' × '+im.naturalHeight+' · PNG');im.onerror=failed;im.src=src;b.append(im);b.onclick=openImage;box.append(b);}
+ else if(f.kind==='video'){const v=el('video');v.controls=true;v.playsInline=true;v.preload='metadata';v.poster=f.poster||files[0].src;v.src=src;
+ v.onloadedmetadata=()=>loaded(v.duration.toFixed(2)+' 秒 · '+v.videoWidth+' × '+v.videoHeight+' · 15秒竖屏成片');v.onerror=failed;box.append(v);}
+ else {const doc=el('article',undefined,'doc-content');box.append(doc);try{let text=cache.get(src);if(text===undefined){const response=await fetch(src,{credentials:'omit'});if(!response.ok)throw new Error('missing');text=await response.text();if(text.length>1000000)throw new Error('large');cache.set(src,text);}if(token!==state.request)return;state.doc=text;md(text,doc);loaded(f.lang?'2026.08 · '+({en:'English',ko:'한국어',pt:'Português'}[f.lang]):'商品策略文档');}catch(e){failed();}}
+}
+function product(){state.product=$('prodSel').value;$('productName').textContent=PRODUCTS.find(p=>p[0]===state.product)[1];$('productStyle').textContent=isReal()?'韩系 · 温柔通勤':'商品素材';$('productPhoto').replaceChildren();if(isReal()){const im=el('img');im.src=files[0].src;im.alt='粉色百褶裙';$('productPhoto').append(im);}else $('productPhoto').append(el('span','暂无主图'));
+ $('bundleBtn').setAttribute('aria-disabled',String(!isReal()));$('bundleBtn').href=isReal()?'assets/material_pack_20260928.zip':'#';select('main_image');}
+function showWork(animate){const n=++transition;state.view='work';pause();const apply=()=>{if(n!==transition)return;$('view-cover').classList.add('gone');$('view-work').classList.remove('gone');$('view-work').classList.add('go');$('view-cover').classList.remove('leaving');window.scrollTo(0,0);};
+ if(animate&&!matchMedia('(prefers-reduced-motion: reduce)').matches){$('portal').classList.remove('fade');$('portal').classList.add('go');setTimeout(apply,350);setTimeout(()=>$('portal').classList.add('fade'),850);setTimeout(()=>$('portal').classList.remove('go','fade'),1400);}else apply();nav();}
+function cover(){transition++;state.view='cover';pause();$('view-work').classList.add('gone');$('view-cover').classList.remove('gone','leaving');$('portal').classList.remove('go','fade');window.scrollTo(0,0);nav();}
+function nav(){document.querySelectorAll('.pill-nav a').forEach(a=>{a.classList.toggle('act',a.dataset.view===state.view);if(a.dataset.view===state.view)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});}
+function route(){if(location.hash.startsWith('#work')){showWork(false);if(location.hash.includes('video')){select('video');}}else cover();}
+function setRoute(hash,animate){history.pushState({},'',hash);if(hash==='#cover')cover();else{showWork(animate);if(hash.includes('video'))select('video');}}
+function openImage(){if(current().kind!=='img'||!isReal())return;opener=document.activeElement;$('lightboxBody').classList.remove('zoomed');$('zoomImageBtn').setAttribute('aria-pressed','false');lightImage();$('imageDialog').showModal();}
+function lightImage(){const f=current(),im=$('lightboxImage');$('imageDialogTitle').textContent=f.name;$('lightboxError').hidden=true;im.onload=()=>{$('lightboxCaption').textContent=im.naturalWidth+' × '+im.naturalHeight+' · '+f.name;};im.onerror=()=>{$('lightboxError').hidden=false;};im.src=f.src;im.alt=f.name;$('downloadOriginal').href=f.src;$('downloadOriginal').download=f.src.split('/').pop();}
+function stepImage(delta){const imgs=files.filter(f=>f.kind==='img');const i=imgs.findIndex(f=>f.id===state.selected);select(imgs[(i+delta+imgs.length)%imgs.length].id);lightImage();}
+PRODUCTS.forEach(p=>{const o=el('option',p[1]);o.value=p[0];$('prodSel').append(o);});$('prodSel').value=REAL;$('prodSel').onchange=product;
+$('viewAssetsBtn').onclick=()=>select('main_image');$('generationBtn').onclick=()=>toast('生成服务尚未连接，暂时可以浏览现有素材。');
+$('bundleBtn').addEventListener('click',e=>{if(!isReal()){e.preventDefault();toast('这件商品还没有素材包。');}});
+$('openImageBtn').onclick=openImage;$('closeImageBtn').onclick=()=>$('imageDialog').close();$('imageDialog').addEventListener('close',()=>opener?.focus());
+$('zoomImageBtn').onclick=()=>{const on=$('lightboxBody').classList.toggle('zoomed');$('zoomImageBtn').setAttribute('aria-pressed',String(on));};$('previousImageBtn').onclick=()=>stepImage(-1);$('nextImageBtn').onclick=()=>stepImage(1);
+$('imageDialog').addEventListener('keydown',e=>{if(e.key==='ArrowLeft')stepImage(-1);if(e.key==='ArrowRight')stepImage(1);});
+$('copyBtn').onclick=async()=>{if(!state.doc)return;try{await navigator.clipboard.writeText(state.doc);toast('全文已复制');}catch(e){const range=document.createRange();range.selectNodeContents($('previewStage'));const s=getSelection();s.removeAllRanges();s.addRange(range);toast('全文已选中，可按 ⌘C 复制。');}};
+document.querySelectorAll('[data-l]').forEach(b=>b.onclick=()=>{state.lang=b.dataset.l;document.querySelectorAll('[data-l]').forEach(x=>{x.classList.toggle('on',x===b);x.setAttribute('aria-pressed',String(x===b));});if(state.lang!=='all'){state.filter='doc';select('copy_'+state.lang);}else{state.filter='all';renderLibrary();}});
+document.querySelectorAll('[data-filter]').forEach(b=>b.onclick=()=>{state.filter=b.dataset.filter;renderLibrary();});
+document.querySelectorAll('[data-view]').forEach(a=>a.onclick=e=>{e.preventDefault();setRoute(a.dataset.view==='cover'?'#cover':'#work',true);});
+document.querySelectorAll('[data-watch]').forEach(a=>a.onclick=e=>{e.preventDefault();$('prodSel').value=REAL;product();setRoute('#work/video',true);});$('tryBtn').onclick=e=>{e.preventDefault();$('prodSel').value=REAL;product();setRoute('#work',true);};
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target);}}),{threshold:.1});document.querySelectorAll('.rv').forEach(e=>io.observe(e));
+document.querySelectorAll('.mag-wrap').forEach(w=>{const b=w.querySelector('.mag-btn');if(!b)return;let pending=false;w.addEventListener('pointermove',e=>{if(pending||matchMedia('(prefers-reduced-motion: reduce)').matches||e.pointerType!=='mouse')return;pending=true;requestAnimationFrame(()=>{const r=w.getBoundingClientRect();b.style.transform='translate('+((e.clientX-r.left-r.width/2)*.16)+'px,'+((e.clientY-r.top-r.height/2)*.16)+'px)';pending=false;});});w.addEventListener('pointerleave',()=>b.style.transform='');});
+addEventListener('popstate',route);addEventListener('hashchange',route);document.addEventListener('visibilitychange',()=>{if(document.hidden)pause();});product();route();
+})();
+
+</script>
+<style>
+#demoToggle{margin-left:10px;border:1px solid rgba(255,255,255,.35);background:linear-gradient(135deg,#7c5cff,#ff5ca8);color:#fff;border-radius:999px;padding:6px 14px;font-size:12.5px;cursor:pointer;letter-spacing:.5px}
+#demoToggle:hover{filter:brightness(1.12)}
+.demo-frame{position:fixed;inset:0;width:100%;height:100%;border:0;display:none;z-index:9999;background:#0b0817}
+body.demo-on .demo-frame{display:block}
+#demoExit{position:fixed;top:14px;right:16px;z-index:10000;display:none;background:rgba(20,16,40,.85);color:#fff;border:1px solid rgba(255,255,255,.4);border-radius:999px;padding:8px 16px;font-size:13px;cursor:pointer;backdrop-filter:blur(6px)}
+body.demo-on #demoExit{display:block}
+</style>
+<iframe id="demoFrame" class="demo-frame" title="演示模式"></iframe>
+<button id="demoExit">✕ 退出演示</button>
+<script>
+(function(){
+  var btn=document.getElementById('demoToggle'),fr=document.getElementById('demoFrame'),ex=document.getElementById('demoExit');
+  function on(){document.body.classList.add('demo-on');fr.setAttribute('src','workbench-classic.html?auto=1&_='+Date.now());}
+  function off(){document.body.classList.remove('demo-on');}
+  if(btn)btn.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();document.body.classList.contains('demo-on')?off():on();});
+  if(ex)ex.addEventListener('click',off);
+  addEventListener('keydown',function(e){if(e.key==='Escape')off();});
+})();
+</script>
+</body>
+</html>

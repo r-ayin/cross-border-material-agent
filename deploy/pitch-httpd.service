@@ -1,0 +1,12 @@
+[Unit]
+Description=Pitch product page static server (frontend, port 8811)
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3 /home/ubuntu/coding/cross-border-material-agent/scripts/pitch_httpd.py 8811 /home/ubuntu/coding/cross-border-material-agent/frontend
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target

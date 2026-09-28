@@ -1,0 +1,123 @@
+{
+  "version": "5.2-product-spec",
+  "date": "2026-09-28",
+  "source_doc": "docs/video-motion-prompt-spec.md (v2.1)",
+  "research_basis": [
+    "research/dance-feel-20260925/route-{A,B,C,D}.md",
+    "research/character-scene-v2-20260928/route-R1-makeup.md",
+    "research/character-scene-v2-20260928/route-R2-character.md",
+    "research/character-scene-v2-20260928/route-R3-scene.md"
+  ],
+  "pipeline": {
+    "image_model": "wan2.7-image-pro",
+    "video_model": "happyhorse-1.1-i2v",
+    "duration": 15,
+    "resolution": "1080P",
+    "aspect": "9:16",
+    "constraint": "positive-only prompt; background anchored by first frame; i2v = motion + camera only"
+  },
+  "character_spec_en": "24-year-old East Asian woman, oval face, delicate facial features, slender naturally toned build, graceful upright posture, about 168cm, healthy weight. Clean-girl makeup (25-35 words, five slots): dewy natural skin with visible pores and faint peach fuzz, soft peach blush on the apples of her cheeks, sheer glossy nude-pink lips, natural fluffy brows brushed upward, minimal eye makeup with thin brown eyeliner and curled lashes; light freckles across the nose, faint under-eye texture (unfiltered, >=2 imperfections). Dark-brown eyes with moist light reflection. Long silky black hair middle-parted with loose glossy strands. Jewelry max 2 pieces: small gold hoop earrings + delicate gold pendant necklace at collarbone. Camera anchor: Fujifilm X100V look, 50mm f/2.8, light film grain.",
+  "character_banned_words": [
+    "sexy",
+    "hot",
+    "sultry",
+    "seductive",
+    "curvy",
+    "busty",
+    "thick thighs",
+    "tiny waist",
+    "hourglass extreme",
+    "supermodel body",
+    "perfect body",
+    "skinny",
+    "very thin",
+    "flawless skin",
+    "porcelain skin",
+    "airbrushed",
+    "beauty filter",
+    "soft-focus skin",
+    "8K",
+    "masterpiece",
+    "best quality",
+    "hair flying wildly",
+    "rings",
+    "layered dainty necklaces",
+    "stacked bracelets",
+    "dangling earrings",
+    "manicure details",
+    "brand logo"
+  ],
+  "scene_presets": {
+    "bedroom_primary": {
+      "background_en": "A cozy sunlit bedroom. A neatly made bed with white linen and one rumpled corner sits near a large window; sheer pale-beige curtains diffuse the morning light. A potted monstera stands in the corner softly blurred, a wooden nightstand holds a folded blanket, soft cream wall.",
+      "light_en": "Soft natural window light from camera left, warm morning tone, low contrast, gentle rim light on the figure.",
+      "props_limit": "3-5 items, edges or blurred",
+      "risks": "bed/mirror straight lines at frame edge; mirror reflection blurred"
+    },
+    "cafe_alternate": {
+      "background_en": "A cozy café interior. A wooden table with a ceramic coffee cup anchors the foreground; blurred shelves of cups, a chalkboard menu, and static warm pendant lights recede behind. A leafy potted plant sits by a foggy window.",
+      "light_en": "Warm mixed light: soft window daylight plus low pendant lamp glow, low contrast, warm tone.",
+      "props_limit": "3-5 items",
+      "risks": "table lines foreground-blurred; pendant static; chalkboard text illegible"
+    },
+    "street_cautious": {
+      "background_en": "A city sidewalk beside a boutique café storefront. Blurred pedestrians and slow-moving traffic form a soft background; a green planter box and a striped awning anchor the foreground, a brick wall and a distant crosswalk recede behind.",
+      "light_en": "Soft overcast daylight, low saturation, flat even lighting, no harsh shadows.",
+      "props_limit": "people/cars always blurred, no counts, signage illegible",
+      "risks": "traffic/pedestrians = top collapse source; only with locked camera"
+    }
+  },
+  "background_rules_i2v": [
+    "locked camera / static camera",
+    "Generate single shot.",
+    "never rewrite background in i2v; one consistency sentence only",
+    "Blurred ... forms the background + out of focus",
+    "slowly/gently degree adverbs",
+    "no orbit/fast pan/crane",
+    "soft organic materials over hard geometry",
+    "reflection blurred / foggy glass for mirrors",
+    "prompt_extend off",
+    "positive tail: background stays stable and consistent, no morphing, no flickering textures"
+  ],
+  "face_budget_rule": "15s face budget = one natural blink + one smile gradation (relaxed confident -> bright genuine, eyes slightly crinkled); full-body framing face = atmosphere level, skin/makeup words render at first frame only",
+  "keyframe_prompt_v2_en": "Vertical 9:16 lifestyle fashion photograph, full-body framing from head to shoes, subject occupying about three quarters of the image height. A 24-year-old East Asian woman, oval face, delicate facial features, slender naturally toned build, graceful upright posture, about 168cm, healthy weight. Clean-girl makeup: dewy natural skin with visible pores and faint peach fuzz, soft peach blush on the apples of her cheeks, sheer glossy nude-pink lips, natural fluffy brows brushed upward, minimal eye makeup with thin brown eyeliner and curled lashes; a few light freckles across her nose, faint under-eye texture. Dark-brown eyes with moist light reflection; long silky black hair, middle parted, falling loosely over her shoulders with a glossy sheen and a few loose strands. Small gold hoop earrings and a delicate gold pendant necklace at her collarbone. She wears the exact soft blush-pink high-waist fine-pleated maxi skirt from the two reference photos (garment references only: preserve pleats, waistband, drape and hem proportions), an opaque cream short-sleeve knit top neatly tucked in without covering the waistband, and neutral closed-toe flat shoes. Mid-motion pose: weight pressed onto her left leg, right heel lifted in a small natural step, hip popped slightly, torso in a relaxed S-curve, the skirt hem caught mid-sway lifting on one side, one hand lightly brushing a loose strand near her ear, relaxed confident smile with mouth corners gently lifted. Background: a cozy sunlit bedroom, a neatly made bed with white linen and one rumpled corner near a large window at the frame edge, sheer pale-beige curtains diffusing morning light, a potted monstera in the corner gently out of focus, soft cream wall; background elements kept at the frame edges. Soft natural window light from camera left, warm morning tone, low contrast, gentle rim light on the figure. Fujifilm X100V look, 50mm f/2.8, light film grain, natural color. No text, no logo, no watermark, no extra people, no plastic skin.",
+  "keyframe_street_variant": "swap background sentence to: Tree-lined city sidewalk in the morning, café awning and parked bicycles softly blurred behind her, natural overcast light; swap makeup to latte (monochromatic muted coffee eyeshadow, warm bronzy blush, lips lined in soft brown topped with clear gloss) and hair to sleek low ballet bun with loose face-framing strands; swap light sentence to soft overcast daylight.",
+  "tiers": [
+    {
+      "id": "T01-fullbody-groove",
+      "name": "模板T01 全身律动展示",
+      "risk": "中低",
+      "video_prompt_en": "Vertical handheld vlog-style clip, fixed full-body camera, the sunlit bedroom background remains stable and unchanged, softly blurred behind her. The young woman in the pink high-waist fine-pleated maxi skirt grooves in a relaxed two-step, bouncing lightly on the beat, then flows into a slow figure-8 hip sway, the pleats rippling like soft waves around her legs. She sweeps one arm in a fluid wave and frames her head with both arms overhead, chest open, chin lifted, then performs one slow graceful turn on the balls of her feet, the skirt flaring outward in a full circle, pleats fanning open. Finally she faces the camera as the skirt settles softly, tucks a strand of hair behind her ear and holds a confident final pose, weight on one leg, hip slightly out, her relaxed smile warming into a bright genuine smile with one natural blink, eyes meeting the lens. One continuous seamless shot, Generate single shot. Crisp accents followed by smooth flow, smooth organic motion with natural momentum, her glossy hair strands sway gently with her movement. Her face, hairstyle, skirt and jewelry remain completely consistent throughout, natural body proportions, feet grounded, background texture stable with no morphing and no flickering. No text, no watermark, no extra people, no clothing change, no warped limbs."
+    },
+    {
+      "id": "T02-walk-interactive",
+      "name": "模板T02 走位互动展示",
+      "risk": "中",
+      "video_prompt_en": "Vertical handheld vlog-style clip, fixed full-body camera, the camera keeps the same full-body distance from head to shoes throughout with no zoom-in, the sunlit bedroom background remains stable and unchanged, softly blurred behind her. The young woman in the pink high-waist fine-pleated maxi skirt walks confidently toward the camera in a straight line, hips leading each step, the skirt hem swaying with every step, then stops abruptly, feet planted, momentum carrying her hair and skirt forward before settling. She holds a sharp confident hip pop in an A-line stance, fingertips resting lightly on her waistband, then lifts the sides of her skirt with both hands and performs one slow graceful turn, the pleats fanning open in a full circle. The turn ends with her back to the camera, the skirt settling softly, and she glances back over her shoulder, head turning last, eyes meeting the lens, her relaxed smile warming into a bright genuine smile with one natural blink, and holds that look. One continuous seamless shot, Generate single shot. Sharp stops contrasting with flowing movement, smooth organic motion with natural momentum, her long hair flows and settles fluidly behind her as she turns. Her face, hairstyle, skirt and jewelry remain completely consistent throughout, natural body proportions, background texture stable with no morphing and no flickering. No text, no watermark, no extra people, no clothing change, no warped limbs."
+    },
+    {
+      "id": "T03-inplace-fallback",
+      "name": "模板T03 原地律动保底",
+      "risk": "低",
+      "video_prompt_en": "Vertical clip, fixed full-body camera, she stays centered in frame, the sunlit bedroom background remains stable and unchanged, softly blurred behind her. The young woman in the pink high-waist fine-pleated maxi skirt shifts her weight slowly onto her right hip, left knee softly bending, body settling into a relaxed S-curve, then hits a sharp confident hip pop and holds for a beat, the pleats stretching over the hip line. With hands on her waist she hits crisp shoulder pops to the beat, alternating left and right, then twists her waist slowly side to side while her shoulders stay forward, the pleats rippling like waves around her legs. Finally she tucks a strand of hair behind her ear, tilts her head, her relaxed smile warming into a bright genuine smile with one natural blink at the camera, weight on one leg, hip slightly out, and the skirt settles softly around her. One continuous seamless shot, Generate single shot. Crisp accents followed by smooth flow, feet grounded, her glossy hair strands sway gently in a light breeze. Her face, hairstyle, skirt and jewelry remain completely consistent throughout, natural body proportions, background texture stable with no morphing and no flickering. No text, no watermark, no extra people, no clothing change, no warped limbs."
+    }
+  ],
+  "acceptance_checklist": [
+    "3大拍全部出现且未压成闪帧",
+    "裙摆开花→余摆→垂落因果链",
+    "手指计数与自然度（无戒指等高危饰品）",
+    "脚底无打滑",
+    "面部无漂移、微笑渐变+眨眼各≤1",
+    "百褶纹理无闪烁、裙长颜色无漂移",
+    "背景无几何扭曲/家具融化/纹理闪烁（卧室元素位置与首帧一致）",
+    "妆容/饰品/发型与首帧一致",
+    "结尾定格在镜头前"
+  ],
+  "keyframe_prompts": {
+    "bedroom": "Casual phone snapshot from a phone album, vertical 9:16, raw camera look, unedited, everyday photo. A young East Asian woman in her early twenties in her own lived-in bedroom, caught mid-motion: one hand raised smoothing a loose strand of hair near her ear, weight shifted onto one leg with the other heel lifted, the pink pleated skirt hem still settling from a small step; her gaze directed slightly past the camera with a relaxed faint half-smile, as if caught between movements, not a posed smile. Her face is refined and softly polished by a light beauty filter: smooth luminous even skin with a gentle dewy glow, delicate symmetrical facial features, softly contoured oval face, clear bright dark-brown eyes with a subtle brown tightline and curled defined lashes, neatly groomed natural arched brows, seamless soft peach blush gradient on the cheeks, glossy gradient nude-pink lips with a crisp lip line. Long silky black hair, middle parted, falling loosely over her shoulders with a few stray strands, glossy sheen. Small gold hoop earrings and a delicate gold pendant necklace at her collarbone. She wears the exact soft blush-pink high-waist fine-pleated maxi skirt from the two reference photos (garment references only: preserve pleats, waistband, drape and hem proportions), an opaque cream short-sleeve knit top tucked in without covering the waistband, and neutral closed-toe flat shoes, both feet fully visible in frame. Subject slightly off-center to the right, feet near the bottom edge with headroom above, a softly blurred door-frame edge cropping the extreme left foreground, slight wide-angle phone distortion, camera at chest height tilted slightly inward. Background: unmade bed with the duvet rumpled at one corner near the frame edge, a couple of clothes draped over a chair back, charging cable and a water bottle on the nightstand, a half-drunk iced coffee on a small desk, plain lived-in cream-white walls; all background elements gently out of focus; only these listed items are present, no tripod, no phone, no camera gear visible in the scene. Soft daytime window light through a sheer curtain, diffused, auto exposure, slightly uneven brightness with the window side clipping a little, warm-ish white balance. No text, no logo, no watermark, no extra people, no plastic skin.",
+    "street": "Casual phone snapshot from a phone album, vertical 9:16, raw camera look, unedited, everyday photo. A young East Asian woman in her early twenties on a lived-in city sidewalk, caught mid-motion: one hand raised smoothing a loose strand of hair near her ear, weight shifted onto one leg with the other heel lifted, the pink pleated skirt hem still settling from a small step; her gaze directed slightly past the camera with a relaxed faint half-smile, as if caught between movements, not a posed smile. Her face is refined and softly polished by a light beauty filter: smooth luminous even skin with a gentle dewy glow, delicate symmetrical facial features, softly contoured oval face, clear bright dark-brown eyes with a subtle brown tightline and curled defined lashes, neatly groomed natural arched brows, seamless soft peach blush gradient on the cheeks, glossy gradient nude-pink lips with a crisp lip line. Long silky black hair, middle parted, falling loosely over her shoulders with a few stray strands, glossy sheen. Small gold hoop earrings and a delicate gold pendant necklace at her collarbone. She wears the exact soft blush-pink high-waist fine-pleated maxi skirt from the two reference photos (garment references only: preserve pleats, waistband, drape and hem proportions), an opaque cream short-sleeve knit top tucked in without covering the waistband, and neutral closed-toe flat shoes, both feet fully visible in frame. Subject slightly off-center to the right, feet near the bottom edge with headroom above, a softly blurred door-frame edge cropping the extreme left foreground, slight wide-angle phone distortion, camera at chest height tilted slightly inward. Background: tree-lined city sidewalk in the morning, a cafe awning and parked bicycles softly blurred behind her, a green planter box at the frame edge, plain lived-in storefront walls; all background elements gently out of focus; pedestrians and traffic blurred and out of focus; only these listed items are present, no tripod, no phone, no camera gear visible in the scene. Soft overcast daylight, low saturation, flat even lighting, auto exposure, slightly uneven brightness, warm-ish white balance. No text, no logo, no watermark, no extra people, no plastic skin.",
+    "cafe": null
+  },
+  "keyframe_prompts_note": "cafe preset 未定版（场景稳定性与卧室相当但光线/道具未经实测），pipeline init 传 --scene cafe 将被拒绝直至定版",
+  "changelog_5_2": "T02 补全身锁定句（v7-T02 对照实测后段机位推近复现，A/B 增补结论落地）"
+}
