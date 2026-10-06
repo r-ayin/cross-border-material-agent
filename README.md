@@ -54,7 +54,15 @@
 | 1–3 | 商品文案 | `product_description_en.md` / `_ko.md` / `_pt.md` | 英 / 韩 / 巴葡 · 卖点、参数、尺码、来源六大板块 |
 | 4 | 商品主图 | `main_image.png` | 纯白底 · 2048×2048 · 商品完整清晰 |
 | 5–9 | 详情图 | `detail_image_1.png` – `detail_image_5.png` | 穿搭 / 侧面 / 垂坠 / 静物 / 整体，各司其职不重复 |
-| 10 | 商品视频 | `product_video.mp4` | 30 秒内竖屏成片 · 小于 200MB |
+| 10 | 商品视频 | `product_video_v7_15s_clean.mp4` 等 3 条 | 15s 竖屏 1080×1920 · 主版/字幕版/街边版（run-20260928） |
+
+### 成片与关键帧（2026-09-28 定版 v7）
+- [商品成片·15s主版](frontend/assets/run-20260928/product_video_v7_15s_clean.mp4)
+- [商品成片·15s字幕版](frontend/assets/run-20260928/product_video_v7_15s_subbed.mp4)
+- [商品成片·街边场景版](frontend/assets/run-20260928/product_video_pipeline-T01-street-20260928.mp4)
+- [人物关键帧·卧室定版](frontend/assets/run-20260928/character_keyframe_v7_refined.png)
+- [人物关键帧·街边定版](frontend/assets/run-20260928/character_keyframe_pipeline-T01-street-20260928.png)
+- [素材包 zip（15 件定版+清单）](frontend/assets/material_pack_20260928.zip)
 | 11 | 策略文档 | `strategy_document.md` | 选品卖点、图片分工、视频分镜、投放建议 |
 
 <details>
